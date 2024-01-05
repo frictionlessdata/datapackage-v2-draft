@@ -254,7 +254,7 @@ The raw sources for this data package. It `MUST` be an array of Source objects. 
 
 ##### `contributors`
 
-The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have a `title` property and MAY contain `path`, `email`, `role` and `organization` properties. An example of the object structure is as follows:
+The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have at least one property. A Contributor is RECOMMENDED to have `title` property and MAY contain `path`, `email`, `role` and `organization` properties. An example of the object structure is as follows:
 
 ```javascript
 "contributors": [{
