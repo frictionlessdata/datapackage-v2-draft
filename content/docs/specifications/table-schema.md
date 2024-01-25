@@ -327,11 +327,10 @@ The field contains data describing a geographic point.
 
 `format`:
 
-- **default**: A string of the pattern "lon, lat", where `lon` is the longitude
-  and `lat` is the latitude (note the space is optional after the `,`). E.g. `"90, 45"`.
+- **default**: A string of the pattern "lon, lat", where each value is a number, and `lon` is the longitude and `lat` is the latitude (note the space is optional after the `,`). E.g. `"90.50, 45.50"`.
 - **array**: A JSON array, or a string parsable as a JSON array, of exactly two items, where each item is a number, and the first item is `lon` and the second
-  item is `lat` e.g. `[90, 45]`
-- **object**: A JSON object with exactly two keys, `lat` and `lon` and each value is a number e.g. `{"lon": 90, "lat": 45}`
+  item is `lat` e.g. `[90.50, 45.50]`
+- **object**: A JSON object with exactly two keys, `lat` and `lon` and each value is a number e.g. `{"lon": 90.50, "lat": 45.50}`
 
 #### geojson
 
@@ -469,7 +468,7 @@ properties.
       <code>minimum</code>
     </td>
     <td>
-      integer, number, date, time and datetime, year, yearmonth
+      integer, number, date, time, datetime, duration, year, yearmonth
     </td>
     <td>
       <code>integer, number, date, time, datetime, duration, year, yearmonth</code>
@@ -483,13 +482,41 @@ properties.
       <code>maximum</code>
     </td>
     <td>
-      integer, number, date, time and datetime, year, yearmonth
+      integer, number, date, time, datetime, duration, year, yearmonth
     </td>
     <td>
-      <code>integer, number, date, time and datetime, duration, year, yearmonth</code>
+      <code>integer, number, date, time, datetime, duration, year, yearmonth</code>
     </td>
     <td>
       As for <code>minimum</code>, but specifies a maximum value for a field.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <code>exclusiveMinimum</code>
+    </td>
+    <td>
+      integer, number, date, time, datetime, duration, year, yearmonth
+    </td>
+    <td>
+      <code>integer, number, date, time, datetime, duration, year, yearmonth</code>
+    </td>
+    <td>
+      As for <code>minimum</code>, but for expressing exclusive range.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <code>exclusiveMaximum</code>
+    </td>
+    <td>
+      integer, number, date, time, datetime, duration, year, yearmonth
+    </td>
+    <td>
+      <code>integer, number, date, time, datetime, duration, year, yearmonth</code>
+    </td>
+    <td>
+      As for <code>maximum</code>, but for expressing exclusive range.
     </td>
   </tr>
   <tr>
