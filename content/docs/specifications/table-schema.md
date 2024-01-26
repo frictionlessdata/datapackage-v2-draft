@@ -265,7 +265,7 @@ The field contains a date without a time.
 
 `format`:
 
-- **default**: The lexical representation `MUST` be `yyyy-mm-dd`
+- **default**: The lexical representation `MUST` be `yyyy-mm-dd` e.g. `2024-01-26`
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
@@ -275,7 +275,7 @@ The field contains a time without a date.
 
 `format`:
 
-- **default**: The lexical representation `MUST` be `hh:mm:ss`
+- **default**: The lexical representation `MUST` be `hh:mm:ss` e.g. `15:00:00`
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
