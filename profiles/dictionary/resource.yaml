@@ -4,10 +4,8 @@ dataResource:
   type: object
   oneOf:
     - required:
-        - name
         - data
     - required:
-        - name
         - path
   properties:
     profile:
