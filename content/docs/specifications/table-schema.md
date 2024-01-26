@@ -256,7 +256,7 @@ The field contains a date with a time.
 
 - **default**: The lexical representation `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.000-05:00`
 - **\<PATTERN\>**: values in this field can be parsed according to
-  `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime][strptime]. (That is, values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`). Example for `"format": "%d/%m/%y"` which would correspond to dates like: `30/11/14`
+  `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime][strptime]. Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": "%d/%m/%y"` which would correspond to dates like: `30/11/14`
 - **any**: Any parsable representation of the value. The implementing library can attempt to parse the datetime via a range of strategies. An example is `dateutil.parser.parse` from the `python-dateutils` library.
 
 #### date
