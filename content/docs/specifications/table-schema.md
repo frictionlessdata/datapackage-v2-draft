@@ -142,6 +142,10 @@ A description for this field e.g. "The recipient of the funds"
 
 An example value for the field
 
+### `missingValues`
+
+A list of missing values for this field as per [Missing Values](#missing-values) definition. If this property is defined, it takes precedence over the schema-level property.
+
 ### Types and Formats
 
 `type` and `format` properties are used to give The type of the field (string, number etc) - see below for
