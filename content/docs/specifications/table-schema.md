@@ -589,49 +589,30 @@ primary key is equivalent to adding `required: true` to their
 The `primaryKey` entry in the schema `object` is optional. If present it specifies
 the primary key for this table.
 
-The `primaryKey`, if present, `MUST` be:
-
-- Either: an array of strings with each string corresponding to one of the
-  field `name` values in the `fields` array (denoting that the primary key is
-  made up of those fields). It is acceptable to have an array with a single
-  value (indicating just one field in the primary key). Strictly, order of
-  values in the array does not matter. However, it is `RECOMMENDED` that one
-  follow the order the fields in the `fields` has as client applications `MAY`
-  utilize the order of the primary key list (e.g. in concatenating values
-  together).
-- Or: a single string corresponding to one of the field `name` values in
-  the `fields` array (indicating that this field is the primary key). Note that
-  this version corresponds to the array form with a single value (and can be
-  seen as simply a more convenient way of specifying a single field primary
-  key).
+The `primaryKey`, if present, `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array (denoting that the primary key is made up of those fields). It is acceptable to have an array with a single value (indicating just one field in the primary key). Strictly, order of values in the array does not matter. However, it is `RECOMMENDED` that one follow the order the fields in the `fields` has as client applications `MAY` utilize the order of the primary key list (e.g. in concatenating values together).
 
 Here's an example:
 
-      "fields": [
-        {
-          "name": "a"
-        },
-        ...
-      ],
-      "primaryKey": "a"
+```json
+"schema": {
+  "fields": [
+    {
+      "name": "a"
+    },
+    {
+      "name": "b"
+    },
+    {
+      "name": "c"
+    },
+    ...
+  ],
+  "primaryKey": ["a", "c"]
+}
+```
 
-Here's an example with an array primary key:
-
-    "schema": {
-      "fields": [
-        {
-          "name": "a"
-        },
-        {
-          "name": "b"
-        },
-        {
-          "name": "c"
-        },
-        ...
-      ],
-      "primaryKey": ["a", "c"]
-     }
+:::note[Backward Compatibility]
+Data consumer MUST support `primaryKey` property in a form of a single string e.g. `primaryKey: a` which was a part of the `v1.0` of the specification.
 
 ### Foreign Keys
 
