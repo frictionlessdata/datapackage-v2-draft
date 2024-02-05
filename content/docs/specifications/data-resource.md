@@ -195,8 +195,7 @@ Thus, a consumer of resource object `MAY` assume if no format or mediatype prope
 
 #### `name`
 
-A resource `SHOULD` contain a `name` property. The name is a simple name or
-identifier to be used for this resource.
+A resource `MUST` contain a `name` property. The name is a simple name or identifier to be used for this resource.
 
 - If present, the name `SHOULD` be unique amongst all resources in this data package.
 - It `SHOULD` consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
