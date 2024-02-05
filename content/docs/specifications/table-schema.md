@@ -612,7 +612,8 @@ Here's an example:
 ```
 
 :::note[Backward Compatibility]
-Data consumer MUST support `primaryKey` property in a form of a single string e.g. `primaryKey: a` which was a part of the `v1.0` of the specification.
+Data consumer MUST support the `primaryKey` property in a form of a single string e.g. `primaryKey: a` which was a part of the `v1.0` of the specification.
+:::
 
 ### Foreign Keys
 
@@ -704,7 +705,8 @@ An example of a self-referencing foreign key:
 [dp]: http://specs.frictionlessdata.io/data-package/
 
 :::note[Backward Compatibility]
-Data consumer MUST support `foreignKey.fields` and `foreignKey.reference.fields` properties in a form of a single string e.g. `fields: a` which was a part of the `v1.0` of the specification.
+Data consumer MUST support the `foreignKey.fields` and `foreignKey.reference.fields` properties in a form of a single string e.g. `fields: a` which was a part of the `v1.0` of the specification.
+:::
 
 ## Appendix: Related Work
 
