@@ -656,7 +656,7 @@ An example of using the `uniqueKeys` property:
 "uniqueKeys": [
   ["a"],
   ["a", "b"],
-  ["b", "c"]
+  ["a", "c"]
 ]
 ```
 
