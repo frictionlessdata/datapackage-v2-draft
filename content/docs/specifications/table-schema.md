@@ -651,13 +651,12 @@ An example of using the `uniqueKeys` property:
   },
   {
     "name": "c"
-  },
-  ...
+  }
 ],
 "uniqueKeys": [
   ["a"],
   ["a", "b"],
-  ["a", "c"],
+  ["b", "c"]
 ]
 ```
 
