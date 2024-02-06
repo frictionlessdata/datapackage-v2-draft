@@ -206,10 +206,15 @@ This lexical formatting `MAY` be modified using these additional properties:
 - **groupChar**: A string whose value is used to group digits within the
   number. The default value is null. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
+- **exactNumber**: a boolean property with a default of `false`. If `true` a data consumer `MUST` use an [infinite precision data type](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) to operate with the logical values in the field.
 
 `format`: no options (other than the default).
 
 [xsd-decimal]: https://www.w3.org/TR/xmlschema-2/#decimal
+
+##### Numeric Precision
+
+By default, similar to the `JSON` standard, Table Schema specification does not define precision for numeric values. Each implementation has to choose the best available data type to represent logical numbers based on the platform-specifics, performance, and user configuration factors. To guarantee numeric values exactness and arbitrary precision arithmetic, a data producer `MUST` set `exactNumber` property to `true`.
 
 #### integer
 
