@@ -633,6 +633,48 @@ Here's an example with an array primary key:
       "primaryKey": ["a", "c"]
      }
 
+### Unique Keys
+
+A unique key is a field or a set of fields that are required to have unique logical values in each row in the table. It is directly modeled on the concept of unique constraint in SQL.
+
+The `uniqueKeys` property, if present, `MUST` be an Array. Each entry in the array `MUST` be a `uniqueKey`. A `uniqueKey` `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array, denoting that the unique key is made up of those fields. It is acceptable to have an array with a single value, indicating just one field in the unique key.
+
+An example of using the `uniqueKeys` property:
+
+```json
+"fields": [
+  {
+    "name": "a"
+  },
+  {
+    "name": "b"
+  },
+  {
+    "name": "c"
+  },
+  ...
+],
+"uniqueKeys": [
+  ["a"],
+  ["a", "b"],
+  ["a", "c"],
+]
+```
+
+In the case of the definition above, the data in the table has to be considered valid only if:
+
+- each row has a unique logical value in the field `a`
+- each row has a unique set of logical values in the fields `a` and `b`
+- each row has a unique set of logical values in the fields `a` and `c`
+
+#### Handling `null` values
+
+All the field values that are on the logical level are considered to be `null` values `MUST` be excluded from the uniqueness check, as the `uniqueKeys` property is modeled on the concept of unique constraint in SQL.
+
+#### Relation to `constraints.unique`
+
+The `uniqueKeys` and `field.constraints.unique` are independent ways of defining uniqueness of field values. A data consumer `MUST` check all of the applied constraints separately.
+
 ### Foreign Keys
 
 A foreign key is a reference where values in a field (or fields) on the
