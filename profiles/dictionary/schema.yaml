@@ -915,6 +915,8 @@ tableSchemaFieldObject:
       enum:
         - default
       default: default
+    jsonSchema:
+      type: object
     constraints:
       title: Constraints
       description: The following constraints apply for `object` fields.

@@ -238,9 +238,13 @@ The boolean field can be customised with these additional properties:
 
 #### object
 
-The field contains data which is valid JSON.
+The field contains data which is valid JSON format objects.
 
 `format`: no options (other than the default).
+
+Additional properties:
+
+- **jsonSchema**: an object field can be customized by `jsonSchema` property. If provided, `jsonSchema` `MUST` be a valid JSON Schema object and the field's values in each row `MUST` conform to this JSON Schema.
 
 #### array
 
