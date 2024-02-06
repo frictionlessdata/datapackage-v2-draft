@@ -244,9 +244,20 @@ The field contains data which is valid JSON.
 
 #### array
 
-The field contains data that is a valid JSON format arrays.
+The field contains data that is an array of values.
 
-`format`: no options (other than the default).
+`format`:
+
+- **default**: A valid JSON array string e.g. `["value1", "value2"]`.
+- **delimited**: A string containing values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`.
+
+Additional properties:
+
+- **delimiter**: specifies the character sequence which separates values if `format` is set to `delimited`. If not present, the default is `,` (comma).
+
+##### Delimited Format
+
+The `array` field provides an ability to lexically represent data as a delimited value with `format` set to `delimited`. In this case a data consumer `MUST` split the lexical representation of the value using the `delimiter` property and `MUST NOT` do any additional processing e.g. quotes interpretation, white space removal, and others. The `delimited` format is not CSV and does not support any Table Dialect options except for the `delimiter`. In case of complex array items that require additional escaping or quotation, a data producer `MUST` use the `default` JSON-based format.
 
 #### date
 

@@ -964,7 +964,10 @@ tableSchemaFieldArray:
       description: "There are no format keyword options for `array`: only `default` is allowed."
       enum:
         - default
+        - delimited
       default: default
+    delimiter:
+      "$ref": "#/definitions/delimiter"
     constraints:
       title: Constraints
       description: The following constraints apply for `array` fields.
