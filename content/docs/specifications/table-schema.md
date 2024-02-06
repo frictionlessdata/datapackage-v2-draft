@@ -248,6 +248,39 @@ The field contains data that is a valid JSON format arrays.
 
 `format`: no options (other than the default).
 
+Additional properties:
+
+- **arrayItem**: an array field can be customized by the `arrayItem` property. If provided, `arrayItem` `MUST` be a `field`, an object describing a field as per the Table Schema specification (TODO: cross-link when `field` is a linkable entity). Each array item `MUST` conform to the provided field definition.
+
+An example of using the `arrayItem` property:
+
+```json
+"fields": [
+  {
+    "name": "id",
+    "type": "string"
+  },
+  {
+    "name": "array",
+    "type": "array"
+    "arrayItem": {
+      "name": "value",
+      "type": "integer"
+    }
+  },
+]
+```
+
+In the case of the definition above, the valid data table might look as below:
+
+```json
+[
+  ["id", "array"],
+  ["row1", [11, 12]]
+  ["row2", [21, 22]]
+]
+```
+
 #### date
 
 A date without a time.

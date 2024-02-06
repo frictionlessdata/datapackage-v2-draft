@@ -965,6 +965,9 @@ tableSchemaFieldArray:
       enum:
         - default
       default: default
+    # TODO: expand when rebased on JSON Schema definitions
+    arrayItem:
+      type: object
     constraints:
       title: Constraints
       description: The following constraints apply for `array` fields.
