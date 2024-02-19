@@ -161,7 +161,7 @@ For example, for the Table Schema below:
 "missingValues": ["", "NA"]
 ```
 
-A data consumer MUST:
+A data consumer `MUST`:
 
 - interpret `""` and `NA` as missing values for `column1`
 - interpret only `-` as a missing value for `column2`
