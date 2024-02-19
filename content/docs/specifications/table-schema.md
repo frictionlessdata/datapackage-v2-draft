@@ -672,7 +672,7 @@ All the field values that are on the logical level are considered to be `null` v
 
 #### Relation to `constraints.unique`
 
-The `uniqueKeys` and `field.constraints.unique` are independent ways of defining uniqueness of field values. A data consumer `MUST` check all of the applied constraints separately.
+In contrast with `field.constraints.unique`, `uniqueKeys` allows to define uniqueness as a combination of fields. Both properties `SHOULD` be assessed separately.
 
 ### Foreign Keys
 
