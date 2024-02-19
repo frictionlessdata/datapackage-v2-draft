@@ -144,7 +144,7 @@ An example value for the field
 
 ### `missingValues`
 
-A list of missing values for this field as per [Missing Values](#missing-values) definition. If this property is defined, it takes precedence over the schema-level property and completely replaces it for the field without cascading the values.
+A list of missing values for this field as per [Missing Values](#missing-values) definition. If this property is defined, it takes precedence over the schema-level property and completely replaces it for the field without combining the values.
 
 For example, for the Table Schema below:
 
