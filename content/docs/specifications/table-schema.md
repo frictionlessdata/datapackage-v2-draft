@@ -637,7 +637,7 @@ Here's an example with an array primary key:
 
 A unique key is a field or a set of fields that are required to have unique logical values in each row in the table. It is directly modeled on the concept of unique constraint in SQL.
 
-The `uniqueKeys` property, if present, `MUST` be an array. Each entry in the array `MUST` be a `uniqueKey`. A `uniqueKey` `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array, denoting that the unique key is made up of those fields. It is acceptable to have an array with a single value, indicating just one field in the unique key.
+The `uniqueKeys` property, if present, `MUST` be a non-empty array. Each entry in the array `MUST` be a `uniqueKey`. A `uniqueKey` `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array, denoting that the unique key is made up of those fields. It is acceptable to have an array with a single value, indicating just one field in the unique key.
 
 An example of using the `uniqueKeys` property:
 
