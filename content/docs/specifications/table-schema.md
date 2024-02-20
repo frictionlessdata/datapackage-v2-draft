@@ -709,7 +709,7 @@ array `MUST` be a `foreignKey`. A `foreignKey` `MUST` be a `object` and `MUST` h
     string, else an array of the same length as the outer `fields`, describing the
     field (or fields) references on the destination resource. The structure of
     the string or array is as per `primaryKey` above.
-  - `MAY` have a property `resource` which is the name of the resource within the current data package, i.e. the data package within which this Table Schema is located. Fore referencing another data resource the `resource` property `MUST` be provided. For self-referencing, i.e. references between fields in this Table Schema, the `resource` property `MUST` be omitted.
+  - `MAY` have a property `resource` which is the name of the resource within the current data package, i.e. the data package within which this Table Schema is located. For referencing another data resource the `resource` property `MUST` be provided. For self-referencing, i.e. references between fields in this Table Schema, the `resource` property `MUST` be omitted.
 
 Here's an example:
 
