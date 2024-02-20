@@ -238,7 +238,7 @@ The boolean field can be customised with these additional properties:
 
 #### object
 
-The field contains data which is valid JSON format objects.
+A valid JSON object.
 
 `format`: no options (other than the default).
 
