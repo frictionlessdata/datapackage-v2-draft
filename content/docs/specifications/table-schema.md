@@ -634,7 +634,7 @@ array `MUST` be a `foreignKey`. A `foreignKey` `MUST` be a `object` and `MUST` h
     Schema is located). For self-referencing foreign keys, i.e. references
     between fields in this Table Schema, the value of `resource` `MUST` be `""`
     (i.e. the empty string).
-  - `MUST` have a property `fields` which is an array of string of the same length as the outer `fields`, describing the field (or fields) references on the destination resource. The structure of the array is as per `primaryKey` above.
+  - `MUST` have a property `fields` which is an array of strings of the same length as the outer `fields`, describing the field (or fields) references on the destination resource. The structure of the array is as per `primaryKey` above.
 
 Here's an example:
 
