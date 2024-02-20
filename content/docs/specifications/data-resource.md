@@ -191,16 +191,17 @@ Thus, a consumer of resource object `MAY` assume if no format or mediatype prope
 
 ### Metadata Properties
 
-#### Recommended Properties
+#### Required Properties
 
 #### `name`
 
 A resource `MUST` contain a `name` property. The name is a simple name or identifier to be used for this resource.
 
-- If present, the name `SHOULD` be unique amongst all resources in this data package.
-- It `SHOULD` consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
-- It would be usual for the name to correspond to the file name (minus the
-  extension) of the data file the resource describes.
+- It `MUST` be unique amongst all resources in this data package.
+- It `SHOULD` be human-readable and consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
+- It would be usual for the name to correspond to the file name (minus the extension) of the data file the resource describes.
+
+#### Recommended Properties
 
 #### `profile`
 
