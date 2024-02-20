@@ -168,7 +168,7 @@ A data consumer `MUST`:
 
 ### Types and Formats
 
-`type` and `format` properties are used to give the type of the field (string, number etc) - see below for more detail. If type is not provided a consumer `MUST` use the `any` type for the field instead of inferring it from the field's values.
+`type` and `format` properties are used to give the type of the field (string, number etc) - see below for more detail. If type is not provided a consumer `MUST` utilize the `any` type for the field instead of inferring it from the field's values.
 
 A field's `type` property is a string indicating the type of this field.
 
