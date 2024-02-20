@@ -274,7 +274,7 @@ The people or organizations who contributed to this Data Package. It `MUST` be a
 - `organization`: a string describing the organization this contributor is affiliated to.
 
 :::note[Backward Compatibility]
-If the `roles` property is not provided a data consumer MUST fall back to using `role` property which was a part of the `v1.0` of the specification. This property has the same symantics but it is a string allowing to specify only a single role
+If the `roles` property is not provided a data consumer MUST fall back to using `role` property which was a part of the `v1.0` of the specification. This property has the same semantics but it is a string allowing to specify only a single role.
 :::
 
 ##### `keywords`
