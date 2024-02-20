@@ -200,9 +200,9 @@ contributor:
       "$ref": "#/definitions/path"
     email:
       "$ref": "#/definitions/email"
-    firstName:
+    givenName:
       type: string
-    lastName:
+    familyName:
       type: string
     organization:
       title: Organization
