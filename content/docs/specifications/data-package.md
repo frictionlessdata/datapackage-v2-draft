@@ -277,9 +277,7 @@ The people or organizations who contributed to this Data Package. It `MUST` be a
   - Note on semantics: use of the "author" property does not imply that that person was the original creator of the data in the data package - merely that they created and/or maintain the data package. It is common for data packages to "package" up data from elsewhere. The original origin of the data can be indicated with the `sources` property - see above.
 - `organization`: a string describing the organization this contributor is affiliated to.
 
-References:
-
-- [Citation Style Language](https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html#name-fields)
+A data producer `SHOULD` follow [Citation Style Language](https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html#name-fields) rules when providing `givenName` or `familyName` properties.
 
 ##### `keywords`
 
