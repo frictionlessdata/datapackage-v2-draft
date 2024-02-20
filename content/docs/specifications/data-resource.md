@@ -193,6 +193,8 @@ Thus, a consumer of resource object `MAY` assume if no format or mediatype prope
 
 #### Required Properties
 
+A descriptor `MUST` contain the following properties:
+
 #### `name`
 
 A resource `MUST` contain a `name` property. The name is a simple name or identifier to be used for this resource.
