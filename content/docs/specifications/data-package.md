@@ -146,9 +146,11 @@ In addition to the required properties, the following properties `SHOULD` be inc
 
 ##### `name`
 
-A short url-usable (and preferably human-readable) name of the package. This `MUST` be lower-case and contain only alphanumeric characters along with ".", "\_" or "-" characters. It will function as a unique identifier and therefore `SHOULD` be unique in relation to any registry in which this package will be deposited (and preferably globally unique).
+The name is a simple name or identifier to be used for this package in relation to any registry in which this package will be deposited.
 
-The name `SHOULD` be invariant, meaning that it `SHOULD NOT` change when a data package is updated, unless the new package version `SHOULD` be considered a distinct package, e.g. due to significant changes in structure or interpretation. Version distinction `SHOULD` be left to the version property. As a corollary, the name also `SHOULD NOT` include an indication of time range covered.
+- It `SHOULD` be human-readable and consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
+- It `SHOULD` be unique in relation to any registry in which this package will be deposited (and preferably globally unique).
+- It `SHOULD` be invariant, meaning that it `SHOULD NOT` change when a data package is updated, unless the new package version `SHOULD` be considered a distinct package, e.g. due to significant changes in structure or interpretation. Version distinction `SHOULD` be left to the version property. As a corollary, the name also `SHOULD NOT` include an indication of time range covered.
 
 ##### `id`
 
@@ -239,9 +241,9 @@ A version string identifying the version of the package. It `SHOULD` conform to 
 
 ##### `sources`
 
-The raw sources for this data package. It `MUST` be an array of Source objects. Each Source object `MUST` have a `title` and `MAY` have `path` and/or `email` properties. Example:
+The raw sources for this data package. It `MUST` be an array of Source objects. A Source object `MUST` have at least one property. A Source object is `RECOMMENDED` to have `title` property and `MAY` have `path`, `email`, and `version` properties. Example:
 
-```javascript
+```json
 "sources": [{
   "title": "World Bank and OECD",
   "path": "http://data.worldbank.org/indicator/NY.GDP.MKTP.CD"
@@ -251,10 +253,11 @@ The raw sources for this data package. It `MUST` be an array of Source objects. 
 - `title`: title of the source (e.g. document or organization name)
 - `path`: A [url-or-path][] string, that is a fully qualified HTTP address, or a relative POSIX path (see [the url-or-path definition in Data Resource for details][url-or-path]).
 - `email`: An email address
+- `version`: A version of the source
 
 ##### `contributors`
 
-The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have a `title` property and MAY contain `path`, `email`, `role` and `organization` properties. An example of the object structure is as follows:
+The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have at least one property. A Contributor is RECOMMENDED to have `title` property and MAY contain `path`, `email`, `role`, and `organization` properties. An example of the object structure is as follows:
 
 ```javascript
 "contributors": [{

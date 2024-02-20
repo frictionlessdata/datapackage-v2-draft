@@ -109,7 +109,7 @@ A "url-or-path" is a `string` with the following additional constraints:
 
 - `MUST` either be a URL or a POSIX path
 - [URLs][url] `MUST` be fully qualified. `MUST` be using either http or https scheme. (Absence of a scheme indicates `MUST` be a POSIX path)
-- [POSIX paths][posix] (unix-style with `/` as separator) are supported for referencing local files, with the security restraint that they `MUST` be relative siblings or children of the descriptor. Absolute paths (/) and relative parent paths (../) `MUST` NOT be used, and implementations SHOULD NOT support these path types.
+- [POSIX paths][posix] (unix-style with `/` as separator) are supported for referencing local files, with the security restraint that they `MUST` be relative siblings or children of the descriptor. Absolute paths `/`, relative parent paths `../`, hidden folders starting from a dot `.hidden` `MUST` NOT be used.
 
 [url]: https://en.wikipedia.org/wiki/Uniform_Resource_Locator
 [posix]: https://en.wikipedia.org/wiki/Path_%28computing%29#POSIX_pathname_definition
@@ -197,14 +197,11 @@ A descriptor `MUST` contain the following properties:
 
 #### `name`
 
-A resource `MUST` contain a `name` property. The name is a simple name or
-identifier to be used for this resource.
+A resource `MUST` contain a `name` property. The name is a simple name or identifier to be used for this resource.
 
-- If present, the name `MUST` be unique amongst all resources in this data
-  package.
-- It `MUST` consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
-- It would be usual for the name to correspond to the file name (minus the
-  extension) of the data file the resource describes.
+- It `MUST` be unique amongst all resources in this data package.
+- It `SHOULD` be human-readable and consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
+- It would be usual for the name to correspond to the file name (minus the extension) of the data file the resource describes.
 
 #### Recommended Properties
 
@@ -237,9 +234,7 @@ A descriptor `MAY` contain any number of additional properties. Common propertie
 - `format`: 'csv', 'xls', 'json' etc. Would be expected to be the standard file
   extension for this type of resource.
 - `mediatype`: the mediatype/mimetype of the resource e.g. "text/csv", or "application/vnd.ms-excel". Mediatypes are maintained by the Internet Assigned Numbers Authority (IANA) in a [media type registry](https://www.iana.org/assignments/media-types/media-types.xhtml).
-- `encoding`: specify the character encoding of the resource's data file. The values should be one of
-  the "Preferred MIME Names" for [a character encoding registered with IANA][iana]. If no
-  value for this key is specified then the default is UTF-8.
+- `encoding`: the character encoding of resource's data file (only applicable for textual files). The value `SHOULD` be one of the "Preferred MIME Names" for [a character encoding registered with IANA][iana]. If no value for this property is specified then the encoding `SHOULD` be detected on the implementation level. It is `RECOMMENDED` to use UTF-8 (without BOM) as a default encoding for textual files.
 - `bytes`: size of the file in bytes.
 - `hash`: the MD5 hash for this resource. Other algorithms can be indicated by prefixing
   the hash's value with the algorithm name in lower-case. For example:

@@ -42,6 +42,8 @@ tableSchema:
           }
     primaryKey:
       "$ref": "#/definitions/tableSchemaPrimaryKey"
+    uniqueKeys:
+      "$ref": "#/definitions/tableSchemaUniqueKeys"
     foreignKeys:
       type: array
       minItems: 1
@@ -141,6 +143,16 @@ tableSchemaPrimaryKey:
           "last_name"
         ]
       }
+tableSchemaUniqueKeys:
+  type: array
+  minItems: 1
+  uniqueItems: true
+  items:
+    type: array
+    minItems: 1
+    uniqueItems: true
+    items:
+      type: string
 tableSchemaForeignKey:
   title: Table Schema Foreign Key
   description: Table Schema Foreign Key
@@ -243,6 +255,8 @@ tableSchemaFieldString:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `string`.
       enum:
@@ -320,6 +334,8 @@ tableSchemaFieldBoolean:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `boolean`.
       enum:
@@ -367,6 +383,8 @@ tableSchemaFieldInteger:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `integer`.
       enum:
@@ -378,6 +396,8 @@ tableSchemaFieldInteger:
       default: default
     bareNumber:
       "$ref": "#/definitions/tableSchemaBareNumber"
+    groupChar:
+      "$ref": "#/definitions/tableSchemaGroupChar"
     constraints:
       title: Constraints
       description: The following constraints are supported for `integer` fields.
@@ -396,6 +416,14 @@ tableSchemaFieldInteger:
             - "$ref": "#/definitions/tableSchemaConstraintMinimumString"
             - "$ref": "#/definitions/tableSchemaConstraintMinimumInteger"
         maximum:
+          oneOf:
+            - "$ref": "#/definitions/tableSchemaConstraintMaximumString"
+            - "$ref": "#/definitions/tableSchemaConstraintMaximumInteger"
+        exclusiveMinimum:
+          oneOf:
+            - "$ref": "#/definitions/tableSchemaConstraintMinimumString"
+            - "$ref": "#/definitions/tableSchemaConstraintMinimumInteger"
+        exclusiveMaximum:
           oneOf:
             - "$ref": "#/definitions/tableSchemaConstraintMaximumString"
             - "$ref": "#/definitions/tableSchemaConstraintMaximumInteger"
@@ -441,6 +469,8 @@ tableSchemaFieldNumber:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `number`.
       enum:
@@ -452,12 +482,11 @@ tableSchemaFieldNumber:
       default: default
     bareNumber:
       "$ref": "#/definitions/tableSchemaBareNumber"
+    groupChar:
+      "$ref": "#/definitions/tableSchemaGroupChar"
     decimalChar:
       type: string
       description: A string whose value is used to represent a decimal point within the number. The default value is `.`.
-    groupChar:
-      type: string
-      description: A string whose value is used to group digits within the number. The default value is `null`. A common value is `,` e.g. '100,000'.
     constraints:
       title: Constraints
       description: The following constraints are supported for `number` fields.
@@ -476,6 +505,14 @@ tableSchemaFieldNumber:
             - "$ref": "#/definitions/tableSchemaConstraintMinimumString"
             - "$ref": "#/definitions/tableSchemaConstraintMinimumNumber"
         maximum:
+          oneOf:
+            - "$ref": "#/definitions/tableSchemaConstraintMaximumString"
+            - "$ref": "#/definitions/tableSchemaConstraintMaximumNumber"
+        exclusiveMinimum:
+          oneOf:
+            - "$ref": "#/definitions/tableSchemaConstraintMinimumString"
+            - "$ref": "#/definitions/tableSchemaConstraintMinimumNumber"
+        exclusiveMaximum:
           oneOf:
             - "$ref": "#/definitions/tableSchemaConstraintMaximumString"
             - "$ref": "#/definitions/tableSchemaConstraintMaximumNumber"
@@ -511,6 +548,8 @@ tableSchemaFieldDate:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `date`.
       enum:
@@ -537,6 +576,10 @@ tableSchemaFieldDate:
         minimum:
           "$ref": "#/definitions/tableSchemaConstraintMinimumString"
         maximum:
+          "$ref": "#/definitions/tableSchemaConstraintMaximumString"
+        exclusiveMinimum:
+          "$ref": "#/definitions/tableSchemaConstraintMinimumString"
+        exclusiveMaximum:
           "$ref": "#/definitions/tableSchemaConstraintMaximumString"
     rdfType:
       "$ref": "#/definitions/tableSchemaRdfType"
@@ -576,6 +619,8 @@ tableSchemaFieldTime:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `time`.
       enum:
@@ -602,6 +647,10 @@ tableSchemaFieldTime:
         minimum:
           "$ref": "#/definitions/tableSchemaConstraintMinimumString"
         maximum:
+          "$ref": "#/definitions/tableSchemaConstraintMaximumString"
+        exclusiveMinimum:
+          "$ref": "#/definitions/tableSchemaConstraintMinimumString"
+        exclusiveMaximum:
           "$ref": "#/definitions/tableSchemaConstraintMaximumString"
     rdfType:
       "$ref": "#/definitions/tableSchemaRdfType"
@@ -633,6 +682,8 @@ tableSchemaFieldDateTime:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `datetime`.
       enum:
@@ -659,6 +710,10 @@ tableSchemaFieldDateTime:
         minimum:
           "$ref": "#/definitions/tableSchemaConstraintMinimumString"
         maximum:
+          "$ref": "#/definitions/tableSchemaConstraintMaximumString"
+        exclusiveMinimum:
+          "$ref": "#/definitions/tableSchemaConstraintMinimumString"
+        exclusiveMaximum:
           "$ref": "#/definitions/tableSchemaConstraintMaximumString"
     rdfType:
       "$ref": "#/definitions/tableSchemaRdfType"
@@ -691,6 +746,8 @@ tableSchemaFieldYear:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `year`.
       enum:
@@ -718,6 +775,14 @@ tableSchemaFieldYear:
             - "$ref": "#/definitions/tableSchemaConstraintMinimumString"
             - "$ref": "#/definitions/tableSchemaConstraintMinimumInteger"
         maximum:
+          oneOf:
+            - "$ref": "#/definitions/tableSchemaConstraintMaximumString"
+            - "$ref": "#/definitions/tableSchemaConstraintMaximumInteger"
+        exclusiveMinimum:
+          oneOf:
+            - "$ref": "#/definitions/tableSchemaConstraintMinimumString"
+            - "$ref": "#/definitions/tableSchemaConstraintMinimumInteger"
+        exclusiveMaximum:
           oneOf:
             - "$ref": "#/definitions/tableSchemaConstraintMaximumString"
             - "$ref": "#/definitions/tableSchemaConstraintMaximumInteger"
@@ -755,6 +820,8 @@ tableSchemaFieldYearMonth:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `yearmonth`.
       enum:
@@ -778,6 +845,10 @@ tableSchemaFieldYearMonth:
         minimum:
           "$ref": "#/definitions/tableSchemaConstraintMinimumString"
         maximum:
+          "$ref": "#/definitions/tableSchemaConstraintMaximumString"
+        exclusiveMinimum:
+          "$ref": "#/definitions/tableSchemaConstraintMinimumString"
+        exclusiveMaximum:
           "$ref": "#/definitions/tableSchemaConstraintMaximumString"
     rdfType:
       "$ref": "#/definitions/tableSchemaRdfType"
@@ -814,6 +885,8 @@ tableSchemaFieldDuration:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `duration`.
       enum:
@@ -837,6 +910,10 @@ tableSchemaFieldDuration:
         minimum:
           "$ref": "#/definitions/tableSchemaConstraintMinimumString"
         maximum:
+          "$ref": "#/definitions/tableSchemaConstraintMaximumString"
+        exclusiveMinimum:
+          "$ref": "#/definitions/tableSchemaConstraintMinimumString"
+        exclusiveMaximum:
           "$ref": "#/definitions/tableSchemaConstraintMaximumString"
     rdfType:
       "$ref": "#/definitions/tableSchemaRdfType"
@@ -862,6 +939,8 @@ tableSchemaFieldObject:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `object`.
       enum:
@@ -912,6 +991,8 @@ tableSchemaFieldArray:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `array`.
       enum:
@@ -962,6 +1043,8 @@ tableSchemaFieldGeoJSON:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `geojson`.
       enum:
@@ -1023,6 +1106,8 @@ tableSchemaFieldGeoPoint:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `geopoint`.
       enum:
@@ -1086,6 +1171,8 @@ tableSchemaFieldAny:
       "$ref": "#/definitions/description"
     example:
       "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
     type:
       description: The type keyword, which `MUST` be a value of `any`.
       enum:
@@ -1193,3 +1280,7 @@ tableSchemaBareNumber:
   title: bareNumber
   description: a boolean field with a default of `true`. If `true` the physical contents of this field must follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors MUST therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
   default: true
+tableSchemaGroupChar:
+  type: string
+  title: groupChar
+  description: A string whose value is used to group digits within the number. This property does not have a default value. A common value is `,` e.g. '100,000'.
