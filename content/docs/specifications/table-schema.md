@@ -705,11 +705,11 @@ array `MUST` be a `foreignKey`. A `foreignKey` `MUST` be a `object` and `MUST` h
   field or fields on this resource that form the source part of the foreign
   key. The structure of the string or array is as per `primaryKey` above.
 - `reference` - `reference` `MUST` be a `object`. The `object`
+  - `MUST` have a property `resource` which is the name of the resource within the current data package, i.e. the data package within which this Table Schema is located. For referencing another data resource the corresponding `resource` property `MUST` be provided. For self-referencing, i.e. references between fields in this Table Schema, the `resource` property `MUST` be `self`.
   - `MUST` have a property `fields` which is a string if the outer `fields` is a
     string, else an array of the same length as the outer `fields`, describing the
     field (or fields) references on the destination resource. The structure of
     the string or array is as per `primaryKey` above.
-  - `MAY` have a property `resource` which is the name of the resource within the current data package, i.e. the data package within which this Table Schema is located. For referencing another data resource the `resource` property `MUST` be provided. For self-referencing, i.e. references between fields in this Table Schema, the `resource` property `MUST` be omitted.
 
 Here's an example:
 
@@ -752,7 +752,7 @@ An example of a self-referencing foreign key:
 ```javascript
   "resources": [
     {
-      "name": "xxx",
+      "name": "nested",
       "schema": {
         "fields": [
           {
@@ -766,7 +766,7 @@ An example of a self-referencing foreign key:
           {
             "fields": "parent"
             "reference": {
-              "resource": "",
+              "resource": "self",
               "fields": "id"
             }
           }
@@ -776,7 +776,11 @@ An example of a self-referencing foreign key:
   ]
 ```
 
-**Comment**: Foreign Keys create links between one Table Schema and another Table Schema, and implicitly between the data tables described by those Table Schemas. If the foreign key is referring to another Table Schema how is that other Table Schema discovered? The answer is that a Table Schema will usually be embedded inside some larger descriptor for a dataset, in particular as the schema for a resource in the resources array of a [Data Package][dp]. It is the use of Table Schema in this way that permits a meaningful use of a non-empty `resource` property on the foreign key.
+Foreign Keys create links between one Table Schema and another Table Schema, and implicitly between the data tables described by those Table Schemas. If the foreign key is referring to another Table Schema how is that other Table Schema discovered? The answer is that a Table Schema will usually be embedded inside some larger descriptor for a dataset, in particular as the schema for a resource in the resources array of a [Data Package][dp]. It is the use of Table Schema in this way that permits a meaningful use of a non-empty `resource` property on the foreign key.
+
+:::note[Backward Compatibility]
+If the value of the `foreignKey.reference.source` property is an empty string `""` a data consumer MUST interpret it as `self` as an empty string for self-referencing was a part of the `v1.0` of the specification.
+:::
 
 [dp]: http://specs.frictionlessdata.io/data-package/
 
