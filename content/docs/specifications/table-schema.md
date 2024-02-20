@@ -168,8 +168,7 @@ A data consumer `MUST`:
 
 ### Types and Formats
 
-`type` and `format` properties are used to give The type of the field (string, number etc) - see below for
-more detail. If type is not provided a consumer `SHOULD` assume a type of "any".
+`type` and `format` properties are used to give the type of the field (string, number etc) - see below for more detail. If type is not provided a consumer `MUST` use the `any` type for the field instead of inferring it from the field's values.
 
 A field's `type` property is a string indicating the type of this field.
 
@@ -360,7 +359,7 @@ The field contains a JSON object according to GeoJSON or TopoJSON spec.
 
 #### any
 
-Any `type` or `format` is accepted. When converting from physical to logical representation, the behaviour `SHOULD` be similar to String field type.
+The field contains values of a unspecified or mixed type. A data consumer `MUST NOT` perform any processing on this field's values and `MUST` intepret them as it is in the data source. This data type is directly modelled on the concpet of the `any` type of strongly typed object-oriented languages like [TypeScript](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any).
 
 [strptime]: https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
 [iso8601-duration]: https://en.wikipedia.org/wiki/ISO_8601#Durations
