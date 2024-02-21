@@ -264,17 +264,13 @@ The boolean field can be customised with these additional properties:
 
 #### object
 
-A valid JSON object.
+The field contains a valid JSON object.
 
 `format`: no options (other than the default).
 
-Additional properties:
-
-- **jsonSchema**: an object field can be customized by `jsonSchema` property. If provided, `jsonSchema` `MUST` be a valid JSON Schema object and the field's values in each row `MUST` conform to this JSON Schema.
-
 #### array
 
-The field contains data that is a valid JSON format arrays.
+The field contains a valid JSON array.
 
 `format`: no options (other than the default).
 
@@ -538,6 +534,19 @@ properties.
     </td>
     <td>
       As for <code>maximum</code>, but for expressing exclusive range.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <code>jsonSchema</code>
+    </td>
+    <td>
+      object
+    </td>
+    <td>
+      <code>array</code>, <code>object</code>
+    </td>
+    <td>A valid JSON Schema object to validate field values. If a field value conforms to the provided JSON Schema then this field value is valid.
     </td>
   </tr>
   <tr>
