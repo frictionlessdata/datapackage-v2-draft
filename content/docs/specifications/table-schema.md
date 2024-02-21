@@ -274,6 +274,17 @@ The field contains data that is a valid JSON format arrays.
 
 `format`: no options (other than the default).
 
+#### list
+
+The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. In the lexical representation, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL arrays providing full interoperability with modern databases.
+
+`format`: no options (other than the default).
+
+The list field can be customised with these additional properties:
+
+- **delimiter**: specifies the character sequence which separates lexically represented array items. If not present, the default is `,` (comma).
+- **itemType**: specifies the array item type in terms of existent Table Schema types. If present, it `MUST` be one of `string`, `integer`, `boolean`, `number`, `datetme`, `date`, and `time`. If not present, the default is `string`. A data consumer `MUST` process array items as it were individual values of the corresponding data type. Note, that on lexical level only default formats are supported, for example, for an array with `itemType` set to `date`, items have to be in default `yyyy-mm-dd` form.
+
 #### datetime
 
 The field contains a date with a time.
