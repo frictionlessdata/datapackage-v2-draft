@@ -89,7 +89,7 @@ On physical level, Data Resource descriptor is represented by a file. A data pro
 
 The above states that JSON is the only serialization format that `MUST` be used for publishing a Data Resource while other serialization formats can be used in projects or systems internally if supported by corresponding implementations.
 
-This specification does not introduce any discoverability mechanisms making a serialized Data Resource be referenced only directly by its URI.
+This specification does not define any discoverability mechanisms making a serialized Data Resource be referenced only directly by its URI.
 
 Key properties of the descriptor are described below. A descriptor `MAY` include any number of properties in additional to those described below as required and optional properties.
 
