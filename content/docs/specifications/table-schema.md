@@ -142,6 +142,30 @@ A description for this field e.g. "The recipient of the funds"
 
 An example value for the field
 
+### `missingValues`
+
+A list of missing values for this field as per [Missing Values](#missing-values) definition. If this property is defined, it takes precedence over the schema-level property and completely replaces it for the field without combining the values.
+
+For example, for the Table Schema below:
+
+```json
+"fields": [
+  {
+    "name": "column1"
+  },
+  {
+    "name": "column2",
+    "missingValues": ["-"]
+  }
+],
+"missingValues": ["", "NA"]
+```
+
+A data consumer `MUST`:
+
+- interpret `""` and `NA` as missing values for `column1`
+- interpret only `-` as a missing value for `column2`
+
 ### Types and Formats
 
 `type` and `format` properties are used to give The type of the field (string, number etc) - see below for
@@ -204,7 +228,7 @@ This lexical formatting `MAY` be modified using these additional properties:
 - **decimalChar**: A string whose value is used to represent a decimal point
   within the number. The default value is ".".
 - **groupChar**: A string whose value is used to group digits within the
-  number. The default value is null. A common value is "," e.g. "100,000".
+  number. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
 `format`: no options (other than the default).
@@ -217,8 +241,10 @@ The field contains integers - that is whole numbers.
 
 Integer values are indicated in the standard way for any valid integer.
 
-Additional properties:
+This lexical formatting `MAY` be modified using these additional properties:
 
+- **groupChar**: A string whose value is used to group digits within the
+  integer. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
 `format`: no options (other than the default).
@@ -252,44 +278,35 @@ The field contains data that is a valid JSON format arrays.
 
 `format`: no options (other than the default).
 
-#### date
+#### datetime
 
-A date without a time.
+The field contains a date with a time.
 
 `format`:
 
-- **default**: An ISO8601 format string.
-  - date: This `MUST` be in ISO8601 format YYYY-MM-DD
-  - datetime: a date-time. This `MUST` be in ISO 8601 format of YYYY-MM-DDThh:mm:ssZ in UTC time
-  - time: a time without a date
-- **any**: Any parsable representation of the type. The implementing
-  library can attempt to parse the datetime via a range of strategies.
-  An example is `dateutil.parser.parse` from the `python-dateutils`
-  library.
-- **\<PATTERN\>**: date/time values in this field can be parsed according to
-  `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C
-  strptime][strptime]. (That is, values in the this field `SHOULD` be parsable
-  by Python / C standard `strptime` using `<PATTERN>`). Example for `"format": "%d/%m/%y"` which would correspond to dates like: `30/11/14`
+- **default**: The lexical representation `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`.
+- **\<PATTERN\>**: values in this field can be parsed according to `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime][strptime]. Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": ""%d/%m/%Y %H:%M:%S"` which would correspond to a date with time like: `12/11/2018 09:15:32`.
+- **any**: Any parsable representation of the value. The implementing library can attempt to parse the datetime via a range of strategies. An example is `dateutil.parser.parse` from the `python-dateutils` library. It is `NOT RECOMMENDED` to use `any` format as it might cause interoperability issues.
+
+#### date
+
+The field contains a date without a time.
+
+`format`:
+
+- **default**: The lexical representation `MUST` be `yyyy-mm-dd` e.g. `2024-01-26`
+- **\<PATTERN\>**: The same as for `datetime`
+- **any**: The same as for `datetime`
 
 #### time
 
-A time without a date.
+The field contains a time without a date.
 
 `format`:
 
-- **default**: An ISO8601 time string e.g. `hh:mm:ss`
-- **any**: as for `date`
-- **\<PATTERN\>**: as for `date`
-
-#### datetime
-
-A date with a time.
-
-`format`:
-
-- **default**: An ISO8601 format string e.g. `YYYY-MM-DDThh:mm:ssZ` in UTC time
-- **any**: as for `date`
-- **\<PATTERN\>**: as for `date`
+- **default**: The lexical representation `MUST` be `hh:mm:ss` e.g. `15:00:00`
+- **\<PATTERN\>**: The same as for `datetime`
+- **any**: The same as for `datetime`
 
 #### year
 
@@ -636,6 +653,47 @@ Here's an example with an array primary key:
       ],
       "primaryKey": ["a", "c"]
      }
+
+### Unique Keys
+
+A unique key is a field or a set of fields that are required to have unique logical values in each row in the table. It is directly modeled on the concept of unique constraint in SQL.
+
+The `uniqueKeys` property, if present, `MUST` be a non-empty array. Each entry in the array `MUST` be a `uniqueKey`. A `uniqueKey` `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array, denoting that the unique key is made up of those fields. It is acceptable to have an array with a single value, indicating just one field in the unique key.
+
+An example of using the `uniqueKeys` property:
+
+```json
+"fields": [
+  {
+    "name": "a"
+  },
+  {
+    "name": "b"
+  },
+  {
+    "name": "c"
+  }
+],
+"uniqueKeys": [
+  ["a"],
+  ["a", "b"],
+  ["a", "c"]
+]
+```
+
+In the case of the definition above, the data in the table has to be considered valid only if:
+
+- each row has a unique logical value in the field `a`
+- each row has a unique set of logical values in the fields `a` and `b`
+- each row has a unique set of logical values in the fields `a` and `c`
+
+#### Handling `null` values
+
+All the field values that are on the logical level are considered to be `null` values `MUST` be excluded from the uniqueness check, as the `uniqueKeys` property is modeled on the concept of unique constraint in SQL.
+
+#### Relation to `constraints.unique`
+
+In contrast with `field.constraints.unique`, `uniqueKeys` allows to define uniqueness as a combination of fields. Both properties `SHOULD` be assessed separately.
 
 ### Foreign Keys
 
