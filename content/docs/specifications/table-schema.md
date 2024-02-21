@@ -71,9 +71,9 @@ A Table Schema is represented by a descriptor. The descriptor `MUST` be a JSON `
 
 ### Fields
 
-A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor (as defined below).
+A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor as defined below.
 
-The descriptor `MAY` have the additional properties set out below and `MAY` contain any number of other properties (not defined in this specification).
+The descriptor `MAY` have the additional properties set out below and `MAY` contain any number of other properties not defined in this specification.
 
 The following is an illustration of this structure:
 
@@ -139,7 +139,7 @@ The field descriptor `object` `MAY` contain any number of other properties. Some
 
 ### `name`
 
-The field descriptor `MUST` contain a `name` property and it `MUST` be unique amongst other fields in this Table Schema. This property `SHOULD` correspond to the name of a column in the data file if it has a name.
+The field descriptor `MUST` contain a `name` property and it `MUST` be unique amongst other field names in this Table Schema. This property `SHOULD` correspond to the name of a column in the data file if it has a name.
 
 :::note[Backward Compatibility]
 If the `name` properties are not unique amongst a Table Schema a data consumer `MUST NOT` interpret it as an invalid descriptor as duplicate `name` properties were allowed in the `v1.0` of the specification.
