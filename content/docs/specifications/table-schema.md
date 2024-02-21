@@ -69,7 +69,9 @@ For example, `constraints` `SHOULD` be tested on the logical representation of d
 
 A Table Schema is represented by a descriptor. The descriptor `MUST` be a JSON `object` (JSON is defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)).
 
-It `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor (as defined below).
+### Fields
+
+A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor (as defined below).
 
 The descriptor `MAY` have the additional properties set out below and `MAY` contain any number of other properties (not defined in this specification).
 
@@ -101,9 +103,14 @@ The following is an illustration of this structure:
 }
 ```
 
-## Field Order
+### Partial
 
-The order of elements in `fields` array `SHOULD` be the order of fields in the CSV file. The number of elements in `fields` array `SHOULD` be the same as the number of fields in the CSV file.
+A Table Schema descriptor `MAY` contain a property `partial`. This property `MUST` be boolean with default value is `false`.
+
+Depending on the value of the `partial` property, different rules for mapping Table Schema `fields` on data source columns `MUST` be applied:
+
+- **false** (default): The order of elements in `fields` array `MUST` be the order of columns in the data source. The number of elements in `fields` array `MUST` be the same as the number of columns in data source. Every element in the `fields` array `MUST` be mapped to corresponsing column in data source based on their order.
+- **true**: The order of elements in `fields` array `MAY` be arbitrary. The number of elements in `fields` array `MAY` be arbitrary. Every element in the `fields` array `MUST` be mapped to corresponding column in data source based on their names. For example, for a CSV data source the mapping `MUST` be based on the header row values.
 
 ## Field Descriptors
 
@@ -132,7 +139,11 @@ The field descriptor `object` `MAY` contain any number of other properties. Some
 
 ### `name`
 
-The field descriptor `MUST` contain a `name` property. This property `SHOULD` correspond to the name of field/column in the data file (if it has a name). As such it `SHOULD` be unique (though it is possible, but very bad practice, for the data file to have multiple columns with the same name). `name` `SHOULD NOT` be considered case sensitive in determining uniqueness. However, since it corresponds to the name of the field in the data file it may be important to preserve case.
+The field descriptor `MUST` contain a `name` property and it `MUST` be unique amongst other fields in this Table Schema. This property `SHOULD` correspond to the name of a column in the data file if it has a name.
+
+:::note[Backward Compatibility]
+If the `name` properties are not unique amongst a Table Schema a data consumer `MUST NOT` interpret it as an invalid descriptor as duplicate `name` properties were allowed in the `v1.0` of the specification.
+:::
 
 ### `title`
 
