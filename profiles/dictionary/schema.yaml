@@ -68,7 +68,6 @@ tableSchema:
               {
                 "fields": "state",
                 "reference": {
-                  "resource": "",
                   "fields": "id"
                 }
               }
