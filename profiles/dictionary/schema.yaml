@@ -40,6 +40,8 @@ tableSchema:
               }
             ]
           }
+    partial:
+      "$ref": "#/definitions/tableSchemaPartial"
     primaryKey:
       "$ref": "#/definitions/tableSchemaPrimaryKey"
     uniqueKeys:
@@ -117,6 +119,9 @@ tableSchemaField:
     - "$ref": "#/definitions/tableSchemaFieldArray"
     - "$ref": "#/definitions/tableSchemaFieldDuration"
     - "$ref": "#/definitions/tableSchemaFieldAny"
+tableSchemaPartial:
+  type: boolean
+  default: false
 tableSchemaPrimaryKey:
   oneOf:
     - type: array
