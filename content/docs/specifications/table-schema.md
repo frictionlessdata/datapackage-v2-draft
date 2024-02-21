@@ -276,7 +276,7 @@ The field contains data that is a valid JSON format arrays.
 
 #### list
 
-The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. In the lexical representation, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections providing full interoperability with modern databases.
+The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. In the lexical representation, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
 
 `format`: no options (other than the default).
 
