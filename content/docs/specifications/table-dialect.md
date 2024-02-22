@@ -32,6 +32,8 @@ The above states that JSON is the only serialization format that `MUST` be used 
 
 This specification does not define any discoverability mechanisms making a serialized Table Dialect be referenced only directly by its URI.
 
+This specification defines a set of standartized properties to be used and allows custom properties to be added. It is `RECOMMENDED` to use `namespace:property` naming convention for custom properties.
+
 ## Properties
 
 Table dialect defines individual properties that regulates data producing and consuming for different groups of targeted formats, as well, as general rules that applies for multiple data format groups. Note, that property grouping is only illustrative, if a property is suitable for a format group that is not mentioned in this specification it still can be used as far as the property definition and symantics are respected.
