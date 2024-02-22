@@ -4,16 +4,9 @@ sidebar:
   order: 3
 ---
 
-<table>
-  <tr>
-    <th>Author(s)</th>
-    <td>Rufus Pollock</td>
-  </tr>
-  <tr>
-    <th>Profile</th>
-    <td><a href="/profiles/table-dialect.json">table-dialect.json</a></td>
-  </tr>
-</table>
+:::tip[Profile]
+Metadata Profile for Table Dialect is available as [JSON Schema](/profiles/table-dialect.json) document.
+:::
 
 Table Dialect is a simple platform-agnostic way to define various dialects for tabular data formats. It aims to deal with a reasonably large subset of the features which differ between dialects, such as header rows or quoting rules. The specification is designed to be expressible as a single JSON-compatible descriptor.
 
