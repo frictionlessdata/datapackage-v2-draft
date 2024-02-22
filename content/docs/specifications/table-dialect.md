@@ -394,6 +394,97 @@ With this dialect definition:
 {id: 2, name: "orange"}
 ```
 
+### Structured
+
+Structured formats is a group of structured or semi-structured formats such as JSON and YAML.
+
+#### `property`
+
+A Table Dialect descriptor `MAY` have the `property` property that `MUST` be a string; undefined by default. This property specifies where a data array is located in the data structure.
+
+For example, this data file:
+
+```json
+{
+  "rows": [
+    { "id": 1, "name": "apple" },
+    { "id": 2, "name": "orange" }
+  ]
+}
+```
+
+With this dialect definition:
+
+```json
+{
+  "property": "rows"
+}
+```
+
+`SHOULD` ouput this data:
+
+```javascript
+{id: 1, name: "apple"}
+{id: 2, name: "orange"}
+```
+
+#### `itemType`
+
+A Table Dialect descriptor `MAY` have the `itemType` property that `MUST` be a string with value `array` or `object`; undefined by default. This property specifies whether the data `property` contains an array of arrays or an array of objects.
+
+For example, this data file:
+
+```json
+[
+  ["id", "name"],
+  [1, "apple"],
+  [2, "orange"]
+]
+```
+
+With this dialect definition:
+
+```json
+{
+  "itemType": "array"
+}
+```
+
+`SHOULD` ouput this data:
+
+```javascript
+{id: 1, name: "apple"}
+{id: 2, name: "orange"}
+```
+
+#### `itemKeys`
+
+A Table Dialect descriptor `MAY` have the `itemKeys` property that `MUST` be array of strings; undefined by default. This property specifies the way of extracting rows from data arrays with `itemType` is `object`.
+
+For example, this data file:
+
+```json
+[
+  { "name": "apple", "id": 1, "count": 2 },
+  { "id": 2, "name": "orange", "count": 5 }
+]
+```
+
+With this dialect definition:
+
+```json
+{
+  "itemKeys": ["id", "name"]
+}
+```
+
+`SHOULD` ouput this data:
+
+```javascript
+{id: 1, name: "apple"}
+{id: 2, name: "orange"}
+```
+
 ### Spreadsheets
 
 Spreadsheet formats is a group of sheet-based formats such as Excel or ODS.
@@ -467,7 +558,7 @@ With this dialect definition:
 
 ## Example
 
-Here's an example of a well-defined Table Dialect descriptor for a CSV format:
+An example of a well-defined Table Dialect descriptor for a CSV format:
 
 ```json
 {
