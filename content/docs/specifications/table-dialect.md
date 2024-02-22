@@ -27,6 +27,8 @@ Table Dialect defines set of properties that can be used by data producers and d
 
 Table Dialect is useful for programmes which might have to deal with multiple dialects of tabular files, but which can rely on being told out-of-band which dialect will be used in a given input stream. This reduces the need for heuristic inference of dialects, and simplifies the implementation of readers, which must juggle dialect inference, schema inference, unseekable input streams, character encoding issues, and the lazy reading of very large input streams.
 
+Table Dialect is a direct successor of the [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/) specification with full backward-compatibility to the latter. The specifications can be used interchangable in context of the [Data Package (v1)](https://specs.frictionlessdata.io/) standard or in other domains.
+
 ## Descriptor
 
 On logical level, Table Dialect descriptor is represented by a data structure. The data structure `MUST` be a JSON-serializable `object` as defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
@@ -284,33 +286,6 @@ With this dialect definition:
 {id: 2, name: "orange,fruits"}
 ```
 
-#### `quoteChar`
-
-A Table Dialect descriptor `MAY` have the `quoteChar` property that `MUST` be a string of one character length with default value `"` (double quote). This property specifies a character to use for data cell quoting, for example, in case the `delimiter` needs to be used inside a data cell.
-
-For example, this data file:
-
-```csv
-id,name
-1,|apple,fruits|
-2,|orange,fruits|
-```
-
-With this dialect definition:
-
-```json
-{
-  "quoteChar": "|"
-}
-```
-
-`SHOULD` ouput this data:
-
-```javascript
-{id: 1, name: "apple,fruits"}
-{id: 2, name: "orange,fruits"}
-```
-
 #### `doubleQuote`
 
 A Table Dialect descriptor `MAY` have the `doubleQuote` property that `MUST` be boolean with default value `true`. This property controls the handling of `quoteChar` inside data cells. If true, two consecutive quotes are interpreted as one.
@@ -421,24 +396,88 @@ With this dialect definition:
 
 ### Spreadsheets
 
-### Databases
+Spreadsheet formats is a group of sheet-based formats such as Excel or ODS.
 
-### Example
+#### `sheetNumber`
 
-Here's an example:
+A Table Dialect descriptor `MAY` have the `sheetNumber` property that `MUST` be an integer with default value `1`. This property specifies a sheet number of a table in the spreadsheet file.
+
+For example, this data file:
+
+```text
+Sheet 1
+Sheet 2
+```
+
+With this dialect definition:
 
 ```json
 {
-  "dialect": {
-    "csvddfVersion": 1.2,
-    "delimiter": ";",
-    "doubleQuote": true,
-    "lineTerminator": "\r\n",
-    "quoteChar": "\"",
-    "skipInitialSpace": true,
-    "header": true,
-    "commentChar": "#"
-  }
+  "sheetNumber": 2
+}
+```
+
+`SHOULD` ouput the data from the second sheet.
+
+#### `sheetName`
+
+A Table Dialect descriptor `MAY` have the `sheetName` property that `MUST` be a string; undefined by default. This property specifies a sheet name of a table in the spreadsheet file.
+
+For example, this data file:
+
+```text
+Sheet 1
+Sheet 2
+```
+
+With this dialect definition:
+
+```json
+{
+  "sheetName": "Sheet 2"
+}
+```
+
+`SHOULD` ouput the data from the second sheet.
+
+### Databases
+
+Database formats is a group of table-based formats such as in RDBMS.
+
+#### `table`
+
+A Table Dialect descriptor `MAY` have the `table` property that `MUST` be a string; undefined by default. This property specifies a table name in the database to be read.
+
+For example, this database:
+
+```text
+table1
+table2
+```
+
+With this dialect definition:
+
+```json
+{
+  "table": "table2"
+}
+```
+
+`SHOULD` ouput the data from the second table.
+
+## Example
+
+Here's an example of a well-defined Table Dialect descriptor for a CSV format:
+
+```json
+{
+  "header": false,
+  "commentChar": "#"
+  "delimiter": ";",
+  "doubleQuote": true,
+  "lineTerminator": "\r\n",
+  "quoteChar": "\"",
+  "skipInitialSpace": true,
 }
 ```
 
