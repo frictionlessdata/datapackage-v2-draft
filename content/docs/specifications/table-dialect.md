@@ -16,11 +16,11 @@ The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `S
 
 ## Introduction
 
-Table Dialect defines set of properties that can be used by data producers and data consumers to ensure data interoperability in various tabular data formats such as CSV, JSON, or Excel. The main goal of this specification is to define a common language for defining tabular data dialects. It is not expected that all the properties are supported by all the Data Package implemenations. An implementation `MUST` choose the most suitable strategy for communicating to the users if some relevant feature is not supported.
+Table Dialect defines set of properties that can be used by data producers and data consumers to ensure data interoperability in various tabular data formats such as CSV, JSON, or Excel. The main goal of this specification is to define a common language for defining tabular data dialects. It is not expected that all the properties are supported by all the Data Package implementations. An implementation `MUST` choose the most suitable strategy for communicating to the users if some relevant feature is not supported.
 
 Table Dialect is useful for programmes which might have to deal with multiple dialects of tabular files, but which can rely on being told out-of-band which dialect will be used in a given input stream. This reduces the need for heuristic inference of dialects, and simplifies the implementation of readers, which must juggle dialect inference, schema inference, unseekable input streams, character encoding issues, and the lazy reading of very large input streams.
 
-Table Dialect is a direct successor of the [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/) specification with full backward-compatibility to the latter. The specifications can be used interchangable in context of the [Data Package (v1)](https://specs.frictionlessdata.io/) standard or in other domains.
+Table Dialect is a direct successor of the [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/) specification with full backward-compatibility to the latter. The specifications can be used interchangeable in context of the [Data Package (v1)](https://specs.frictionlessdata.io/) standard or in other domains.
 
 ## Descriptor
 
@@ -32,11 +32,11 @@ The above states that JSON is the only serialization format that `MUST` be used 
 
 This specification does not define any discoverability mechanisms making a serialized Table Dialect be referenced only directly by its URI.
 
-This specification defines a set of standartized properties to be used and allows custom properties to be added. It is `RECOMMENDED` to use `namespace:property` naming convention for custom properties.
+This specification defines a set of standardized properties to be used and allows custom properties to be added. It is `RECOMMENDED` to use `namespace:property` naming convention for custom properties.
 
 ## Properties
 
-Table dialect defines individual properties that regulates data producing and consuming for different groups of targeted formats, as well, as general rules that applies for multiple data format groups. Note, that property grouping is only illustrative, if a property is suitable for a format group that is not mentioned in this specification it still can be used as far as the property definition and symantics are respected.
+Table dialect defines individual properties that regulates data producing and consuming for different groups of targeted formats, as well, as general rules that applies for multiple data format groups. Note, that property grouping is only illustrative, if a property is suitable for a format group that is not mentioned in this specification it still can be used as far as the property definition and semantics are respected.
 
 A property `MUST` be ignored if it is no applicable for an arbitrary data format. For example, SQL databases do not have a concept of a header row.
 
@@ -78,7 +78,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple"}
@@ -106,7 +106,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {"fruit id": 1, "fruit name": "apple"}
@@ -135,7 +135,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {"fruit-id": 1, "fruit-name": "apple"}
@@ -163,7 +163,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple"}
@@ -191,7 +191,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple"}
@@ -204,7 +204,7 @@ Delimited formats is a group of textual formats such as CSV and TSV.
 
 #### `delimiter`
 
-A Table Dialect descriptor `MAY` have the `delimiter` property that `MUST` be a string; wth default value `,` (comma). This property specifies the character sequence which separates fields in the data file.
+A Table Dialect descriptor `MAY` have the `delimiter` property that `MUST` be a string; with default value `,` (comma). This property specifies the character sequence which separates fields in the data file.
 
 For example, this data file:
 
@@ -222,7 +222,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple"}
@@ -231,7 +231,7 @@ With this dialect definition:
 
 #### `lineTerminator`
 
-A Table Dialect descriptor `MAY` have the `lineTerminator` property that `MUST` be a string; wth default value `\r\n`. This property specifies the character sequence which terminates rows.
+A Table Dialect descriptor `MAY` have the `lineTerminator` property that `MUST` be a string; with default value `\r\n`. This property specifies the character sequence which terminates rows.
 
 For example, this data file:
 
@@ -247,7 +247,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple"}
@@ -274,7 +274,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple,fruits"}
@@ -301,7 +301,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple|fruits"}
@@ -328,7 +328,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple,fruits"}
@@ -355,7 +355,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple"}
@@ -382,7 +382,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple"}
@@ -416,7 +416,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple"}
@@ -445,7 +445,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple"}
@@ -473,14 +473,14 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput this data:
+`SHOULD` output this data:
 
 ```javascript
 {id: 1, name: "apple"}
 {id: 2, name: "orange"}
 ```
 
-### Spreadsheets
+### Spreadsheet
 
 Spreadsheet formats is a group of sheet-based formats such as Excel or ODS.
 
@@ -490,7 +490,7 @@ A Table Dialect descriptor `MAY` have the `sheetNumber` property that `MUST` be 
 
 For example, this data file:
 
-```text
+```txt
 Sheet 1
 Sheet 2
 ```
@@ -503,7 +503,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput the data from the second sheet.
+`SHOULD` output the data from the second sheet.
 
 #### `sheetName`
 
@@ -511,7 +511,7 @@ A Table Dialect descriptor `MAY` have the `sheetName` property that `MUST` be a 
 
 For example, this data file:
 
-```text
+```txt
 Sheet 1
 Sheet 2
 ```
@@ -524,9 +524,9 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput the data from the second sheet.
+`SHOULD` output the data from the second sheet.
 
-### Databases
+### Database
 
 Database formats is a group of table-based formats such as in RDBMS.
 
@@ -536,7 +536,7 @@ A Table Dialect descriptor `MAY` have the `table` property that `MUST` be a stri
 
 For example, this database:
 
-```text
+```txt
 table1
 table2
 ```
@@ -549,7 +549,7 @@ With this dialect definition:
 }
 ```
 
-`SHOULD` ouput the data from the second table.
+`SHOULD` output the data from the second table.
 
 ## Example
 
