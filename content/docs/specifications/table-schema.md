@@ -69,10 +69,6 @@ For example, `constraints` `SHOULD` be tested on the logical representation of d
 
 A Table Schema is represented by a descriptor. The descriptor `MUST` be a JSON `object` (JSON is defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)).
 
-### Fields
-
-A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor as defined below.
-
 The descriptor `MAY` have the additional properties set out below and `MAY` contain any number of other properties not defined in this specification.
 
 The following is an illustration of this structure:
@@ -103,6 +99,28 @@ The following is an illustration of this structure:
 }
 ```
 
+## Properties
+
+### `fields`
+
+A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor as defined below.
+
+The way Table Schema `fields` are mapped onto the data source fields are defined by the combination of the `exactFields` and `orderedFields` properties. By default, the least strict approach is applied i.e. fields in the data source `MAY` be unordered and have extra items. Enabling the properties below, a data publisher can enforce additional requirements to the data source.
+
+### `exactFields`
+
+A Table Schema descriptor `MAY` contain a property `exactFields` that `MUST` be boolean with default value `false`:
+
+- **false** (default): The number of fields in the data source `MUST` be equal or more than the number of elements in `fields` array.
+- **true**: The number of fields in the data source `MUST` be exactly the same as the number of elements in `fields` array.
+
+### `orderedFields`
+
+A Table Schema descriptor `MAY` contain a property `orderedFields` that `MUST` be boolean with default value `false`:
+
+- **false** (default): Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their names.
+- **true**: Each element in the `fields` array `MUST` be mapped to the corresponsing field in the data source based on their order.
+
 ### Partial
 
 A Table Schema descriptor `MAY` contain a property `partial`. This property `MUST` be boolean with default value is `false`.
@@ -110,9 +128,8 @@ A Table Schema descriptor `MAY` contain a property `partial`. This property `MUS
 Depending on the value of the `partial` property, different rules for mapping Table Schema `fields` on data source columns `MUST` be applied:
 
 - **false** (default): The order of elements in `fields` array `MUST` be the order of columns in the data source. The number of elements in `fields` array `MUST` be the same as the number of columns in data source. Every element in the `fields` array `MUST` be mapped to corresponsing column in data source based on their order.
-- **true**: The order of elements in `fields` array `MAY` be arbitrary. The number of elements in `fields` array `MAY` be arbitrary. Every element in the `fields` array `MUST` be mapped to corresponding column in data source based on their names. For example, for a CSV data source the mapping `MUST` be based on the header row values.
 
-## Field Descriptors
+## Field Properties
 
 A field descriptor `MUST` be a JSON `object` that describes a single field. The
 descriptor provides additional human-readable documentation for a field, as
