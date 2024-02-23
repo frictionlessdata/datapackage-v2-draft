@@ -277,7 +277,6 @@ The people or organizations who contributed to this Data Package. It `MUST` be a
   - Note on semantics: use of the "author" property does not imply that that person was the original creator of the data in the data package - merely that they created and/or maintain the data package. It is common for data packages to "package" up data from elsewhere. The original origin of the data can be indicated with the `sources` property - see above.
 - `organization`: a string describing the organization this contributor is affiliated to.
 
-A data producer is `RECOMMENDED` to follow [BibTeX](https://www.bibtex.com/f/author-field/) guidance when providing information about a person's name and title.
 
 ##### `keywords`
 
