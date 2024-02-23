@@ -105,14 +105,14 @@ The following is an illustration of this structure:
 
 A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor as defined below.
 
-The way Table Schema `fields` are mapped onto the data source fields are defined by the combination of the `exactFields` and `orderedFields` properties. By default, the least strict approach is applied i.e. fields in the data source `MAY` be unordered and have extra items. Enabling the properties below, a data publisher can enforce additional requirements to the data source.
+The way Table Schema `fields` are mapped onto the data source fields are defined by the combination of the `exactFields` and `orderedFields` properties. By default, the least strict approach is applied i.e. fields in the data source `MAY` be unordered and have extra items. Enabling the properties below, a data producer can enforce additional requirements to the data source.
 
 ### `exactFields`
 
 A Table Schema descriptor `MAY` contain a property `exactFields` that `MUST` be boolean with default value `false`:
 
-- **false** (default): The number of fields in the data source `MUST` be equal or more than the number of elements in `fields` array.
-- **true**: The number of fields in the data source `MUST` be exactly the same as the number of elements in `fields` array.
+- **false** (default): The number of fields in the data source `MUST` be equal or more than the number of elements in the `fields` array.
+- **true**: The number of fields in the data source `MUST` be exactly the same as the number of elements in the `fields` array.
 
 ### `orderedFields`
 
