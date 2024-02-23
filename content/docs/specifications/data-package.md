@@ -138,6 +138,8 @@ Packaged data resources are described in the `resources` property of the package
 
 #### Required Properties
 
+##### `resources`
+
 The `resources` property is `REQUIRED`, with at least one resource.
 
 #### Recommended Properties
