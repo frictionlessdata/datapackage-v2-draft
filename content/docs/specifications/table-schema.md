@@ -121,14 +121,6 @@ A Table Schema descriptor `MAY` contain a property `orderedFields` that `MUST` b
 - **false** (default): Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their names.
 - **true**: Each element in the `fields` array `MUST` be mapped to the corresponsing field in the data source based on their order.
 
-### Partial
-
-A Table Schema descriptor `MAY` contain a property `partial`. This property `MUST` be boolean with default value is `false`.
-
-Depending on the value of the `partial` property, different rules for mapping Table Schema `fields` on data source columns `MUST` be applied:
-
-- **false** (default): The order of elements in `fields` array `MUST` be the order of columns in the data source. The number of elements in `fields` array `MUST` be the same as the number of columns in data source. Every element in the `fields` array `MUST` be mapped to corresponsing column in data source based on their order.
-
 ## Field Properties
 
 A field descriptor `MUST` be a JSON `object` that describes a single field. The
