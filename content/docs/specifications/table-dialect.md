@@ -526,31 +526,6 @@ With this dialect definition:
 
 `SHOULD` output the data from the second sheet.
 
-### Database
-
-Database formats is a group of table-based formats such as in RDBMS.
-
-#### `table`
-
-A Table Dialect descriptor `MAY` have the `table` property that `MUST` be a string; undefined by default. This property specifies a table name in the database to be read.
-
-For example, this database:
-
-```txt
-table1
-table2
-```
-
-With this dialect definition:
-
-```json
-{
-  "table": "table2"
-}
-```
-
-`SHOULD` output the data from the second table.
-
 ## Example
 
 An example of a well-defined Table Dialect descriptor for a CSV format:
