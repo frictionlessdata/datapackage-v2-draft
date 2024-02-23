@@ -268,7 +268,7 @@ The people or organizations who contributed to this Data Package. It `MUST` be a
 }]
 ```
 
-- `title`: name of the contributor. It's `RECOMMENDED` to follow [BibTeX name format](https://www.bibtex.com/f/author-field/) when providing a person's name in `title`.
+- `title`: name of the contributor. It's `RECOMMENDED` to follow [BibTeX name format](https://www.bibtex.com/f/author-field/) when providing a person's name.
 - `firstName`: first names or given names if the contributor is a person
 - `lastName`: last name or family name if the contributor is a person
 - `path`: a fully qualified http URL pointing to a relevant location online for the contributor
