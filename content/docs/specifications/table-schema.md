@@ -119,7 +119,7 @@ A Table Schema descriptor `MAY` contain a property `exactFields` that `MUST` be 
 A Table Schema descriptor `MAY` contain a property `orderedFields` that `MUST` be boolean with default value `false`:
 
 - **false** (default): Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their names.
-- **true**: Each element in the `fields` array `MUST` be mapped to the corresponsing field in the data source based on their order.
+- **true**: Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their order.
 
 ## Field Properties
 
