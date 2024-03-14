@@ -87,7 +87,7 @@ On physical level, Data Package descriptor is represented by a file. A data prod
 
 JSON is the serialization format that `MUST` be used for publishing a Data Package while other serialization formats can be used in projects or systems internally if supported by corresponding implementations.
 
-This specification does not define any discoverability mechanisms making a serialized Data Package be referenced only directly by its URI. It means that techically the name of a Data Package file is irrelevant although it is good practice to use `datapackage.json` as a public convention.
+This specification does not define any discoverability mechanisms. Any URI can be used to directly reference a serialized Data Package. It is good practice and a common convention to name the file `datapackage.json`.
 
 The descriptor is the central file in a Data Package. It provides:
 
