@@ -109,14 +109,14 @@ The way Table Schema `fields` are mapped onto the data source fields are defined
 
 ### `exactFields`
 
-A Table Schema descriptor `MAY` contain a property `exactFields` that `MUST` be boolean with default value `false`:
+A Table Schema descriptor `MAY` contain a property `exactFields` that `MUST` be boolean with default value `true`:
 
 - **true** (default): The number of fields in the data source `MUST` be exactly the same as the number of elements in the `fields` array.
 - **false**: The number of fields in the data source can be arbitrary i.e. less, equal or more than the number of elements in the `fields` array.
 
 ### `orderedFields`
 
-A Table Schema descriptor `MAY` contain a property `orderedFields` that `MUST` be boolean with default value `false`:
+A Table Schema descriptor `MAY` contain a property `orderedFields` that `MUST` be boolean with default value `true`:
 
 - **true** (default): Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their order.
 - **false**: Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their names.
