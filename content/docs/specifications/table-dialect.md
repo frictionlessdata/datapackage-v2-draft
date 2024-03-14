@@ -262,15 +262,15 @@ For example, this data file:
 
 ```csv
 id,name
-1,apple;,fruits
-2,orange;,fruits
+1,'apple,fruits'
+2,'orange,fruits'
 ```
 
 With this dialect definition:
 
 ```json
 {
-  "quoteChar": ";"
+  "quoteChar": "'"
 }
 ```
 
