@@ -105,21 +105,21 @@ The following is an illustration of this structure:
 
 A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor as defined below.
 
-The way Table Schema `fields` are mapped onto the data source fields are defined by the combination of the `exactFields` and `orderedFields` properties. By default, the least strict approach is applied i.e. fields in the data source `MAY` be unordered and have extra items. Enabling the properties below, a data producer can enforce additional requirements to the data source.
+The way Table Schema `fields` are mapped onto the data source fields are defined by the combination of the `exactFields` and `orderedFields` properties. By default, the most strict approach is applied i.e. fields in the data source `MUST` completely match the elements in the `fields` array regarding their amount and order. Enabling the properties below, a data producer can relax requirements to the data source.
 
 ### `exactFields`
 
 A Table Schema descriptor `MAY` contain a property `exactFields` that `MUST` be boolean with default value `false`:
 
-- **false** (default): The number of fields in the data source can be arbitrary i.e. less, equal or more than the number of elements in the `fields` array.
-- **true**: The number of fields in the data source `MUST` be exactly the same as the number of elements in the `fields` array.
+- **true** (default): The number of fields in the data source `MUST` be exactly the same as the number of elements in the `fields` array.
+- **false**: The number of fields in the data source can be arbitrary i.e. less, equal or more than the number of elements in the `fields` array.
 
 ### `orderedFields`
 
 A Table Schema descriptor `MAY` contain a property `orderedFields` that `MUST` be boolean with default value `false`:
 
-- **false** (default): Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their names.
-- **true**: Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their order.
+- **true** (default): Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their order.
+- **false**: Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their names.
 
 ## Field Properties
 
