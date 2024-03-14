@@ -411,7 +411,7 @@ While this JSON data file will have logical values as below:
 {id: 2, name: "orange"}
 ```
 
-Note, that for the CSV data source the `id` field is interpreted as a string because CSV supports only one data type i.e. string, and for the JSON data source the `id` field is interpreted as an integer because JSON supports an integer data type and the value was declared as an integer.
+Note, that for the CSV data source the `id` field is interpreted as a string because CSV supports only one data type i.e. string, and for the JSON data source the `id` field is interpreted as an integer because JSON supports an integer data type and the value was declared as an integer. Also, for the Table Schema above a `type` property for each field can be omitted as it is a default field type.
 
 ### Rich Types
 
