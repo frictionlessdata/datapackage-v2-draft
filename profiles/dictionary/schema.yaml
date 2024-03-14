@@ -40,8 +40,10 @@ tableSchema:
               }
             ]
           }
-    partial:
-      "$ref": "#/definitions/tableSchemaPartial"
+    exactFields:
+      "$ref": "#/definitions/tableSchemaExactFields"
+    orderedFields:
+      "$ref": "#/definitions/tableSchemaOrderedFields"
     primaryKey:
       "$ref": "#/definitions/tableSchemaPrimaryKey"
     uniqueKeys:
@@ -119,9 +121,12 @@ tableSchemaField:
     - "$ref": "#/definitions/tableSchemaFieldArray"
     - "$ref": "#/definitions/tableSchemaFieldDuration"
     - "$ref": "#/definitions/tableSchemaFieldAny"
-tableSchemaPartial:
+tableSchemaExactFields:
   type: boolean
-  default: false
+  default: true
+tableSchemaOrderedFields:
+  type: boolean
+  default: true
 tableSchemaPrimaryKey:
   oneOf:
     - type: array
