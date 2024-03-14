@@ -71,7 +71,7 @@ On logical level, Table Schema descriptor is represented by a data structure. Th
 
 On physical level, Table Schema descriptor is represented by a file. A data producer `MAY` use any suitable serialization format. A data consumer `MUST` support JSON serialization format and `MAY` support other serialization formats like YAML or TOML.
 
-The above states that JSON is the only serialization format that `MUST` be used for publishing a Table Schema while other serialization formats can be used in projects or systems internally if supported by corresponding implementations.
+JSON is the serialization format that `MUST` be used for publishing a Table Schema while other serialization formats can be used in projects or systems internally if supported by corresponding implementations.
 
 This specification does not define any discoverability mechanisms making a serialized Table Schema be referenced only directly by its URI.
 
