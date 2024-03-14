@@ -774,7 +774,7 @@ An example of a self-referencing foreign key:
 ]
 ```
 
-Foreign Keys create links between one Table Schema and another Table Schema, and implicitly between the data tables described by those Table Schemas. If the foreign key is referring to another Table Schema how is that other Table Schema discovered? The answer is that a Table Schema will usually be embedded inside some larger descriptor for a dataset, in particular as the schema for a resource in the resources array of a [Data Package][http://specs.frictionlessdata.io/data-package/]. It is the use of Table Schema in this way that permits a meaningful use of a non-empty `resource` property on the foreign key.
+Foreign Keys create links between one Table Schema and another Table Schema, and implicitly between the data tables described by those Table Schemas. If the foreign key is referring to another Table Schema how is that other Table Schema discovered? The answer is that a Table Schema will usually be embedded inside some larger descriptor for a dataset, in particular as the schema for a resource in the resources array of a [Data Package](http://specs.frictionlessdata.io/data-package/). It is the use of Table Schema in this way that permits a meaningful use of a non-empty `resource` property on the foreign key.
 
 :::note[Backward Compatibility]
 If the value of the `foreignKey.reference.resource` property is an empty string `""` a data consumer MUST interpret it as an omited property as an empty string for self-referencing was a part of the `v1.0` of the specification.
