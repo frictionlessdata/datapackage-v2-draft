@@ -289,8 +289,8 @@ For example, this data file:
 
 ```csv
 id,name
-1,|apple||fruits|
-2,|orange||fruits|
+1,"apple""fruits"
+2,"orange""fruits"
 ```
 
 With this dialect definition:
@@ -304,8 +304,8 @@ With this dialect definition:
 `SHOULD` output this data:
 
 ```javascript
-{id: 1, name: "apple|fruits"}
-{id: 2, name: "orange|fruits"}
+{id: 1, name: 'apple"fruits'}
+{id: 2, name: 'orange"fruits'}
 ```
 
 #### `escapeChar`
