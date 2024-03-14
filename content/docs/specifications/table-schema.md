@@ -142,6 +142,30 @@ A description for this field e.g. "The recipient of the funds"
 
 An example value for the field
 
+### `missingValues`
+
+A list of missing values for this field as per [Missing Values](#missing-values) definition. If this property is defined, it takes precedence over the schema-level property and completely replaces it for the field without combining the values.
+
+For example, for the Table Schema below:
+
+```json
+"fields": [
+  {
+    "name": "column1"
+  },
+  {
+    "name": "column2",
+    "missingValues": ["-"]
+  }
+],
+"missingValues": ["", "NA"]
+```
+
+A data consumer `MUST`:
+
+- interpret `""` and `NA` as missing values for `column1`
+- interpret only `-` as a missing value for `column2`
+
 ### Types and Formats
 
 `type` and `format` properties are used to give The type of the field (string, number etc) - see below for
@@ -204,7 +228,7 @@ This lexical formatting `MAY` be modified using these additional properties:
 - **decimalChar**: A string whose value is used to represent a decimal point
   within the number. The default value is ".".
 - **groupChar**: A string whose value is used to group digits within the
-  number. The default value is null. A common value is "," e.g. "100,000".
+  number. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
 `format`: no options (other than the default).
@@ -217,8 +241,10 @@ The field contains integers - that is whole numbers.
 
 Integer values are indicated in the standard way for any valid integer.
 
-Additional properties:
+This lexical formatting `MAY` be modified using these additional properties:
 
+- **groupChar**: A string whose value is used to group digits within the
+  integer. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
 `format`: no options (other than the default).
@@ -238,54 +264,56 @@ The boolean field can be customised with these additional properties:
 
 #### object
 
-The field contains data which is valid JSON.
+The field contains a valid JSON object.
 
 `format`: no options (other than the default).
 
 #### array
 
-The field contains data that is a valid JSON format arrays.
+The field contains a valid JSON array.
 
 `format`: no options (other than the default).
 
-#### date
+#### list
 
-A date without a time.
+The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. In the lexical representation, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
 
-`format`:
+`format`: no options (other than the default).
 
-- **default**: An ISO8601 format string.
-  - date: This `MUST` be in ISO8601 format YYYY-MM-DD
-  - datetime: a date-time. This `MUST` be in ISO 8601 format of YYYY-MM-DDThh:mm:ssZ in UTC time
-  - time: a time without a date
-- **any**: Any parsable representation of the type. The implementing
-  library can attempt to parse the datetime via a range of strategies.
-  An example is `dateutil.parser.parse` from the `python-dateutils`
-  library.
-- **\<PATTERN\>**: date/time values in this field can be parsed according to
-  `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C
-  strptime][strptime]. (That is, values in the this field `SHOULD` be parsable
-  by Python / C standard `strptime` using `<PATTERN>`). Example for `"format": "%d/%m/%y"` which would correspond to dates like: `30/11/14`
+The list field can be customised with these additional properties:
 
-#### time
-
-A time without a date.
-
-`format`:
-
-- **default**: An ISO8601 time string e.g. `hh:mm:ss`
-- **any**: as for `date`
-- **\<PATTERN\>**: as for `date`
+- **delimiter**: specifies the character sequence which separates lexically represented list items. If not present, the default is `,` (comma).
+- **itemType**: specifies the list item type in terms of existent Table Schema types. If present, it `MUST` be one of `string`, `integer`, `boolean`, `number`, `datetme`, `date`, and `time`. If not present, the default is `string`. A data consumer `MUST` process list items as it were individual values of the corresponding data type. Note, that on lexical level only default formats are supported, for example, for a list with `itemType` set to `date`, items have to be in default form for dates i.e. `yyyy-mm-dd`.
 
 #### datetime
 
-A date with a time.
+The field contains a date with a time.
 
 `format`:
 
-- **default**: An ISO8601 format string e.g. `YYYY-MM-DDThh:mm:ssZ` in UTC time
-- **any**: as for `date`
-- **\<PATTERN\>**: as for `date`
+- **default**: The lexical representation `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`.
+- **\<PATTERN\>**: values in this field can be parsed according to `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime][strptime]. Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": ""%d/%m/%Y %H:%M:%S"` which would correspond to a date with time like: `12/11/2018 09:15:32`.
+- **any**: Any parsable representation of the value. The implementing library can attempt to parse the datetime via a range of strategies. An example is `dateutil.parser.parse` from the `python-dateutils` library. It is `NOT RECOMMENDED` to use `any` format as it might cause interoperability issues.
+
+#### date
+
+The field contains a date without a time.
+
+`format`:
+
+- **default**: The lexical representation `MUST` be `yyyy-mm-dd` e.g. `2024-01-26`
+- **\<PATTERN\>**: The same as for `datetime`
+- **any**: The same as for `datetime`
+
+#### time
+
+The field contains a time without a date.
+
+`format`:
+
+- **default**: The lexical representation `MUST` be `hh:mm:ss` e.g. `15:00:00`
+- **\<PATTERN\>**: The same as for `datetime`
+- **any**: The same as for `datetime`
 
 #### year
 
@@ -521,6 +549,19 @@ properties.
   </tr>
   <tr>
     <td>
+      <code>jsonSchema</code>
+    </td>
+    <td>
+      object
+    </td>
+    <td>
+      <code>array</code>, <code>object</code>
+    </td>
+    <td>A valid JSON Schema object to validate field values. If a field value conforms to the provided JSON Schema then this field value is valid.
+    </td>
+  </tr>
+  <tr>
+    <td>
       <code>pattern</code>
     </td>
     <td>
@@ -589,49 +630,72 @@ primary key is equivalent to adding `required: true` to their
 The `primaryKey` entry in the schema `object` is optional. If present it specifies
 the primary key for this table.
 
-The `primaryKey`, if present, `MUST` be:
-
-- Either: an array of strings with each string corresponding to one of the
-  field `name` values in the `fields` array (denoting that the primary key is
-  made up of those fields). It is acceptable to have an array with a single
-  value (indicating just one field in the primary key). Strictly, order of
-  values in the array does not matter. However, it is `RECOMMENDED` that one
-  follow the order the fields in the `fields` has as client applications `MAY`
-  utilize the order of the primary key list (e.g. in concatenating values
-  together).
-- Or: a single string corresponding to one of the field `name` values in
-  the `fields` array (indicating that this field is the primary key). Note that
-  this version corresponds to the array form with a single value (and can be
-  seen as simply a more convenient way of specifying a single field primary
-  key).
+The `primaryKey`, if present, `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array (denoting that the primary key is made up of those fields). It is acceptable to have an array with a single value (indicating just one field in the primary key). Strictly, order of values in the array does not matter. However, it is `RECOMMENDED` that one follow the order the fields in the `fields` has as client applications `MAY` utilize the order of the primary key list (e.g. in concatenating values together).
 
 Here's an example:
 
-      "fields": [
-        {
-          "name": "a"
-        },
-        ...
-      ],
-      "primaryKey": "a"
+```json
+"schema": {
+  "fields": [
+    {
+      "name": "a"
+    },
+    {
+      "name": "b"
+    },
+    {
+      "name": "c"
+    },
+    ...
+  ],
+  "primaryKey": ["a", "c"]
+}
+```
 
-Here's an example with an array primary key:
+:::note[Backward Compatibility]
+Data consumer MUST support the `primaryKey` property in a form of a single string e.g. `primaryKey: a` which was a part of the `v1.0` of the specification.
+:::
 
-    "schema": {
-      "fields": [
-        {
-          "name": "a"
-        },
-        {
-          "name": "b"
-        },
-        {
-          "name": "c"
-        },
-        ...
-      ],
-      "primaryKey": ["a", "c"]
-     }
+### Unique Keys
+
+A unique key is a field or a set of fields that are required to have unique logical values in each row in the table. It is directly modeled on the concept of unique constraint in SQL.
+
+The `uniqueKeys` property, if present, `MUST` be a non-empty array. Each entry in the array `MUST` be a `uniqueKey`. A `uniqueKey` `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array, denoting that the unique key is made up of those fields. It is acceptable to have an array with a single value, indicating just one field in the unique key.
+
+An example of using the `uniqueKeys` property:
+
+```json
+"fields": [
+  {
+    "name": "a"
+  },
+  {
+    "name": "b"
+  },
+  {
+    "name": "c"
+  }
+],
+"uniqueKeys": [
+  ["a"],
+  ["a", "b"],
+  ["a", "c"]
+]
+```
+
+In the case of the definition above, the data in the table has to be considered valid only if:
+
+- each row has a unique logical value in the field `a`
+- each row has a unique set of logical values in the fields `a` and `b`
+- each row has a unique set of logical values in the fields `a` and `c`
+
+#### Handling `null` values
+
+All the field values that are on the logical level are considered to be `null` values `MUST` be excluded from the uniqueness check, as the `uniqueKeys` property is modeled on the concept of unique constraint in SQL.
+
+#### Relation to `constraints.unique`
+
+In contrast with `field.constraints.unique`, `uniqueKeys` allows to define uniqueness as a combination of fields. Both properties `SHOULD` be assessed separately.
 
 ### Foreign Keys
 
@@ -643,88 +707,88 @@ They are directly modelled on the concept of foreign keys in SQL.
 The `foreignKeys` property, if present, `MUST` be an Array. Each entry in the
 array `MUST` be a `foreignKey`. A `foreignKey` `MUST` be a `object` and `MUST` have the following properties:
 
-- `fields` - `fields` is a string or array specifying the
+- `fields` - `fields` is an array of strings specifying the
   field or fields on this resource that form the source part of the foreign
-  key. The structure of the string or array is as per `primaryKey` above.
+  key. The structure of the array is as per `primaryKey` above.
 - `reference` - `reference` `MUST` be a `object`. The `object`
   - `MUST` have a property `resource` which is the name of the resource within
     the current data package (i.e. the data package within which this Table
     Schema is located). For self-referencing foreign keys, i.e. references
     between fields in this Table Schema, the value of `resource` `MUST` be `""`
     (i.e. the empty string).
-  - `MUST` have a property `fields` which is a string if the outer `fields` is a
-    string, else an array of the same length as the outer `fields`, describing the
-    field (or fields) references on the destination resource. The structure of
-    the string or array is as per `primaryKey` above.
+  - `MUST` have a property `fields` which is an array of strings of the same length as the outer `fields`, describing the field (or fields) references on the destination resource. The structure of the array is as per `primaryKey` above.
 
 Here's an example:
 
-```javascript
-  // these are resources inside a Data Package
-  "resources": [
-    {
-      "name": "state-codes",
-      "schema": {
-        "fields": [
-          {
-            "name": "code"
+```json
+"resources": [
+  {
+    "name": "state-codes",
+    "schema": {
+      "fields": [
+        {
+          "name": "code"
+        }
+      ]
+    }
+  },
+  {
+    "name": "population-by-state",
+    "schema": {
+      "fields": [
+        {
+          "name": "state-code"
+        }
+        ...
+      ],
+      "foreignKeys": [
+        {
+          "fields": ["state-code"],
+          "reference": {
+            "resource": "state-codes",
+            "fields": ["code"]
           }
-        ]
-      }
-    },
-    {
-      "name": "population-by-state"
-      "schema": {
-        "fields": [
-          {
-            "name": "state-code"
-          }
-          ...
-        ],
-        "foreignKeys": [
-          {
-            "fields": "state-code",
-            "reference": {
-              "resource": "state-codes",
-              "fields": "code"
-            }
-          }
-        ]
-    ...
+        }
+      ]
+  ...
 ```
 
 An example of a self-referencing foreign key:
 
-```javascript
-  "resources": [
-    {
-      "name": "xxx",
-      "schema": {
-        "fields": [
-          {
-            "name": "parent"
-          },
-          {
-            "name": "id"
+```json
+"resources": [
+  {
+    "name": "xxx",
+    "schema": {
+      "fields": [
+        {
+          "name": "parent"
+        },
+        {
+          "name": "id"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "fields": ["parent"],
+          "reference": {
+            "resource": "",
+            "fields": ["id"]
           }
-        ],
-        "foreignKeys": [
-          {
-            "fields": "parent"
-            "reference": {
-              "resource": "",
-              "fields": "id"
-            }
-          }
-        ]
-      }
+        }
+      ]
     }
-  ]
+  }
+]
 ```
 
 **Comment**: Foreign Keys create links between one Table Schema and another Table Schema, and implicitly between the data tables described by those Table Schemas. If the foreign key is referring to another Table Schema how is that other Table Schema discovered? The answer is that a Table Schema will usually be embedded inside some larger descriptor for a dataset, in particular as the schema for a resource in the resources array of a [Data Package][dp]. It is the use of Table Schema in this way that permits a meaningful use of a non-empty `resource` property on the foreign key.
 
 [dp]: http://specs.frictionlessdata.io/data-package/
+
+:::note[Backward Compatibility]
+Data consumer MUST support the `foreignKey.fields` and `foreignKey.reference.fields` properties in a form of a single string e.g. `fields: a` which was a part of the `v1.0` of the specification.
+:::
 
 ## Appendix: Related Work
 

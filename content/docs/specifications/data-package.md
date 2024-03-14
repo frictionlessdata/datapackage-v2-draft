@@ -146,9 +146,11 @@ In addition to the required properties, the following properties `SHOULD` be inc
 
 ##### `name`
 
-A short url-usable (and preferably human-readable) name of the package. This `MUST` be lower-case and contain only alphanumeric characters along with ".", "\_" or "-" characters. It will function as a unique identifier and therefore `SHOULD` be unique in relation to any registry in which this package will be deposited (and preferably globally unique).
+The name is a simple name or identifier to be used for this package in relation to any registry in which this package will be deposited.
 
-The name `SHOULD` be invariant, meaning that it `SHOULD NOT` change when a data package is updated, unless the new package version `SHOULD` be considered a distinct package, e.g. due to significant changes in structure or interpretation. Version distinction `SHOULD` be left to the version property. As a corollary, the name also `SHOULD NOT` include an indication of time range covered.
+- It `SHOULD` be human-readable and consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
+- It `SHOULD` be unique in relation to any registry in which this package will be deposited (and preferably globally unique).
+- It `SHOULD` be invariant, meaning that it `SHOULD NOT` change when a data package is updated, unless the new package version `SHOULD` be considered a distinct package, e.g. due to significant changes in structure or interpretation. Version distinction `SHOULD` be left to the version property. As a corollary, the name also `SHOULD NOT` include an indication of time range covered.
 
 ##### `id`
 
@@ -255,7 +257,7 @@ The raw sources for this data package. It `MUST` be an array of Source objects. 
 
 ##### `contributors`
 
-The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have at least one property. A Contributor is RECOMMENDED to have `title` property and MAY contain `path`, `email`, `roles`, and `organization` properties. An example of the object structure is as follows:
+The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have at least one property. A Contributor is RECOMMENDED to have `title` property and MAY contain `givenName`, `familyName`, `path`, `email`, `roles`, and `organization` properties. An example of the object structure is as follows:
 
 ```json
 "contributors": [{
@@ -266,12 +268,18 @@ The people or organizations who contributed to this Data Package. It `MUST` be a
 }]
 ```
 
-- `title`: name/title of the contributor (name for person, name/title of organization)
+- `title`: name of the contributor.
+- `givenName`: name a person has been given, if the contributor is a person.
+- `familyName`: familial name that a person inherits, if the contributor is a person.
 - `path`: a fully qualified http URL pointing to a relevant location online for the contributor
 - `email`: An email address
 - `roles`: an array of strings describing the roles of the contributor. A role is `RECOMMENDED` to be one of: `author`, `publisher`, `maintainer`, `wrangler`, and `contributor`. The default role is `contributor`.
   - Note on semantics: use of the "author" property does not imply that that person was the original creator of the data in the data package - merely that they created and/or maintain the data package. It is common for data packages to "package" up data from elsewhere. The original origin of the data can be indicated with the `sources` property - see above.
 - `organization`: a string describing the organization this contributor is affiliated to.
+
+References:
+
+- [Citation Style Language](https://citeproc-js.readthedocs.io/en/latest/csl-json/markup.html#name-fields)
 
 :::note[Backward Compatibility]
 If the `roles` property is not provided a data consumer MUST fall back to using `role` property which was a part of the `v1.0` of the specification. This property has the same semantics but it is a string allowing to specify only a single role.
