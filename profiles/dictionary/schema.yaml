@@ -967,6 +967,8 @@ tableSchemaFieldObject:
           "$ref": "#/definitions/tableSchemaConstraintMinLength"
         maxLength:
           "$ref": "#/definitions/tableSchemaConstraintMaxLength"
+        jsonSchema:
+          "$ref": "#/definitions/tableSchemaConstraintJsonSchema"
     rdfType:
       "$ref": "#/definitions/tableSchemaRdfType"
   examples:
@@ -1019,6 +1021,8 @@ tableSchemaFieldArray:
           "$ref": "#/definitions/tableSchemaConstraintMinLength"
         maxLength:
           "$ref": "#/definitions/tableSchemaConstraintMaxLength"
+        jsonSchema:
+          "$ref": "#/definitions/tableSchemaConstraintJsonSchema"
     rdfType:
       "$ref": "#/definitions/tableSchemaRdfType"
   examples:
@@ -1026,6 +1030,66 @@ tableSchemaFieldArray:
       {
         "name": "options"
         "type": "array"
+      }
+tableSchemaFieldList:
+  type: object
+  title: List Field
+  description: The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type.
+  required:
+    - name
+    - type
+  properties:
+    name:
+      "$ref": "#/definitions/tableSchemaFieldName"
+    title:
+      "$ref": "#/definitions/title"
+    description:
+      "$ref": "#/definitions/description"
+    example:
+      "$ref": "#/definitions/example"
+    missingValues:
+      "$ref": "#/definitions/tableSchemaMissingValues"
+    type:
+      description: The type keyword, which `MUST` be a value of `list`.
+      enum:
+        - list
+    format:
+      description: "There are no format keyword options for `list`: only `default` is allowed."
+      enum:
+        - default
+      default: default
+    delimiter:
+      "$ref": "#/definitions/delimiter"
+    itemType:
+      title: Item type.
+      description: Specifies the list item type.
+      type: string
+      enum:
+        - string
+        - number
+        - integer
+        - boolean
+        - datetime
+        - date
+        - time
+    constraints:
+      title: Constraints
+      description: The following constraints apply for `list` fields.
+      type: object
+      properties:
+        required:
+          "$ref": "#/definitions/tableSchemaConstraintRequired"
+        minLength:
+          "$ref": "#/definitions/tableSchemaConstraintMinLength"
+        maxLength:
+          "$ref": "#/definitions/tableSchemaConstraintMaxLength"
+    rdfType:
+      "$ref": "#/definitions/tableSchemaRdfType"
+  examples:
+    - |
+      {
+        "name": "options"
+        "type": "list"
       }
 tableSchemaFieldGeoJSON:
   type: object
@@ -1202,6 +1266,9 @@ tableSchemaConstraintRequired:
 tableSchemaConstraintUnique:
   type: boolean
   description: When `true`, each value for the property `MUST` be unique.
+tableSchemaConstraintJsonSchema:
+  type: object
+  description: A valid JSON Schema object to validate field values. If a field value conforms to the provided JSON Schema then this field value is valid.
 tableSchemaConstraintPattern:
   type: string
   description: A regular expression pattern to test each value of the property against, where a truthy response indicates validity.
