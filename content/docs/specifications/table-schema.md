@@ -388,7 +388,7 @@ This CSV data file will have logical values as below:
 ```csv
 id,name
 1,apple
-2,organe
+2,orange
 ```
 
 ```javascript
