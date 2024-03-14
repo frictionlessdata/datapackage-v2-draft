@@ -711,11 +711,7 @@ array `MUST` be a `foreignKey`. A `foreignKey` `MUST` be a `object` and `MUST` h
   field or fields on this resource that form the source part of the foreign
   key. The structure of the array is as per `primaryKey` above.
 - `reference` - `reference` `MUST` be a `object`. The `object`
-  - `MUST` have a property `resource` which is the name of the resource within
-    the current data package (i.e. the data package within which this Table
-    Schema is located). For self-referencing foreign keys, i.e. references
-    between fields in this Table Schema, the value of `resource` `MUST` be `""`
-    (i.e. the empty string).
+  - `MUST` have a property `fields` which is an array of strings of the same length as the outer `fields`, describing the field (or fields) references on the destination resource. The structure of the array is as per `primaryKey` above.
   - `MAY` have a property `resource` which is the name of the resource within the current data package, i.e. the data package within which this Table Schema is located. For referencing another data resource the `resource` property `MUST` be provided. For self-referencing, i.e. references between fields in this Table Schema, the `resource` property `MUST` be omitted.
 
 Here's an example:
