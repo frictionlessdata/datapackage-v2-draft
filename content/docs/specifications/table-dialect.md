@@ -81,9 +81,11 @@ With this dialect definition:
 `SHOULD` output this data:
 
 ```javascript
-{id: 1, name: "apple"}
-{id: 2, name: "orange"}
+{field1: 1, field2: "apple"}
+{field1: 2, field2: "orange"}
 ```
+
+Where `field1` and `field2` names are implementation-specific and used here only for illustrative purpose.
 
 #### `headerRows`
 
