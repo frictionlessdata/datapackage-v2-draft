@@ -111,7 +111,7 @@ The way Table Schema `fields` are mapped onto the data source fields are defined
 
 A Table Schema descriptor `MAY` contain a property `exactFields` that `MUST` be boolean with default value `false`:
 
-- **false** (default): The number of fields in the data source can be arbitrary i.e. less, equal or more than the number of elements in the `fields` array.
+- **false** (default): The number of fields in the data source `MUST` be equal or more than the number of elements in the `fields` array.
 - **true**: The number of fields in the data source `MUST` be exactly the same as the number of elements in the `fields` array.
 
 ### `orderedFields`
