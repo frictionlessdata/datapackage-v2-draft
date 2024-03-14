@@ -45,7 +45,7 @@ On physical level, Table Dialect descriptor is represented by a file. A data pro
 
 JSON is the serialization format that `MUST` be used for publishing a Table Dialect while other serialization formats can be used in projects or systems internally if supported by corresponding implementations.
 
-This specification does not define any discoverability mechanisms making a serialized Table Dialect be referenced only directly by its URI.
+This specification does not define any discoverability mechanisms. Any URI can be used to directly reference a serialized Table Dialect. 
 
 A CSV Dialect descriptor, `dialect`, `MUST` be a JSON `object` with the following properties:
 
