@@ -85,7 +85,7 @@ On logical level, Data Package descriptor is represented by a data structure. Th
 
 On physical level, Data Package descriptor is represented by a file. A data producer `MAY` use any suitable serialization format and `SHOULD` name the file `datapackage.json`. A data consumer `MUST` support JSON serialization format and `MAY` support other serialization formats like YAML or TOML.
 
-The above states that JSON is the only serialization format that `MUST` be used for publishing a Data Package while other serialization formats can be used in projects or systems internally if supported by corresponding implementations.
+JSON is the serialization format that `MUST` be used for publishing a Data Package while other serialization formats can be used in projects or systems internally if supported by corresponding implementations.
 
 This specification does not define any discoverability mechanisms making a serialized Data Package be referenced only directly by its URI. It means that techically the name of a Data Package file is irrelevant although it is good practice to use `datapackage.json` as a public convention.
 
