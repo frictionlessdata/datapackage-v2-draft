@@ -372,9 +372,46 @@ The field contains a JSON object according to GeoJSON or TopoJSON spec.
 
 The field contains values of a unspecified or mixed type. A data consumer `MUST NOT` perform any processing on this field's values and `MUST` interpret them as it is in the data source. This data type is directly modelled on the concept of the `any` type of strongly typed object-oriented languages like [TypeScript](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any).
 
-[strptime]: https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
-[iso8601-duration]: https://en.wikipedia.org/wiki/ISO_8601#Durations
-[xsd-duration]: http://www.w3.org/TR/xmlschema-2/#duration
+For example, having a Table Schema below:
+
+```json
+{
+  "fields": [
+    { "name": "id", "type": "any" },
+    { "name": "name", "type": "any" }
+  ]
+}
+```
+
+This CSV data file will have logical values as below:
+
+```csv
+id,name
+1,apple
+2,organe
+```
+
+```javascript
+{id: "1", name: "apple"}
+{id: "2", name: "orange"}
+```
+
+While this JSON data file will have logical values as below:
+
+```json
+[
+  ["id", "name"]
+  [1, "apple"]
+  [2, "orange"]
+]
+```
+
+```javascript
+{id: 1, name: "apple"}
+{id: 2, name: "orange"}
+```
+
+Note, that for the CSV data source the `id` field is interpreted as a string because CSV supports only one data type i.e. string, and for the JSON data source the `id` field is interpreted as an integer because JSON supports an integer data type and the value was declared as an integer.
 
 ### Rich Types
 
@@ -806,3 +843,6 @@ Table Schema draws content and/or inspiration from, among others, the following 
 [dspl]: https://developers.google.com/public-data/docs/schema/dspl18
 [html5 forms]: http://www.whatwg.org/specs/web-apps/current-work/#attr-input-typ
 [elasticsearch]: http://www.elasticsearch.org/guide/reference/mapping/
+[strptime]: https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
+[iso8601-duration]: https://en.wikipedia.org/wiki/ISO_8601#Durations
+[xsd-duration]: http://www.w3.org/TR/xmlschema-2/#duration
