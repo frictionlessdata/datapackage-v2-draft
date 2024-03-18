@@ -40,10 +40,8 @@ tableSchema:
               }
             ]
           }
-    exactFields:
-      "$ref": "#/definitions/tableSchemaExactFields"
-    orderedFields:
-      "$ref": "#/definitions/tableSchemaOrderedFields"
+    fieldsMatch:
+      "$ref": "#/definitions/tableSchemaFieldsMatch"
     primaryKey:
       "$ref": "#/definitions/tableSchemaPrimaryKey"
     uniqueKeys:
@@ -121,12 +119,17 @@ tableSchemaField:
     - "$ref": "#/definitions/tableSchemaFieldArray"
     - "$ref": "#/definitions/tableSchemaFieldDuration"
     - "$ref": "#/definitions/tableSchemaFieldAny"
-tableSchemaExactFields:
-  type: boolean
-  default: true
-tableSchemaOrderedFields:
-  type: boolean
-  default: true
+tableSchemaFieldsMatch:
+  type: array
+  item:
+    type: string
+    enum:
+      - exact
+      - equal
+      - subset
+      - superset
+      - partial
+    default: exact
 tableSchemaPrimaryKey:
   oneOf:
     - type: array

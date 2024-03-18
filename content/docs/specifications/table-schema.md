@@ -105,21 +105,17 @@ The following is an illustration of this structure:
 
 A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor as defined below.
 
-The way Table Schema `fields` are mapped onto the data source fields are defined by the combination of the `exactFields` and `orderedFields` properties. By default, the most strict approach is applied i.e. fields in the data source `MUST` completely match the elements in the `fields` array regarding their amount and order. Enabling the properties below, a data producer can relax requirements to the data source.
+The way Table Schema `fields` are mapped onto the data source fields are defined by the `fieldsMatch` property. By default, the most strict approach is applied i.e. fields in the data source `MUST` completely match the elements in the `fields` array regarding their amount and order. Using different options below, a data producer can relax requirements to the data source.
 
-### `exactFields`
+### `fieldsMatch`
 
-A Table Schema descriptor `MAY` contain a property `exactFields` that `MUST` be boolean with default value `true`:
+A Table Schema descriptor `MAY` contain a property `fieldsMatch` that `MUST` be a string with the following possible values and the `exact` value by default:
 
-- **true** (default): The number of fields in the data source `MUST` be exactly the same as the number of elements in the `fields` array.
-- **false**: The number of fields in the data source can be arbitrary i.e. less, equal or more than the number of elements in the `fields` array.
-
-### `orderedFields`
-
-A Table Schema descriptor `MAY` contain a property `orderedFields` that `MUST` be boolean with default value `true`:
-
-- **true** (default): Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their order.
-- **false**: Each element in the `fields` array `MUST` be mapped to the corresponding field in the data source based on their names.
+- **exact** (default): The data source `MUST` have exactly the same fields as defined in the `fields` array. Fields `MUST` be mapped by their order.
+- **equal**: The data source `MUST` have exactly the same fields as defined in the `fields` array. Fields `MUST` be mapped by their names.
+- **subset**: The data source `MUST` have all the fields defined in the `fields` array. Fields `MUST` be mapped by their names.
+- **superset**: The data source `MUST` have only the fields defined in the `fields` array. Fields `MUST` be mapped by their names.
+- **partial**: The data source `MUST` have at least 1 field defined in the `fields` array. Fields `MUST` be mapped by their names.
 
 ## Field Properties
 
