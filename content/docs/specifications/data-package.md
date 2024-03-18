@@ -264,7 +264,7 @@ The people or organizations who contributed to this Data Package. It `MUST` be a
   "title": "Joe Bloggs",
   "email": "joe@bloggs.com",
   "path": "http://www.bloggs.com",
-  "roles": ["author"]
+  "roles": ["creator"]
 }]
 ```
 
