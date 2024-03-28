@@ -113,7 +113,7 @@ A Table Schema descriptor `MAY` contain a property `fieldsMatch` that `MUST` be 
 
 - **exact** (default): The data source `MUST` have exactly the same fields as defined in the `fields` array. Fields `MUST` be mapped by their order.
 - **equal**: The data source `MUST` have exactly the same fields as defined in the `fields` array. Fields `MUST` be mapped by their names.
-- **subset**: The data source `MUST` have all the fields defined in the `fields` array. Fields `MUST` be mapped by their names.
+- **subset**: The data source `MUST` have all the fields defined in the `fields` array, but `MAY` have more. Fields `MUST` be mapped by their names.
 - **superset**: The data source `MUST` have only the fields defined in the `fields` array. Fields `MUST` be mapped by their names.
 - **partial**: The data source `MUST` have at least one field defined in the `fields` array. Fields `MUST` be mapped by their names.
 
