@@ -105,7 +105,7 @@ The following is an illustration of this structure:
 
 A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor as defined below.
 
-The way Table Schema `fields` are mapped onto the data source fields are defined by the `fieldsMatch` property. By default, the most strict approach is applied i.e. fields in the data source `MUST` completely match the elements in the `fields` array regarding their amount and order. Using different options below, a data producer can relax requirements to the data source.
+The way Table Schema `fields` are mapped onto the data source fields are defined by the `fieldsMatch` property. By default, the most strict approach is applied, i.e. fields in the data source `MUST` completely match the elements in the `fields` array, both in number and order. Using different options below, a data producer can relax requirements for the data source.
 
 ### `fieldsMatch`
 
