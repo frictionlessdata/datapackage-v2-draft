@@ -89,7 +89,7 @@ On physical level, Data Resource descriptor is represented by a file. A data pro
 
 JSON is the serialization format that `MUST` be used for publishing a Data Resource while other serialization formats can be used in projects or systems internally if supported by corresponding implementations.
 
-This specification does not define any discoverability mechanisms. Any URI can be used to directly reference a serialized Data Resource. 
+This specification does not define any discoverability mechanisms. Any URI can be used to directly reference a serialized Data Resource.
 
 Key properties of the descriptor are described below. A descriptor `MAY` include any number of properties in additional to those described below as required and optional properties.
 

@@ -73,7 +73,7 @@ On physical level, Table Schema descriptor is represented by a file. A data prod
 
 JSON is the serialization format that `MUST` be used for publishing a Table Schema while other serialization formats can be used in projects or systems internally if supported by corresponding implementations.
 
-This specification does not define any discoverability mechanisms. Any URI can be used to directly reference a serialized Table Schema. 
+This specification does not define any discoverability mechanisms. Any URI can be used to directly reference a serialized Table Schema.
 
 ## Metadata
 
