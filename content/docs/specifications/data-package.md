@@ -273,7 +273,7 @@ The people or organizations who contributed to this Data Package. It `MUST` be a
 - `familyName`: familial name that a person inherits, if the contributor is a person.
 - `path`: a fully qualified http URL pointing to a relevant location online for the contributor
 - `email`: An email address
-- `roles`: an array of strings describing the roles of the contributor. A role is `RECOMMENDED` to follow an established vocabulary, such as [DataCite Metadata Schema's contributorRole](https://support.datacite.org/docs/datacite-metadata-schema-v44-recommended-and-optional-properties#7a-contributortype) or [CreDIT](https://credit.niso.org/). Useful roles to indicate are: creator, contact, rightsHolder, and dataCurator.
+- `roles`: an array of strings describing the roles of the contributor. A role is `RECOMMENDED` to follow an established vocabulary, such as [DataCite Metadata Schema's contributorRole](https://support.datacite.org/docs/datacite-metadata-schema-v44-recommended-and-optional-properties#7a-contributortype) or [CreDIT](https://credit.niso.org/). Useful roles to indicate are: `creator`, `contact`, `rightsHolder`, and `dataCurator`.
 - `organization`: a string describing the organization this contributor is affiliated to.
 
 Use of the "creator" role does not imply that that person was the original creator of the data in the data package - merely that they created and/or maintain the data package. It is common for data packages to "package" up data from elsewhere. The original origin of the data can be indicated with the `sources` property - see above.
