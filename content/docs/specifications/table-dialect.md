@@ -28,7 +28,7 @@ Table Dialect defines set of properties that can be used by data producers and d
 Table Dialect is useful for programmes which might have to deal with multiple dialects of tabular files, but which can rely on being told out-of-band which dialect will be used in a given input stream. This reduces the need for heuristic inference of dialects, and simplifies the implementation of readers, which must juggle dialect inference, schema inference, unseekable input streams, character encoding issues, and the lazy reading of very large input streams.
 
 :::note[Backward Compatibility]
-Table Dialect is a superset of [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/) specification i.e. any CSV Dialect descriptor can be used inside the [Data Package (v2)](https://datapackage.org) descriptor.
+Table Dialect supersedes [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/). Except for `csvddfVersion` which is removed, all CSV Dialect properties are included in Table Dialect and can be used without changes.
 :::
 
 ## Descriptor
