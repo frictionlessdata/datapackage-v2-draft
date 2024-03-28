@@ -15,7 +15,7 @@ sidebar:
   </tr>
 </table>
 
-Table Dialect describes how tabular data is stored in a file. As a superset of [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/), it supports delimited text files like CSV, as well, as semi-structured formats like JSON/YAML, and spreadsheets like Microsoft Excel. The specification is designed to be expressible as a single JSON-compatible descriptor.
+Table Dialect describes how tabular data is stored in a file. As a superset of [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/), it supports delimited text files like CSV, semi-structured formats like JSON and YAML, and spreadsheets like Microsoft Excel. The specification is designed to be expressible as a single JSON-compatible descriptor.
 
 ## Language
 
