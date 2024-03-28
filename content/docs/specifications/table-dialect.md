@@ -4,11 +4,18 @@ sidebar:
   order: 3
 ---
 
-:::tip[Profile]
-Metadata Profile for Table Dialect is available as [JSON Schema](/profiles/table-dialect.json) document.
-:::
+<table>
+  <tr>
+    <th>Author(s)</th>
+    <td>Rufus Pollock</td>
+  </tr>
+  <tr>
+    <th>Profile</th>
+    <td><a href="/profiles/table-dialect.json">table-dialect.json</a></td>
+  </tr>
+</table>
 
-Table Dialect is a simple platform-agnostic way to define various dialects for tabular data formats. It aims to deal with a reasonably large subset of the features which differ between dialects, such as header rows or quoting rules. The specification is designed to be expressible as a single JSON-compatible descriptor.
+Table Dialect describes how tabular data is stored in a file. As a superset of [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/), it supports delimited text files like CSV, as well, as semi-structured formats like JSON/YAML, and spreadsheets like Microsoft Excel. The specification is designed to be expressible as a single JSON-compatible descriptor.
 
 ## Language
 
@@ -20,7 +27,9 @@ Table Dialect defines set of properties that can be used by data producers and d
 
 Table Dialect is useful for programmes which might have to deal with multiple dialects of tabular files, but which can rely on being told out-of-band which dialect will be used in a given input stream. This reduces the need for heuristic inference of dialects, and simplifies the implementation of readers, which must juggle dialect inference, schema inference, unseekable input streams, character encoding issues, and the lazy reading of very large input streams.
 
-Table Dialect is compatible with [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/) specification. The specifications can be used interchangeable in context of the [Data Package (v2)](https://specs.frictionlessdata.io/) standard.
+:::note[Backward Compatibility]
+Table Dialect is a superset of [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/) specification i.e. any CSV Dialect descriptor can be used inside the [Data Package (v2)](https://specs.frictionlessdata.io/) descriptor.
+:::
 
 ## Descriptor
 
