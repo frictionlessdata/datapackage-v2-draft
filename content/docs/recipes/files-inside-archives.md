@@ -1,6 +1,13 @@
 ---
-title: Nested Resources
+title: Files Inside Archives
 ---
+
+<table>
+  <tr>
+    <th>Authors</th>
+    <td>Carles Pina Estany</td>
+  </tr>
+</table>
 
 Some datasets need to contain a Zip file (or tar, other formats) containing a
 set of files.

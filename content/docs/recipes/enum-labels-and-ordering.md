@@ -2,6 +2,13 @@
 title: Enum Labels and Ordering
 ---
 
+<table>
+  <tr>
+    <th>Authors</th>
+    <td>Phil Schumm, Peter Desmet</td>
+  </tr>
+</table>
+
 ## Overview
 
 Many software packages for manipulating and analyzing tabular data have special
