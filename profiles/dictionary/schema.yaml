@@ -70,7 +70,6 @@ tableSchema:
               {
                 "fields": "state",
                 "reference": {
-                  "resource": "",
                   "fields": "id"
                 }
               }
@@ -185,12 +184,10 @@ tableSchemaForeignKey:
         reference:
           type: object
           required:
-            - resource
             - fields
           properties:
             resource:
               type: string
-              default: ""
             fields:
               type: array
               items:
@@ -204,12 +201,10 @@ tableSchemaForeignKey:
         reference:
           type: object
           required:
-            - resource
             - fields
           properties:
             resource:
               type: string
-              default: ""
             fields:
               type: string
 tableSchemaTrueValues:

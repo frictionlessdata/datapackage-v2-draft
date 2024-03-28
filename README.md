@@ -11,12 +11,7 @@ Running the project locally:
 ```bash
 npm install
 npm start
-```
-
-Building profiles:
-
-```bash
-node build.js
+npm run build
 ```
 
 ## Funding
