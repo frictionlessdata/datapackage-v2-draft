@@ -40,6 +40,8 @@ tableSchema:
               }
             ]
           }
+    fieldsMatch:
+      "$ref": "#/definitions/tableSchemaFieldsMatch"
     primaryKey:
       "$ref": "#/definitions/tableSchemaPrimaryKey"
     uniqueKeys:
@@ -68,7 +70,6 @@ tableSchema:
               {
                 "fields": "state",
                 "reference": {
-                  "resource": "",
                   "fields": "id"
                 }
               }
@@ -117,6 +118,17 @@ tableSchemaField:
     - "$ref": "#/definitions/tableSchemaFieldArray"
     - "$ref": "#/definitions/tableSchemaFieldDuration"
     - "$ref": "#/definitions/tableSchemaFieldAny"
+tableSchemaFieldsMatch:
+  type: array
+  item:
+    type: string
+    enum:
+      - exact
+      - equal
+      - subset
+      - superset
+      - partial
+    default: exact
 tableSchemaPrimaryKey:
   oneOf:
     - type: array
@@ -172,12 +184,10 @@ tableSchemaForeignKey:
         reference:
           type: object
           required:
-            - resource
             - fields
           properties:
             resource:
               type: string
-              default: ""
             fields:
               type: array
               items:
@@ -191,12 +201,10 @@ tableSchemaForeignKey:
         reference:
           type: object
           required:
-            - resource
             - fields
           properties:
             resource:
               type: string
-              default: ""
             fields:
               type: string
 tableSchemaTrueValues:
