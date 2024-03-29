@@ -10,27 +10,53 @@ It is a full changelog for Data Package Standard.
 
 > April 1, 2024
 
-- **Added `contributor.roles` property** ([#18](https://github.com/frictionlessdata/datapackage/pull/18))
-- **Changed default field type to be `any`** ([#13](https://github.com/frictionlessdata/datapackage/pull/13))
-- **Add `schema.fieldsMatch` property; clarified extra/non-specified fields in Table Schema** ([#39](https://github.com/frictionlessdata/datapackage/pull/39))
-- **Not require `foreignKey.reference.resource` for self-referencing** ([#29](https://github.com/frictionlessdata/datapackage/pull/29))
-- **Added `contributor.given/familyName`** ([#20](https://github.com/frictionlessdata/datapackage/pull/20))
-- **Discourage usage of unnecessary union types in Table Schema** ([#28](https://github.com/frictionlessdata/datapackage/pull/28))
-- **Added new `list` field type for typed collections, lexically delimiter-based** ([#38](https://github.com/frictionlessdata/datapackage/pull/38))
-- **Added `jsonSchema` constraint to object and array fields** ([#32](https://github.com/frictionlessdata/datapackage/pull/32))
-- **Relax `resource.name` rules but keep it required and unique** ([#27](https://github.com/frictionlessdata/datapackage/pull/27))
-- **Added `uniqueKeys` property to Table Schema** ([#30](https://github.com/frictionlessdata/datapackage/pull/30))
-- **Updated date/time definitions** ([#23](https://github.com/frictionlessdata/datapackage/pull/23))
-- **Forbid hidden folders in the spec (already forbidden in JSON Schema)** ([#19](https://github.com/frictionlessdata/datapackage/pull/19))
-- **Support groupChar for integer field type** ([#6](https://github.com/frictionlessdata/datapackage/pull/6))
-- **Added field.missingValues** ([#24](https://github.com/frictionlessdata/datapackage/pull/24))
-- **Added version property to `source`** ([#10](https://github.com/frictionlessdata/datapackage/pull/10))
-- **Clarified `resource.encoding` property** ([#15](https://github.com/frictionlessdata/datapackage/pull/15))
+### Specifications
+
+- **Forbade hidden folders in the spec (already forbidden in JSON Schema)** ([#19](https://github.com/frictionlessdata/datapackage/pull/19))
+- **Added `source.version` property** ([#10](https://github.com/frictionlessdata/datapackage/pull/10))
 - **Made `contributor.title` and `source.title` not required** ([#7](https://github.com/frictionlessdata/datapackage/pull/7))
-- **Support exclusive constraints in Table Schema** ([#11](https://github.com/frictionlessdata/datapackage/pull/11))
+
+### Data Package
+
+- **Added `contributor.roles` property** ([#18](https://github.com/frictionlessdata/datapackage/pull/18))
+- **Added `contributor.given/familyName`** ([#20](https://github.com/frictionlessdata/datapackage/pull/20))
+- **Fixed `version` property in Data Package profile** ([#3](https://github.com/frictionlessdata/datapackage/pull/3))
+
+### Data Resource
+
+- **Relaxed `resource.name` rules but keep it required and unique** ([#27](https://github.com/frictionlessdata/datapackage/pull/27))
+- **Clarified `resource.encoding` property** ([#15](https://github.com/frictionlessdata/datapackage/pull/15))
+
+### Table Schema
+
+- **Added `schema.fieldsMatch` property; clarified extra/non-specified fields** ([#39](https://github.com/frictionlessdata/datapackage/pull/39))
+
+> This change clarifies the default field matching behaviour and adds new modes for matching data source and Table Schema fields. Please read more about [`schema.fieldsMatch`](../../specifications/table-schema/#fieldsmatch) property.
+
+- **Changed default field type to be `any`** ([#13](https://github.com/frictionlessdata/datapackage/pull/13))
+
+> This change makes field type to be `any` by default and ensures that the field type is not inferred if not provided. Please read more about [`any`](../../specifications/table-schema/#any) type.
+
+- **Added `uniqueKeys` property** ([#30](https://github.com/frictionlessdata/datapackage/pull/30))
+
+> This change adds `uniqueKeys` property directly modelled after corresponding SQL feature. Please read more about [`schema.uniqueKeys`](../../specifications/table-schema/#uniquekeys) property.
+
+- **Added `field.missingValues`** ([#24](https://github.com/frictionlessdata/datapackage/pull/24))
+
+> This change adds a property that allows to specify missing values individually per field. Please read more about [`field.missingValues`](../../specifications/table-schema/#missingvalues) property.
+
+- **Added new `list` field type for typed collections, lexically delimiter-based** ([#38](https://github.com/frictionlessdata/datapackage/pull/38))
+
+> This change adds a new field type `list`. Please read more about [`list`](../../specifications/table-schema/#list) type.
+
+- **Allowed omitting `foreignKey.reference.resource` for self-referencing** ([#29](https://github.com/frictionlessdata/datapackage/pull/29))
+- **Discouraged usage of unnecessary union types** ([#28](https://github.com/frictionlessdata/datapackage/pull/28))
+- **Added `jsonSchema` constraint to object and array fields** ([#32](https://github.com/frictionlessdata/datapackage/pull/32))
+- **Updated date/time definitions** ([#23](https://github.com/frictionlessdata/datapackage/pull/23))
+- **Support groupChar for integer field type** ([#6](https://github.com/frictionlessdata/datapackage/pull/6))
+- **Supported exclusive constraints** ([#11](https://github.com/frictionlessdata/datapackage/pull/11))
 - **Clarified that `geopoint` is number-based** ([#14](https://github.com/frictionlessdata/datapackage/pull/14))
 - **Fixed duration constraint** ([#8](https://github.com/frictionlessdata/datapackage/pull/8))
-- **Fixed `version` property in Data Package profile** ([#3](https://github.com/frictionlessdata/datapackage/pull/3))
 
 ## v1.0.0
 
