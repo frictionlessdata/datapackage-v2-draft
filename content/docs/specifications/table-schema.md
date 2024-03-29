@@ -105,7 +105,7 @@ A Table Schema descriptor `MAY` contain these standard properties:
 
 #### `fields` [required]
 
-A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor as defined below.
+A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a [field descriptor](#field) as defined below.
 
 The way Table Schema `fields` are mapped onto the data source fields are defined by the `fieldsMatch` property. By default, the most strict approach is applied, i.e. fields in the data source `MUST` completely match the elements in the `fields` array, both in number and order. Using different options below, a data producer can relax requirements for the data source.
 
@@ -405,7 +405,7 @@ The corresponding Table Schema is:
 The type list with associated formats and other related properties is as
 follows.
 
-### string
+### `string`
 
 The field contains strings, that is, sequences of characters.
 
@@ -417,7 +417,7 @@ Supported formats:
 - **binary**: A base64 encoded string representing binary data.
 - **uuid**: A string that is a uuid.
 
-### number
+### `number`
 
 The field contains numbers of any kind including decimals.
 
@@ -439,7 +439,7 @@ This lexical formatting `MAY` be modified using these additional properties:
 - **groupChar**: A string whose value is used to group digits within the number. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
-### integer
+### `integer`
 
 The field contains integers - that is whole numbers.
 
@@ -450,7 +450,7 @@ This lexical formatting `MAY` be modified using these additional properties:
 - **groupChar**: A string whose value is used to group digits within the integer. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
-### boolean
+### `boolean`
 
 The field contains boolean (true/false) data.
 
@@ -461,15 +461,15 @@ The boolean field can be customised with these additional properties:
 - **trueValues**: `[ "true", "True", "TRUE", "1" ]`
 - **falseValues**: `[ "false", "False", "FALSE", "0" ]`
 
-### object
+### `object`
 
 The field contains a valid JSON object.
 
-### array
+### `array`
 
 The field contains a valid JSON array.
 
-### list
+### `list`
 
 The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. In the lexical representation, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
 
@@ -480,7 +480,7 @@ The list field can be customised with these additional properties:
 - **delimiter**: specifies the character sequence which separates lexically represented list items. If not present, the default is `,` (comma).
 - **itemType**: specifies the list item type in terms of existent Table Schema types. If present, it `MUST` be one of `string`, `integer`, `boolean`, `number`, `datetme`, `date`, and `time`. If not present, the default is `string`. A data consumer `MUST` process list items as it were individual values of the corresponding data type. Note, that on lexical level only default formats are supported, for example, for a list with `itemType` set to `date`, items have to be in default form for dates i.e. `yyyy-mm-dd`.
 
-### datetime
+### `datetime`
 
 The field contains a date with a time.
 
@@ -490,7 +490,7 @@ Supported formats:
 - **\<PATTERN\>**: values in this field can be parsed according to `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime](https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior). Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": ""%d/%m/%Y %H:%M:%S"` which would correspond to a date with time like: `12/11/2018 09:15:32`.
 - **any**: Any parsable representation of the value. The implementing library can attempt to parse the datetime via a range of strategies. An example is `dateutil.parser.parse` from the `python-dateutils` library. It is `NOT RECOMMENDED` to use `any` format as it might cause interoperability issues.
 
-### date
+### `date`
 
 The field contains a date without a time.
 
@@ -500,7 +500,7 @@ Supported formats:
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
-### time
+### `time`
 
 The field contains a time without a date.
 
@@ -510,15 +510,15 @@ Supported formats:
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
-### year
+### `year`
 
 A calendar year as per [XMLSchema `gYear`](https://www.w3.org/TR/xmlschema-2/#gYear). Usual lexical representation is `YYYY`. There are no format options.
 
-### yearmonth
+### `yearmonth`
 
 A specific month in a specific year as per [XMLSchema `gYearMonth`](https://www.w3.org/TR/xmlschema-2/#gYearMonth). Usual lexical representation is: `YYYY-MM`. There are no format options.
 
-### duration
+### `duration`
 
 A duration of time.
 
@@ -526,7 +526,7 @@ We follow the definition of [XML Schema duration datatype](http://www.w3.org/TR/
 
 To summarize: the lexical representation for duration is the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format PnYnMnDTnHnMnS, where nY represents the number of years, nM the number of months, nD the number of days, 'T' is the date/time separator, nH the number of hours, nM the number of minutes and nS the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
 
-### geopoint
+### `geopoint`
 
 The field contains data describing a geographic point.
 
@@ -537,7 +537,7 @@ Supported formats:
   item is `lat` e.g. `[90.50, 45.50]`
 - **object**: A JSON object with exactly two keys, `lat` and `lon` and each value is a number e.g. `{"lon": 90.50, "lat": 45.50}`
 
-### geojson
+### `geojson`
 
 The field contains a JSON object according to GeoJSON or TopoJSON spec.
 
@@ -546,7 +546,7 @@ Supported formats:
 - **default**: A geojson object as per the [GeoJSON spec](http://geojson.org/).
 - **topojson**: A topojson object as per the [TopoJSON spec](https://github.com/topojson/topojson-specification/blob/master/README.md)
 
-### any
+### `any`
 
 The field contains values of a unspecified or mixed type. A data consumer `MUST NOT` perform any processing on this field's values and `MUST` interpret them as it is in the data source. This data type is directly modelled on the concept of the `any` type of strongly typed object-oriented languages like [TypeScript](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any).
 
