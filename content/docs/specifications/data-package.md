@@ -116,19 +116,23 @@ Here is an illustrative example of a datapackage JSON file:
 
 ## Properties
 
-### Required
+A Data Package descriptor `MUST` have `resoures` property and `SHOULD` have `name`, `id`, `licenses`, and `profile` properties.
 
-#### `resources`
+### `resources` [required]
 
 The `resources` property is `REQUIRED`, with at least one resource.
 
 Packaged data resources are described in the `resources` property of the package descriptor. This property `MUST` be an array of `objects`. Each object `MUST` follow the [Data Resource ](../data-resource/) specification.
 
-### Recommended
+### `name`
 
-In addition to the required properties, the following properties `SHOULD` be included in every package descriptor:
+The name is a simple name or identifier to be used for this package in relation to any registry in which this package will be deposited.
 
-#### `id`
+- It `SHOULD` be human-readable and consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
+- It `SHOULD` be unique in relation to any registry in which this package will be deposited (and preferably globally unique).
+- It `SHOULD` be invariant, meaning that it `SHOULD NOT` change when a data package is updated, unless the new package version `SHOULD` be considered a distinct package, e.g. due to significant changes in structure or interpretation. Version distinction `SHOULD` be left to the version property. As a corollary, the name also `SHOULD NOT` include an indication of time range covered.
+
+### `id`
 
 A property reserved for globally unique identifiers. Examples of identifiers that are unique include UUIDs and DOIs.
 
@@ -148,15 +152,7 @@ Examples:
 }
 ```
 
-#### `name`
-
-The name is a simple name or identifier to be used for this package in relation to any registry in which this package will be deposited.
-
-- It `SHOULD` be human-readable and consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
-- It `SHOULD` be unique in relation to any registry in which this package will be deposited (and preferably globally unique).
-- It `SHOULD` be invariant, meaning that it `SHOULD NOT` change when a data package is updated, unless the new package version `SHOULD` be considered a distinct package, e.g. due to significant changes in structure or interpretation. Version distinction `SHOULD` be left to the version property. As a corollary, the name also `SHOULD NOT` include an indication of time range covered.
-
-#### `licenses`
+### `licenses`
 
 The license(s) under which the package is provided.
 
@@ -180,7 +176,7 @@ Here is an example:
 - `path`: A [url-or-path](../data-resource/#url-or-path) string, that is a fully qualified HTTP address, or a relative POSIX path.
 - `title`: A human-readable title.
 
-#### `profile`
+### `profile`
 
 A string identifying the profile of this descriptor as per the [profiles](https://specs.frictionlessdata.io/profiles/) specification.
 
@@ -198,33 +194,29 @@ Examples:
 }
 ```
 
-### Optional
-
-The following are commonly used properties that the package descriptor `MAY` contain:
-
-#### `title`
+### `title`
 
 A `string` providing a title or one sentence description for this package
 
-#### `description`
+### `description`
 
 A description of the package. The description `MUST` be [markdown](http://commonmark.org/) formatted -- this also allows for simple plain text as plain text is itself valid markdown. The first paragraph (up to the first double line break) `SHOULD` be usable as summary information for the package.
 
-#### `homepage`
+### `homepage`
 
 A URL for the home on the web that is related to this data package.
 
-#### `image`
+### `image`
 
 An image to use for this data package. For example, when showing the package in a listing.
 
 The value of the image property `MUST` be a string pointing to the location of the image. The string `MUST` be a [url-or-path](../data-resource/#url-or-path), that is a fully qualified HTTP address, or a relative POSIX path.
 
-#### `version`
+### `version`
 
 A version string identifying the version of the package. It `SHOULD` conform to the [Semantic Versioning](http://semver.org) requirements and `SHOULD` follow the [Data Package Version](../../recipes/data-package-version) recipe.
 
-#### `created`
+### `created`
 
 The datetime on which this was created.
 
@@ -238,11 +230,11 @@ The datetime `MUST` conform to the string formats for datetime as described in [
 }
 ```
 
-#### `keywords`
+### `keywords`
 
 An Array of string keywords to assist users searching for the package in catalogs.
 
-#### `contributors`
+### `contributors`
 
 The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have at least one property. A Contributor is RECOMMENDED to have `title` property and MAY contain `givenName`, `familyName`, `path`, `email`, `roles`, and `organization` properties. An example of the object structure is as follows:
 
@@ -273,7 +265,7 @@ References:
 If the `roles` property is not provided a data consumer MUST fall back to using `role` property which was a part of the `v1.0` of the specification. This property has the same semantics but it is a string allowing to specify only a single role.
 :::
 
-#### `sources`
+### `sources`
 
 The raw sources for this data package. It `MUST` be an array of Source objects. A Source object `MUST` have at least one property. A Source object is `RECOMMENDED` to have `title` property and `MAY` have `path`, `email`, and `version` properties. Example:
 
