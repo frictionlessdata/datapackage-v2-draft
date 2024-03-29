@@ -16,9 +16,23 @@ It is a full changelog for Data Package Standard.
 
 #### Specifications
 
-- **Forbade hidden folders in the spec (already forbidden in JSON Schema)** ([#19](https://github.com/frictionlessdata/datapackage/pull/19))
-- **Added `source.version` property** ([#10](https://github.com/frictionlessdata/datapackage/pull/10))
-- **Made `contributor.title` and `source.title` not required** ([#7](https://github.com/frictionlessdata/datapackage/pull/7))
+##### Added `source.version` property
+
+This change adds a new property to make possible of providing information about source version. Please read more about [`source.version`](../../specifications/data-package/#sources) property.
+
+> [Pull Request -- #10](https://github.com/frictionlessdata/datapackage/pull/10)
+
+##### Made `contributor/source.title` not required
+
+This change allows omitting `title` property for the `contributor` and `source` objects making it more flexible for data producers.
+
+> [Pull Request -- #7](https://github.com/frictionlessdata/datapackage/pull/7)
+
+##### Forbade hidden folders in the spec
+
+This change fixes definition in the Data Resource specification to explicitly forbid hidden folders.
+
+> [Pull Request -- #19](https://github.com/frictionlessdata/datapackage/pull/19)
 
 #### Data Package
 
