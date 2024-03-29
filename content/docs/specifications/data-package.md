@@ -42,13 +42,13 @@ The data included in the package can be provided as:
 
 A minimal data package on disk would be a directory containing a single file:
 
-```
+```text
 datapackage.json  # (required) metadata and schemas for this data package
 ```
 
 Lacking a single external source of data would make this of limited use. A slightly less minimal version would be:
 
-```
+```text
 datapackage.json
 # a data file (CSV in this case)
 data.csv
@@ -56,7 +56,7 @@ data.csv
 
 Additional files such as a README, scripts (for processing or analyzing the data) and other material may be provided. By convention scripts go in a scripts directory and thus, a more elaborate data package could look like this:
 
-```
+```text
 datapackage.json  # (required) metadata and schemas for this data package
 README.md         # (optional) README in markdown format
 
@@ -68,14 +68,10 @@ data/otherdata.csv
 scripts/my-preparation-script.py
 ```
 
-Several example data packages can be found in the [datasets organization on github][datasets], including:
+Several example data packages can be found in the [datasets organization on github](https://github.com/datasets), including:
 
-- [World GDP][gdp]
-- [ISO 3166-2 country codes][3166]
-
-[datasets]: https://github.com/datasets
-[gdp]: https://github.com/datasets/gdp
-[3166]: https://github.com/datasets/country-codes
+- [World GDP](https://github.com/datasets/gdp)
+- [ISO 3166-2 country codes](https://github.com/datasets/country-codes)
 
 ## Descriptor
 
@@ -84,17 +80,15 @@ The descriptor is the central file in a Data Package. It provides:
 - General metadata such as the package's title, license, publisher etc
 - A list of the data "resources" that make up the package including their location on disk or online and other relevant information (including, possibly, schema information about these data resources in a structured form)
 
-A Data Package descriptor `MUST` be a valid JSON `object`. (JSON is defined in [RFC 4627][]). When available as a file it `MUST` be named `datapackage.json` and it `MUST` be placed in the top-level directory (relative to any other resources provided as part of the data package).
-
-[RFC 4627]: http://www.ietf.org/rfc/rfc4627.txt
+A Data Package descriptor `MUST` be a valid JSON `object`. (JSON is defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)). When available as a file it `MUST` be named `datapackage.json` and it `MUST` be placed in the top-level directory (relative to any other resources provided as part of the data package).
 
 The descriptor `MUST` contain a `resources` property describing the data resources.
 
 All other properties are considered `metadata` properties. The descriptor `MAY` contain any number of other `metadata` properties. The following sections provides a description of required and optional metadata properties for a Data Package descriptor.
 
-Adherence to the specification does not imply that additional, non-specified properties cannot be used: a descriptor `MAY` include any number of properties in additional to those described as required and optional properties. For example, if you were storing time series data and wanted to list the temporal coverage of the data in the Data Package you could add a property `temporal` (cf [Dublin Core][dc-temporal]):
+Adherence to the specification does not imply that additional, non-specified properties cannot be used: a descriptor `MAY` include any number of properties in additional to those described as required and optional properties. For example, if you were storing time series data and wanted to list the temporal coverage of the data in the Data Package you could add a property `temporal` (cf [Dublin Core](http://dublincore.org/documents/usageguide/qualifiers.shtml#temporal)):
 
-```javascript
+```json
 "temporal": {
   "name": "19th Century",
   "start": "1800-01-01",
@@ -102,27 +96,21 @@ Adherence to the specification does not imply that additional, non-specified pro
 }
 ```
 
-This flexibility enables specific communities to extend Data Packages as appropriate for the data they manage. As an example, the [Tabular Data Package][tdp] specification extends Data Package to the case where all the data is tabular and stored in CSV.
-
-[tdp]: /tabular-data-package/
+This flexibility enables specific communities to extend Data Packages as appropriate for the data they manage. As an example, the [Tabular Data Package](https://specs.frictionlessdata.io/tabular-data-package/) specification extends Data Package to the case where all the data is tabular and stored in CSV.
 
 Here is an illustrative example of a datapackage JSON file:
 
-```javascript
+```json
 {
-  # general "metadata" like title, sources etc
   "name" : "a-unique-human-readable-and-url-usable-identifier",
   "title" : "A nice title",
   "licenses" : [ ... ],
-  "sources" : [...],
-  # list of the data resources in this data package
+  "sources" : [ ... ],
   "resources": [
     {
-      ... resource info described below ...
+      ...
     }
-  ],
-  # optional
-  ... additional information ...
+  ]
 }
 ```
 
@@ -148,13 +136,13 @@ A common usage pattern for Data Packages is as a packaging format within the bou
 
 Examples:
 
-```javascript
+```json
 {
   "id": "b03ec84-77fd-4270-813b-0c698943f7ce"
 }
 ```
 
-```javascript
+```json
 {
   "id": "https://doi.org/10.1594/PANGAEA.726855"
 }
@@ -172,13 +160,15 @@ The name is a simple name or identifier to be used for this package in relation 
 
 The license(s) under which the package is provided.
 
-**This property is not legally binding and does not guarantee the package is licensed under the terms defined in this property.**
+:::caution
+This property is not legally binding and does not guarantee the package is licensed under the terms defined in this property.
+:::
 
 `licenses` `MUST` be an array. Each item in the array is a License. Each `MUST` be an `object`. The object `MUST` contain a `name` property and/or a `path` property. It `MAY` contain a `title` property.
 
 Here is an example:
 
-```javascript
+```json
 "licenses": [{
   "name": "ODC-PDDL-1.0",
   "path": "http://opendatacommons.org/licenses/pddl/",
@@ -186,30 +176,23 @@ Here is an example:
 }]
 ```
 
-- `name`: The `name` `MUST` be an [Open Definition license ID][od-licenses]
-- `path`: A [url-or-path][] string, that is a fully qualified HTTP address, or a relative POSIX path (see [the url-or-path definition in Data Resource for details][url-or-path]).
+- `name`: The `name` `MUST` be an [Open Definition license ID](http://licenses.opendefinition.org/)
+- `path`: A [url-or-path](../data-resource/#url-or-path) string, that is a fully qualified HTTP address, or a relative POSIX path.
 - `title`: A human-readable title.
-
-[od-licenses]: http://licenses.opendefinition.org/
-[od-approved]: http://opendefinition.org/licenses/
-[semver]: http://semver.org
-[url-or-path]: /data-resource/#url-or-path
 
 #### `profile`
 
-A string identifying the [profile][] of this descriptor as per the [profiles][profile] specification.
-
-[profile]: /profiles/
+A string identifying the profile of this descriptor as per the [profiles](https://specs.frictionlessdata.io/profiles/) specification.
 
 Examples:
 
-```javascript
+```json
 {
   "profile": "tabular-data-package"
 }
 ```
 
-```javascript
+```json
 {
   "profile": "http://example.com/my-profiles-json-schema.json"
 }
@@ -225,7 +208,7 @@ A `string` providing a title or one sentence description for this package
 
 #### `description`
 
-A description of the package. The description `MUST` be [markdown][] formatted -- this also allows for simple plain text as plain text is itself valid markdown. The first paragraph (up to the first double line break) `SHOULD` be usable as summary information for the package.
+A description of the package. The description `MUST` be [markdown](http://commonmark.org/) formatted -- this also allows for simple plain text as plain text is itself valid markdown. The first paragraph (up to the first double line break) `SHOULD` be usable as summary information for the package.
 
 #### `homepage`
 
@@ -235,11 +218,11 @@ A URL for the home on the web that is related to this data package.
 
 An image to use for this data package. For example, when showing the package in a listing.
 
-The value of the image property `MUST` be a string pointing to the location of the image. The string `MUST` be a [url-or-path][], that is a fully qualified HTTP address, or a relative POSIX path (see [the url-or-path definition in Data Resource for details][url-or-path]).
+The value of the image property `MUST` be a string pointing to the location of the image. The string `MUST` be a [url-or-path](../data-resource/#url-or-path), that is a fully qualified HTTP address, or a relative POSIX path.
 
 #### `version`
 
-A version string identifying the version of the package. It `SHOULD` conform to the [Semantic Versioning][semver] requirements and `SHOULD` follow the [Data Package Version](/recipes/#data-package-version) recipe.
+A version string identifying the version of the package. It `SHOULD` conform to the [Semantic Versioning](http://semver.org) requirements and `SHOULD` follow the [Data Package Version](../../recipes/data-package-version) recipe.
 
 #### `created`
 
@@ -247,9 +230,9 @@ The datetime on which this was created.
 
 Note: semantics may vary between publishers -- for some this is the datetime the data was created, for others the datetime the package was created.
 
-The datetime `MUST` conform to the string formats for datetime as described in [RFC3339][]. Example:
+The datetime `MUST` conform to the string formats for datetime as described in [RFC3339](https://tools.ietf.org/html/rfc3339#section-5.6). Example:
 
-```javascript
+```json
 {
   "created": "1985-04-12T23:20:50.52Z"
 }
@@ -280,7 +263,7 @@ The people or organizations who contributed to this Data Package. It `MUST` be a
 - `roles`: an array of strings describing the roles of the contributor. A role is `RECOMMENDED` to follow an established vocabulary, such as [DataCite Metadata Schema's contributorRole](https://support.datacite.org/docs/datacite-metadata-schema-v44-recommended-and-optional-properties#7a-contributortype) or [CreDIT](https://credit.niso.org/). Useful roles to indicate are: `creator`, `contact`, `rightsHolder`, and `dataCurator`.
 - `organization`: a string describing the organization this contributor is affiliated to.
 
-Use of the "creator" role does not imply that that person was the original creator of the data in the data package - merely that they created and/or maintain the data package. It is common for data packages to "package" up data from elsewhere. The original origin of the data can be indicated with the `sources` property - see above.
+Use of the `creator` role does not imply that that person was the original creator of the data in the data package - merely that they created and/or maintain the data package. It is common for data packages to "package" up data from elsewhere. The original origin of the data can be indicated with the `sources` property - see above.
 
 References:
 
@@ -305,7 +288,3 @@ The raw sources for this data package. It `MUST` be an array of Source objects. 
 - `path`: A [url-or-path][] string, that is a fully qualified HTTP address, or a relative POSIX path (see [the url-or-path definition in Data Resource for details][url-or-path]).
 - `email`: An email address
 - `version`: A version of the source
-
-[RFC3339]: https://tools.ietf.org/html/rfc3339#section-5.6
-[dc-temporal]: http://dublincore.org/documents/usageguide/qualifiers.shtml#temporal
-[markdown]: http://commonmark.org/

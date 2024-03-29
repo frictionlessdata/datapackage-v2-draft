@@ -66,10 +66,10 @@ A comprehensive Data Resource example with all required, recommended and optiona
   "mediatype": "text/csv",
   "encoding": "utf-8",
   "bytes": 1,
-  "hash": "",
-  "schema": "",
-  "sources": "",
-  "licenses": ""
+  "hash": ...,
+  "schema": ...,
+  "sources": [ ... ],
+  "licenses": [ ... ]
 }
 ```
 
