@@ -25,9 +25,9 @@ The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `S
 
 Table Schema is a simple language- and implementation-agnostic way to declare a schema for tabular data. Table Schema is well suited for use cases around handling and validating tabular data in text formats such as CSV, but its utility extends well beyond this core usage, towards a range of applications where data benefits from a portable schema format.
 
-### Concepts
+## Concepts
 
-#### Tabular data
+### Tabular Data
 
 Tabular data consists of a set of rows. Each row has a set of fields (columns). We usually expect that each row has the same set of fields and thus we can talk about _the_ fields for the table as a whole.
 
@@ -57,7 +57,7 @@ In JSON, a table would be:
 ]
 ```
 
-#### Physical and logical representation
+### Data Representation
 
 In order to talk about the representation and processing of tabular data from text-based sources, it is useful to introduce the concepts of the _physical_ and the _logical_ representation of data.
 
@@ -99,13 +99,15 @@ The following is an illustration of this structure:
 
 ## Properties
 
-### `fields`
+### Schema
+
+#### `fields` [required]
 
 A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor as defined below.
 
 The way Table Schema `fields` are mapped onto the data source fields are defined by the `fieldsMatch` property. By default, the most strict approach is applied, i.e. fields in the data source `MUST` completely match the elements in the `fields` array, both in number and order. Using different options below, a data producer can relax requirements for the data source.
 
-### `fieldsMatch`
+#### `fieldsMatch`
 
 A Table Schema descriptor `MAY` contain a property `fieldsMatch` that `MUST` be a string with the following possible values and the `exact` value by default:
 
@@ -115,12 +117,179 @@ A Table Schema descriptor `MAY` contain a property `fieldsMatch` that `MUST` be 
 - **superset**: The data source `MUST` only have fields defined in the `fields` array, but `MAY` have fewer. Fields `MUST` be mapped by their names.
 - **partial**: The data source `MUST` have at least one field defined in the `fields` array. Fields `MUST` be mapped by their names.
 
-## Field Properties
+#### `missingValues`
 
-A field descriptor `MUST` be a JSON `object` that describes a single field. The
-descriptor provides additional human-readable documentation for a field, as
-well as additional information that can be used to validate the field or create
-a user interface for data entry.
+Many datasets arrive with missing data values, either because a value was not collected or it never existed. Missing values may be indicated simply by the value being empty in other cases a special value may have been used e.g. `-`, `NaN`, `0`, `-9999` etc.
+
+`missingValues` dictates which string values `MUST` be treated as `null` values. This conversion to `null` is done before any other attempted type-specific string conversion. The default value `[ "" ]` means that empty strings will be converted to null before any other processing takes place. Providing the empty list `[]` means that no conversion to null will be done, on any value.
+
+`missingValues` `MUST` be an `array` where each entry is a `string`.
+
+**Why strings**: `missingValues` are strings rather than being the data type of the particular field. This allows for comparison prior to casting and for fields to have missing value which are not of their type, for example a `number` field to have missing values indicated by `-`.
+
+Examples:
+
+```text
+"missingValues": [""]
+"missingValues": ["-"]
+"missingValues": ["NaN", "-"]
+```
+
+#### `primaryKey`
+
+A primary key is a field or set of fields that uniquely identifies each row in the table. Per SQL standards, the fields cannot be `null`, so their use in the primary key is equivalent to adding `required: true` to their [`constraints`](#constraints).
+
+The `primaryKey` entry in the schema `object` is optional. If present it specifies the primary key for this table.
+
+The `primaryKey`, if present, `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array (denoting that the primary key is made up of those fields). It is acceptable to have an array with a single value (indicating just one field in the primary key). Strictly, order of values in the array does not matter. However, it is `RECOMMENDED` that one follow the order the fields in the `fields` has as client applications `MAY` utilize the order of the primary key list (e.g. in concatenating values together).
+
+Here's an example:
+
+```json
+"schema": {
+  "fields": [
+    {
+      "name": "a"
+    },
+    {
+      "name": "b"
+    },
+    {
+      "name": "c"
+    },
+    ...
+  ],
+  "primaryKey": ["a", "c"]
+}
+```
+
+:::note[Backward Compatibility]
+Data consumer MUST support the `primaryKey` property in a form of a single string e.g. `primaryKey: a` which was a part of the `v1.0` of the specification.
+:::
+
+#### `uniqueKeys`
+
+A unique key is a field or a set of fields that are required to have unique logical values in each row in the table. It is directly modeled on the concept of unique constraint in SQL.
+
+The `uniqueKeys` property, if present, `MUST` be a non-empty array. Each entry in the array `MUST` be a `uniqueKey`. A `uniqueKey` `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array, denoting that the unique key is made up of those fields. It is acceptable to have an array with a single value, indicating just one field in the unique key.
+
+An example of using the `uniqueKeys` property:
+
+```json
+"fields": [
+  {
+    "name": "a"
+  },
+  {
+    "name": "b"
+  },
+  {
+    "name": "c"
+  }
+],
+"uniqueKeys": [
+  ["a"],
+  ["a", "b"],
+  ["a", "c"]
+]
+```
+
+In the case of the definition above, the data in the table has to be considered valid only if:
+
+- each row has a unique logical value in the field `a`
+- each row has a unique set of logical values in the fields `a` and `b`
+- each row has a unique set of logical values in the fields `a` and `c`
+
+**Handling `null` values**
+
+All the field values that are on the logical level are considered to be `null` values `MUST` be excluded from the uniqueness check, as the `uniqueKeys` property is modeled on the concept of unique constraint in SQL.
+
+**Relation to `constraints.unique`**
+
+In contrast with `field.constraints.unique`, `uniqueKeys` allows to define uniqueness as a combination of fields. Both properties `SHOULD` be assessed separately.
+
+#### `foreignKeys`
+
+A foreign key is a reference where values in a field (or fields) on the table ('resource' in data package terminology) described by this Table Schema connect to values a field (or fields) on this or a separate table (resource). They are directly modelled on the concept of foreign keys in SQL.
+
+The `foreignKeys` property, if present, `MUST` be an Array. Each entry in the array `MUST` be a `foreignKey`. A `foreignKey` `MUST` be a `object` and `MUST` have the following properties:
+
+- `fields` - `fields` is an array of strings specifying the
+  field or fields on this resource that form the source part of the foreign
+  key. The structure of the array is as per `primaryKey` above.
+- `reference` - `reference` `MUST` be a `object`. The `object`
+  - `MUST` have a property `fields` which is an array of strings of the same length as the outer `fields`, describing the field (or fields) references on the destination resource. The structure of the array is as per `primaryKey` above.
+  - `MAY` have a property `resource` which is the name of the resource within the current data package, i.e. the data package within which this Table Schema is located. For referencing another data resource the `resource` property `MUST` be provided. For self-referencing, i.e. references between fields in this Table Schema, the `resource` property `MUST` be omitted.
+
+Here's an example:
+
+```json
+"resources": [
+  {
+    "name": "state-codes",
+    "schema": {
+      "fields": [
+        {"name": "code"}
+      ]
+    }
+  },
+  {
+    "name": "population-by-state",
+    "schema": {
+      "fields": [
+        {"name": "state-code"}
+      ],
+      "foreignKeys": [
+        {
+          "fields": ["state-code"],
+          "reference": {
+            "resource": "state-codes",
+            "fields": ["code"]
+          }
+        }
+      ]
+    }
+  }
+]
+```
+
+An example of a self-referencing foreign key:
+
+```json
+"resources": [
+  {
+    "name": "xxx",
+    "schema": {
+      "fields": [
+        {"name": "parent"},
+        {"name": "id"}
+      ],
+      "foreignKeys": [
+        {
+          "fields": ["parent"],
+          "reference": {
+            "fields": ["id"]
+          }
+        }
+      ]
+    }
+  }
+]
+```
+
+Foreign Keys create links between one Table Schema and another Table Schema, and implicitly between the data tables described by those Table Schemas. If the foreign key is referring to another Table Schema how is that other Table Schema discovered? The answer is that a Table Schema will usually be embedded inside some larger descriptor for a dataset, in particular as the schema for a resource in the resources array of a [Data Package](http://specs.frictionlessdata.io/data-package/). It is the use of Table Schema in this way that permits a meaningful use of a non-empty `resource` property on the foreign key.
+
+:::note[Backward Compatibility]
+If the value of the `foreignKey.reference.resource` property is an empty string `""` a data consumer MUST interpret it as an omited property as an empty string for self-referencing was a part of the `v1.0` of the specification.
+:::
+
+:::note[Backward Compatibility]
+Data consumer MUST support the `foreignKey.fields` and `foreignKey.reference.fields` properties in a form of a single string e.g. `"fields": "a"` which was a part of the `v1.0` of the specification.
+:::
+
+### Field
+
+A field descriptor `MUST` be a JSON `object` that describes a single field. The descriptor provides additional human-readable documentation for a field, as well as additional information that can be used to validate the field or create a user interface for data entry.
 
 Here is an illustration:
 
@@ -140,7 +309,7 @@ Here is an illustration:
 
 The field descriptor `object` `MAY` contain any number of other properties. Some specific properties are defined below. Of these, only the `name` property is `REQUIRED`.
 
-### `name`
+#### `name` [required]
 
 The field descriptor `MUST` contain a `name` property and it `MUST` be unique amongst other field names in this Table Schema. This property `SHOULD` correspond to the name of a column in the data file if it has a name.
 
@@ -148,19 +317,35 @@ The field descriptor `MUST` contain a `name` property and it `MUST` be unique am
 If the `name` properties are not unique amongst a Table Schema a data consumer `MUST NOT` interpret it as an invalid descriptor as duplicate `name` properties were allowed in the `v1.0` of the specification.
 :::
 
-### `title`
+#### `type` and `format`
+
+These properties are used to give the type of the field (string, number, etc.) - see below for more detail. If type is not provided a consumer `MUST` utilize the `any` type for the field instead of inferring it from the field's values.
+
+A field's `type` property is a string indicating the type of this field.
+
+A field's `format` property is a string, indicating a format for the field type.
+
+Both `type` and `format` are optional: in a field descriptor, the absence of a `type` property indicates that the field is of the type "any", and the absence of a `format` property indicates that the field's type `format` is "default".
+
+Types are based on the [type set of json-schema](http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1) with some additions and minor modifications (cf other type lists include those in [Elasticsearch types](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)).
+
+#### `title`
 
 A human readable label or title for the field
 
-### `description`
+#### `description`
 
 A description for this field e.g. "The recipient of the funds"
 
-### `example`
+#### `example`
 
 An example value for the field
 
-### `missingValues`
+#### `constraints`
+
+See [Field Constraints](#field-constraints)
+
+#### `missingValues`
 
 A list of missing values for this field as per [Missing Values](#missing-values) definition. If this property is defined, it takes precedence over the schema-level property and completely replaces it for the field without combining the values.
 
@@ -184,22 +369,41 @@ A data consumer `MUST`:
 - interpret `""` and `NA` as missing values for `column1`
 - interpret only `-` as a missing value for `column2`
 
-### Types and Formats
+#### `rdfType`
 
-`type` and `format` properties are used to give the type of the field (string, number, etc.) - see below for more detail. If type is not provided a consumer `MUST` utilize the `any` type for the field instead of inferring it from the field's values.
+A richer, "semantic", description of the "type" of data in a given column `MAY` be provided using a `rdfType` property on a field descriptor.
 
-A field's `type` property is a string indicating the type of this field.
+The value of the `rdfType` property `MUST` be the URI of a RDF Class, that is an instance or subclass of [RDF Schema Class object](https://www.w3.org/TR/rdf-schema/#ch_class).
 
-A field's `format` property is a string, indicating a format for the field type.
+Here is an example using the Schema.org RDF Class `http://schema.org/Country`:
 
-Both `type` and `format` are optional: in a field descriptor, the absence of a `type` property indicates that the field is of the type "any", and the absence of a `format` property indicates that the field's type `format` is "default".
+```text
+| Country | Year Date | Value |
+| ------- | --------- | ----- |
+| US      | 2010      | ...   |
+```
 
-Types are based on the [type set of json-schema](http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1) with some additions and minor modifications (cf other type lists include those in [Elasticsearch types](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)).
+The corresponding Table Schema is:
+
+```json
+{
+  "fields": [
+    {
+      "name": "Country",
+      "type": "string",
+      "rdfType": "http://schema.org/Country"
+    }
+    ...
+  }
+}
+```
+
+## Field Types
 
 The type list with associated formats and other related properties is as
 follows.
 
-#### string
+### string
 
 The field contains strings, that is, sequences of characters.
 
@@ -211,7 +415,7 @@ The field contains strings, that is, sequences of characters.
 - **binary**: A base64 encoded string representing binary data.
 - **uuid**: A string that is a uuid.
 
-#### number
+### number
 
 The field contains numbers of any kind including decimals.
 
@@ -235,7 +439,7 @@ This lexical formatting `MAY` be modified using these additional properties:
 
 `format`: no options (other than the default).
 
-#### integer
+### integer
 
 The field contains integers - that is whole numbers.
 
@@ -248,7 +452,7 @@ This lexical formatting `MAY` be modified using these additional properties:
 
 `format`: no options (other than the default).
 
-#### boolean
+### boolean
 
 The field contains boolean (true/false) data.
 
@@ -261,19 +465,19 @@ The boolean field can be customised with these additional properties:
 
 `format`: no options (other than the default).
 
-#### object
+### object
 
 The field contains a valid JSON object.
 
 `format`: no options (other than the default).
 
-#### array
+### array
 
 The field contains a valid JSON array.
 
 `format`: no options (other than the default).
 
-#### list
+### list
 
 The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. In the lexical representation, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
 
@@ -284,7 +488,7 @@ The list field can be customised with these additional properties:
 - **delimiter**: specifies the character sequence which separates lexically represented list items. If not present, the default is `,` (comma).
 - **itemType**: specifies the list item type in terms of existent Table Schema types. If present, it `MUST` be one of `string`, `integer`, `boolean`, `number`, `datetme`, `date`, and `time`. If not present, the default is `string`. A data consumer `MUST` process list items as it were individual values of the corresponding data type. Note, that on lexical level only default formats are supported, for example, for a list with `itemType` set to `date`, items have to be in default form for dates i.e. `yyyy-mm-dd`.
 
-#### datetime
+### datetime
 
 The field contains a date with a time.
 
@@ -294,7 +498,7 @@ The field contains a date with a time.
 - **\<PATTERN\>**: values in this field can be parsed according to `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime](https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior). Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": ""%d/%m/%Y %H:%M:%S"` which would correspond to a date with time like: `12/11/2018 09:15:32`.
 - **any**: Any parsable representation of the value. The implementing library can attempt to parse the datetime via a range of strategies. An example is `dateutil.parser.parse` from the `python-dateutils` library. It is `NOT RECOMMENDED` to use `any` format as it might cause interoperability issues.
 
-#### date
+### date
 
 The field contains a date without a time.
 
@@ -304,7 +508,7 @@ The field contains a date without a time.
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
-#### time
+### time
 
 The field contains a time without a date.
 
@@ -314,15 +518,15 @@ The field contains a time without a date.
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
-#### year
+### year
 
 A calendar year as per [XMLSchema `gYear`](https://www.w3.org/TR/xmlschema-2/#gYear). Usual lexical representation is `YYYY`. There are no format options.
 
-#### yearmonth
+### yearmonth
 
 A specific month in a specific year as per [XMLSchema `gYearMonth`](https://www.w3.org/TR/xmlschema-2/#gYearMonth). Usual lexical representation is: `YYYY-MM`. There are no format options.
 
-#### duration
+### duration
 
 A duration of time.
 
@@ -332,7 +536,7 @@ To summarize: the lexical representation for duration is the [ISO 8601](https://
 
 `format`: no options (other than the default).
 
-#### geopoint
+### geopoint
 
 The field contains data describing a geographic point.
 
@@ -343,7 +547,7 @@ The field contains data describing a geographic point.
   item is `lat` e.g. `[90.50, 45.50]`
 - **object**: A JSON object with exactly two keys, `lat` and `lon` and each value is a number e.g. `{"lon": 90.50, "lat": 45.50}`
 
-#### geojson
+### geojson
 
 The field contains a JSON object according to GeoJSON or TopoJSON spec.
 
@@ -352,7 +556,7 @@ The field contains a JSON object according to GeoJSON or TopoJSON spec.
 - **default**: A geojson object as per the [GeoJSON spec](http://geojson.org/).
 - **topojson**: A topojson object as per the [TopoJSON spec](https://github.com/topojson/topojson-specification/blob/master/README.md)
 
-#### any
+### any
 
 The field contains values of a unspecified or mixed type. A data consumer `MUST NOT` perform any processing on this field's values and `MUST` interpret them as it is in the data source. This data type is directly modelled on the concept of the `any` type of strongly typed object-oriented languages like [TypeScript](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any).
 
@@ -397,36 +601,7 @@ While this JSON data file will have logical values as below:
 
 Note, that for the CSV data source the `id` field is interpreted as a string because CSV supports only one data type i.e. string, and for the JSON data source the `id` field is interpreted as an integer because JSON supports a numeric data type and the value was declared as an integer. Also, for the Table Schema above a `type` property for each field can be omitted as it is a default field type.
 
-### Rich Types
-
-A richer, "semantic", description of the "type" of data in a given column `MAY` be provided using a `rdfType` property on a field descriptor.
-
-The value of the `rdfType` property `MUST` be the URI of a RDF Class, that is an instance or subclass of [RDF Schema Class object](https://www.w3.org/TR/rdf-schema/#ch_class).
-
-Here is an example using the Schema.org RDF Class `http://schema.org/Country`:
-
-```text
-| Country | Year Date | Value |
-| ------- | --------- | ----- |
-| US      | 2010      | ...   |
-```
-
-The corresponding Table Schema is:
-
-```json
-{
-  "fields": [
-    {
-      "name": "Country",
-      "type": "string",
-      "rdfType": "http://schema.org/Country"
-    }
-    ...
-  }
-}
-```
-
-### Constraints
+## Field Constraints
 
 The `constraints` property on Table Schema Fields can be used by consumers to list constraints for validating field values. For example, validating the data in a [Tabular Data Resource](https://specs.frictionlessdata.io/tabular-data-package/) against its Table Schema; or as a means to validate data being collected or updated via a data entry interface.
 
@@ -610,180 +785,6 @@ A constraints descriptor `MUST` be a JSON `object` and `MAY` contain one or more
 - A constraints descriptor `MAY` contain multiple constraints, in which case implementations `MUST` apply all the constraints when determining if a field value is valid.
 - Constraints `MUST` be applied on the logical representation of field values and constraint values.
   :::
-
-## Other Properties
-
-In additional to field descriptors, there are the following "table level" properties.
-
-### Missing Values
-
-Many datasets arrive with missing data values, either because a value was not collected or it never existed. Missing values may be indicated simply by the value being empty in other cases a special value may have been used e.g. `-`, `NaN`, `0`, `-9999` etc.
-
-`missingValues` dictates which string values `MUST` be treated as `null` values. This conversion to `null` is done before any other attempted type-specific string conversion. The default value `[ "" ]` means that empty strings will be converted to null before any other processing takes place. Providing the empty list `[]` means that no conversion to null will be done, on any value.
-
-`missingValues` `MUST` be an `array` where each entry is a `string`.
-
-**Why strings**: `missingValues` are strings rather than being the data type of the particular field. This allows for comparison prior to casting and for fields to have missing value which are not of their type, for example a `number` field to have missing values indicated by `-`.
-
-Examples:
-
-```text
-"missingValues": [""]
-"missingValues": ["-"]
-"missingValues": ["NaN", "-"]
-```
-
-### Primary Key
-
-A primary key is a field or set of fields that uniquely identifies each row in the table. Per SQL standards, the fields cannot be `null`, so their use in the primary key is equivalent to adding `required: true` to their [`constraints`](#constraints).
-
-The `primaryKey` entry in the schema `object` is optional. If present it specifies the primary key for this table.
-
-The `primaryKey`, if present, `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array (denoting that the primary key is made up of those fields). It is acceptable to have an array with a single value (indicating just one field in the primary key). Strictly, order of values in the array does not matter. However, it is `RECOMMENDED` that one follow the order the fields in the `fields` has as client applications `MAY` utilize the order of the primary key list (e.g. in concatenating values together).
-
-Here's an example:
-
-```json
-"schema": {
-  "fields": [
-    {
-      "name": "a"
-    },
-    {
-      "name": "b"
-    },
-    {
-      "name": "c"
-    },
-    ...
-  ],
-  "primaryKey": ["a", "c"]
-}
-```
-
-:::note[Backward Compatibility]
-Data consumer MUST support the `primaryKey` property in a form of a single string e.g. `primaryKey: a` which was a part of the `v1.0` of the specification.
-:::
-
-### Unique Keys
-
-A unique key is a field or a set of fields that are required to have unique logical values in each row in the table. It is directly modeled on the concept of unique constraint in SQL.
-
-The `uniqueKeys` property, if present, `MUST` be a non-empty array. Each entry in the array `MUST` be a `uniqueKey`. A `uniqueKey` `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array, denoting that the unique key is made up of those fields. It is acceptable to have an array with a single value, indicating just one field in the unique key.
-
-An example of using the `uniqueKeys` property:
-
-```json
-"fields": [
-  {
-    "name": "a"
-  },
-  {
-    "name": "b"
-  },
-  {
-    "name": "c"
-  }
-],
-"uniqueKeys": [
-  ["a"],
-  ["a", "b"],
-  ["a", "c"]
-]
-```
-
-In the case of the definition above, the data in the table has to be considered valid only if:
-
-- each row has a unique logical value in the field `a`
-- each row has a unique set of logical values in the fields `a` and `b`
-- each row has a unique set of logical values in the fields `a` and `c`
-
-#### Handling `null` values
-
-All the field values that are on the logical level are considered to be `null` values `MUST` be excluded from the uniqueness check, as the `uniqueKeys` property is modeled on the concept of unique constraint in SQL.
-
-#### Relation to `constraints.unique`
-
-In contrast with `field.constraints.unique`, `uniqueKeys` allows to define uniqueness as a combination of fields. Both properties `SHOULD` be assessed separately.
-
-### Foreign Keys
-
-A foreign key is a reference where values in a field (or fields) on the table ('resource' in data package terminology) described by this Table Schema connect to values a field (or fields) on this or a separate table (resource). They are directly modelled on the concept of foreign keys in SQL.
-
-The `foreignKeys` property, if present, `MUST` be an Array. Each entry in the array `MUST` be a `foreignKey`. A `foreignKey` `MUST` be a `object` and `MUST` have the following properties:
-
-- `fields` - `fields` is an array of strings specifying the
-  field or fields on this resource that form the source part of the foreign
-  key. The structure of the array is as per `primaryKey` above.
-- `reference` - `reference` `MUST` be a `object`. The `object`
-  - `MUST` have a property `fields` which is an array of strings of the same length as the outer `fields`, describing the field (or fields) references on the destination resource. The structure of the array is as per `primaryKey` above.
-  - `MAY` have a property `resource` which is the name of the resource within the current data package, i.e. the data package within which this Table Schema is located. For referencing another data resource the `resource` property `MUST` be provided. For self-referencing, i.e. references between fields in this Table Schema, the `resource` property `MUST` be omitted.
-
-Here's an example:
-
-```json
-"resources": [
-  {
-    "name": "state-codes",
-    "schema": {
-      "fields": [
-        {"name": "code"}
-      ]
-    }
-  },
-  {
-    "name": "population-by-state",
-    "schema": {
-      "fields": [
-        {"name": "state-code"}
-      ],
-      "foreignKeys": [
-        {
-          "fields": ["state-code"],
-          "reference": {
-            "resource": "state-codes",
-            "fields": ["code"]
-          }
-        }
-      ]
-    }
-  }
-]
-```
-
-An example of a self-referencing foreign key:
-
-```json
-"resources": [
-  {
-    "name": "xxx",
-    "schema": {
-      "fields": [
-        {"name": "parent"},
-        {"name": "id"}
-      ],
-      "foreignKeys": [
-        {
-          "fields": ["parent"],
-          "reference": {
-            "fields": ["id"]
-          }
-        }
-      ]
-    }
-  }
-]
-```
-
-Foreign Keys create links between one Table Schema and another Table Schema, and implicitly between the data tables described by those Table Schemas. If the foreign key is referring to another Table Schema how is that other Table Schema discovered? The answer is that a Table Schema will usually be embedded inside some larger descriptor for a dataset, in particular as the schema for a resource in the resources array of a [Data Package](http://specs.frictionlessdata.io/data-package/). It is the use of Table Schema in this way that permits a meaningful use of a non-empty `resource` property on the foreign key.
-
-:::note[Backward Compatibility]
-If the value of the `foreignKey.reference.resource` property is an empty string `""` a data consumer MUST interpret it as an omited property as an empty string for self-referencing was a part of the `v1.0` of the specification.
-:::
-
-:::note[Backward Compatibility]
-Data consumer MUST support the `foreignKey.fields` and `foreignKey.reference.fields` properties in a form of a single string e.g. `"fields": "a"` which was a part of the `v1.0` of the specification.
-:::
 
 ## Related Work
 
