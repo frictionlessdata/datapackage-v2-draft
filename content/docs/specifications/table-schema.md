@@ -101,6 +101,8 @@ The following is an illustration of this structure:
 
 ### Schema
 
+A Table Schema descriptor `MAY` contain these standard properties:
+
 #### `fields` [required]
 
 A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a field descriptor as defined below.
@@ -407,7 +409,7 @@ follows.
 
 The field contains strings, that is, sequences of characters.
 
-`format`:
+Supported formats:
 
 - **default**: any valid string.
 - **email**: A valid email address.
@@ -437,8 +439,6 @@ This lexical formatting `MAY` be modified using these additional properties:
 - **groupChar**: A string whose value is used to group digits within the number. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
-`format`: no options (other than the default).
-
 ### integer
 
 The field contains integers - that is whole numbers.
@@ -449,8 +449,6 @@ This lexical formatting `MAY` be modified using these additional properties:
 
 - **groupChar**: A string whose value is used to group digits within the integer. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
-
-`format`: no options (other than the default).
 
 ### boolean
 
@@ -463,19 +461,13 @@ The boolean field can be customised with these additional properties:
 - **trueValues**: `[ "true", "True", "TRUE", "1" ]`
 - **falseValues**: `[ "false", "False", "FALSE", "0" ]`
 
-`format`: no options (other than the default).
-
 ### object
 
 The field contains a valid JSON object.
 
-`format`: no options (other than the default).
-
 ### array
 
 The field contains a valid JSON array.
-
-`format`: no options (other than the default).
 
 ### list
 
@@ -492,7 +484,7 @@ The list field can be customised with these additional properties:
 
 The field contains a date with a time.
 
-`format`:
+Supported formats:
 
 - **default**: The lexical representation `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`.
 - **\<PATTERN\>**: values in this field can be parsed according to `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime](https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior). Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": ""%d/%m/%Y %H:%M:%S"` which would correspond to a date with time like: `12/11/2018 09:15:32`.
@@ -502,7 +494,7 @@ The field contains a date with a time.
 
 The field contains a date without a time.
 
-`format`:
+Supported formats:
 
 - **default**: The lexical representation `MUST` be `yyyy-mm-dd` e.g. `2024-01-26`
 - **\<PATTERN\>**: The same as for `datetime`
@@ -512,7 +504,7 @@ The field contains a date without a time.
 
 The field contains a time without a date.
 
-`format`:
+Supported formats:
 
 - **default**: The lexical representation `MUST` be `hh:mm:ss` e.g. `15:00:00`
 - **\<PATTERN\>**: The same as for `datetime`
@@ -534,13 +526,11 @@ We follow the definition of [XML Schema duration datatype](http://www.w3.org/TR/
 
 To summarize: the lexical representation for duration is the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format PnYnMnDTnHnMnS, where nY represents the number of years, nM the number of months, nD the number of days, 'T' is the date/time separator, nH the number of hours, nM the number of minutes and nS the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
 
-`format`: no options (other than the default).
-
 ### geopoint
 
 The field contains data describing a geographic point.
 
-`format`:
+Supported formats:
 
 - **default**: A string of the pattern "lon, lat", where each value is a number, and `lon` is the longitude and `lat` is the latitude (note the space is optional after the `,`). E.g. `"90.50, 45.50"`.
 - **array**: A JSON array, or a string parsable as a JSON array, of exactly two items, where each item is a number, and the first item is `lon` and the second
@@ -551,7 +541,7 @@ The field contains data describing a geographic point.
 
 The field contains a JSON object according to GeoJSON or TopoJSON spec.
 
-`format`:
+Supported formats:
 
 - **default**: A geojson object as per the [GeoJSON spec](http://geojson.org/).
 - **topojson**: A topojson object as per the [TopoJSON spec](https://github.com/topojson/topojson-specification/blob/master/README.md)
@@ -607,177 +597,84 @@ The `constraints` property on Table Schema Fields can be used by consumers to li
 
 All constraints `MUST` be tested against the logical representation of data, and the physical representation of constraint values `MAY` be primitive types as possible in JSON, or represented as strings that are castable with the `type` and `format` rules of the field.
 
-A constraints descriptor `MUST` be a JSON `object` and `MAY` contain one or more of the following properties.
+A constraints descriptor `MUST` be a JSON `object` and `MAY` contain one or more of the following properties:
 
-<table>
-  <tr>
-    <th>
-      Property
-    </th>
-    <th>
-      Type
-    </th>
-    <th>
-      Applies to
-    </th>
-    <th>
-      Description
-    </th>
-  </tr>
-  <tr>
-    <td>
-      <code>required</code>
-    </td>
-    <td>
-      boolean
-    </td>
-    <td>
-      All
-    </td>
-    <td>
-      Indicates whether this field cannot be <code>null</code>. If required is <code>false</code> (the default), then <code>null</code> is allowed. See the section on <code>missingValues</code> for how, in the physical representation of the data, strings can represent <code>null</code> values.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>unique</code>
-    </td>
-    <td>
-      boolean
-    </td>
-    <td>
-      All
-    </td>
-    <td>
-      If <code>true</code>, then all values for that field `MUST` be unique within the data file in which it is found.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>minLength</code>
-    </td>
-    <td>
-      integer
-    </td>
-    <td>
-      collections (string, array, object)
-    </td>
-    <td>
-      An integer that specifies the minimum length of a value.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>maxLength</code>
-    </td>
-    <td>
-      integer
-    </td>
-    <td>
-      collections (string, array, object)
-    </td>
-    <td>
-      An integer that specifies the maximum length of a value.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>minimum</code>
-    </td>
-    <td>
-      integer, number, date, time, datetime, duration, year, yearmonth
-    </td>
-    <td>
-      <code>integer, number, date, time, datetime, duration, year, yearmonth</code>
-    </td>
-    <td>
-      Specifies a minimum value for a field. This is different to <code>minLength</code> which checks the number of items in the value. A <code>minimum</code> value constraint checks whether a field value is greater than or equal to the specified value. The range checking depends on the <code>type</code> of the field. E.g. an integer field may have a minimum value of 100; a date field might have a minimum date. If a <code>minimum</code> value constraint is specified then the field descriptor <code>MUST</code> contain a <code>type</code> key.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>maximum</code>
-    </td>
-    <td>
-      integer, number, date, time, datetime, duration, year, yearmonth
-    </td>
-    <td>
-      <code>integer, number, date, time, datetime, duration, year, yearmonth</code>
-    </td>
-    <td>
-      As for <code>minimum</code>, but specifies a maximum value for a field.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>exclusiveMinimum</code>
-    </td>
-    <td>
-      integer, number, date, time, datetime, duration, year, yearmonth
-    </td>
-    <td>
-      <code>integer, number, date, time, datetime, duration, year, yearmonth</code>
-    </td>
-    <td>
-      As for <code>minimum</code>, but for expressing exclusive range.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>exclusiveMaximum</code>
-    </td>
-    <td>
-      integer, number, date, time, datetime, duration, year, yearmonth
-    </td>
-    <td>
-      <code>integer, number, date, time, datetime, duration, year, yearmonth</code>
-    </td>
-    <td>
-      As for <code>maximum</code>, but for expressing exclusive range.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>jsonSchema</code>
-    </td>
-    <td>
-      object
-    </td>
-    <td>
-      <code>array</code>, <code>object</code>
-    </td>
-    <td>A valid JSON Schema object to validate field values. If a field value conforms to the provided JSON Schema then this field value is valid.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>pattern</code>
-    </td>
-    <td>
-      string
-    </td>
-    <td>
-      <code>string</code>
-    </td>
-    <td>
-      A regular expression that can be used to test field values. If the regular expression matches then the value is valid. The values of this field <code>MUST</code> conform to the standard <a href="http://www.w3.org/TR/xmlschema-2/#regexs">XML Schema regular expression syntax</a>.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <code>enum</code>
-    </td>
-    <td>
-      array
-    </td>
-    <td>
-      All
-    </td>
-    <td>
-      The value of the field `MUST` exactly match a value in the <code>enum</code> array.
-    </td>
-  </tr>
-</table>
+### `required`
+
+- **Type**: boolean
+- **Fields**: all
+
+Indicates whether this field cannot be `null`. If required is `false` (the default), then `null` is allowed. See the section on `missingValues` for how, in the physical representation of the data, strings can represent `null` values.
+
+### `unique`
+
+- **Type**: boolean
+- **Fields**: all
+
+If `true`, then all values for that field `MUST` be unique within the data file in which it is found.
+
+### `minLength`
+
+- **Type**: integer
+- **Fields**: collections (string, array, object)
+
+An integer that specifies the minimum length of a value.
+
+### `maxLength`
+
+- **Type**: integer
+- **Fields**: collections (string, array, object)
+
+An integer that specifies the maximum length of a value.
+
+### `minimum`
+
+- **Type**: integer, number, date, time, datetime, duration, year, yearmonth
+- **Fields**: integer, number, date, time, datetime, duration, year, yearmonth
+
+Specifies a minimum value for a field. This is different to `minLength` which checks the number of items in the value. A `minimum` value constraint checks whether a field value is greater than or equal to the specified value. The range checking depends on the `type` of the field. E.g. an integer field may have a minimum value of 100; a date field might have a minimum date. If a `minimum` value constraint is specified then the field descriptor `MUST` contain a `type` key.
+
+### `maximum`
+
+- **Type**: integer, number, date, time, datetime, duration, year, yearmonth
+- **Fields**: integer, number, date, time, datetime, duration, year, yearmonth
+
+As for `minimum`, but specifies a maximum value for a field.
+
+### `exclusiveMinimum`
+
+- **Type**: integer, number, date, time, datetime, duration, year, yearmonth
+- **Fields**: integer, number, date, time, datetime, duration, year, yearmonth
+
+As for `minimum`, but for expressing exclusive range.
+
+### `exclusiveMaximum`
+
+- **Type**: integer, number, date, time, datetime, duration, year, yearmonth
+- **Fields**: integer, number, date, time, datetime, duration, year, yearmonth
+
+As for `maximum`, but for expressing exclusive range.
+
+### `jsonSchema`
+
+- **Type**: object
+- **Fields**: array, object
+
+A valid JSON Schema object to validate field values. If a field value conforms to the provided JSON Schema then this field value is valid.
+
+### `pattern`
+
+- **Type**: string
+- **Fields**: string
+
+A regular expression that can be used to test field values. If the regular expression matches then the value is valid. The values of this field `MUST` conform to the standard [XML Schema regular expression syntax](http://www.w3.org/TR/xmlschema-2/#regexs).
+
+### `enum`
+
+- **Type**: array
+- **Fields**: all
+
+The value of the field `MUST` exactly match one of the values in the `enum` array.
 
 :::note[Implementation Note]
 
