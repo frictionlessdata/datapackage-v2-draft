@@ -79,13 +79,9 @@ A Data Resource descriptor `MUST` be a valid JSON `object`. (JSON is defined in 
 
 ## Properties
 
-Key properties of the descriptor are described below. A descriptor `MAY` include any number of properties in additional to those described below as required and optional properties.
+Standard properties of the descriptor are described below. A descriptor `MAY` include any number of properties in additional to those described below as required and optional properties.
 
-### Required
-
-A descriptor `MUST` contain the following properties:
-
-#### `name`
+### `name` [required]
 
 A resource `MUST` contain a `name` property. The name is a simple name or identifier to be used for this resource.
 
@@ -93,18 +89,18 @@ A resource `MUST` contain a `name` property. The name is a simple name or identi
 - It `SHOULD` be human-readable and consist only of lowercase alphanumeric characters plus `.`, `-` and `\_`.
 - It would be usual for the name to correspond to the file name (minus the extension) of the data file the resource describes.
 
-#### `path` or `data`
+### `path` or `data` [required]
 
 A resource `MUST` contain a property describing the location of the data associated to the resource. The location of resource data `MUST` be specified by the presence of one (and only one) of these two properties:
 
 - `path`: for data in files located online or locally on disk.
 - `data`: for data inline in the descriptor itself.
 
-##### Single File
+#### Single File
 
 If a resource have only a single file then `path` `MUST` be a string that a "url-or-path" as defined in [URL of Path](#url-or-path) section.
 
-##### Multiple Files
+#### Multiple Files
 
 Usually, a resource will have only a single file associated to it. However, sometimes it can be convenient to have a single resource whose data is split across multiple files -- perhaps the data is large and having it in one file would be inconvenient.
 
@@ -122,7 +118,7 @@ It is NOT permitted to mix fully qualified URLs and relative paths in a `path` a
 All files in the array `MUST` be similar in terms of structure, format etc. Implementors `MUST` be able to concatenate together the files in the simplest way and treat the result as one large file. For tabular data there is the issue of header rows. See the [Tabular Data Package spec](https://specs.frictionlessdata.io/tabular-data-package/) for more on this.
 :::
 
-##### Inline Data
+#### Inline Data
 
 Resource data rather than being stored in external files can be shipped `inline` on a Resource using the `data` property.
 
@@ -165,9 +161,7 @@ Or inline CSV:
 Prior to release 1.0.0-beta.18 (Nov 17 2016) there was a `url` property distinct from `path`. In order to support backwards compatibility, implementors `MAY` want to automatically convert a `url` property to a `path` property and issue a warning.
 :::
 
-### Recommended
-
-#### `profile`
+### `profile`
 
 A string identifying the profile of this descriptor as per the [profiles](https://specs.frictionlessdata.io/profiles/) specification.
 
@@ -185,35 +179,31 @@ Examples:
 }
 ```
 
-### Optional
-
-A descriptor `MAY` contain any number of additional properties. The standard properties are:
-
-#### `title`
+### `title`
 
 Title or label for the resource.
 
-#### `description`
+### `description`
 
 Description of the resource.
 
-#### `format`
+### `format`
 
 Would be expected to be the standard file extension for this type of resource.For example, `csv`, `xls`, `json` etc.
 
-#### `mediatype`
+### `mediatype`
 
 Te mediatype/mimetype of the resource e.g. "text/csv", or "application/vnd.ms-excel". Mediatypes are maintained by the Internet Assigned Numbers Authority (IANA) in a [media type registry](https://www.iana.org/assignments/media-types/media-types.xhtml).
 
-#### `encoding`
+### `encoding`
 
 The character encoding of resource's data file (only applicable for textual files). The value `SHOULD` be one of the "Preferred MIME Names" for [a character encoding registered with IANA](http://www.iana.org/assignments/character-sets/character-sets.xhtml). If no value for this property is specified then the encoding `SHOULD` be detected on the implementation level. It is `RECOMMENDED` to use UTF-8 (without BOM) as a default encoding for textual files.
 
-#### `bytes`
+### `bytes`
 
 Size of the file in bytes.
 
-#### `hash`
+### `hash`
 
 The MD5 hash for this resource. Other algorithms can be indicated by prefixing the hash's value with the algorithm name in lower-case. For example:
 
@@ -223,15 +213,15 @@ The MD5 hash for this resource. Other algorithms can be indicated by prefixing t
 }
 ```
 
-#### `sources`
+### `sources`
 
 List of data sources as for [Data Package](../data-package/#sources).
 
-#### `licenses`
+### `licenses`
 
 List of licenses as for [Data Package](../data-package/#licenses). If not specified the resource inherits from the data package.
 
-#### `schema`
+### `schema`
 
 A Data Resource `MAY` have a `schema` property to describe the schema of the resource data.
 
@@ -241,7 +231,7 @@ If a `string` it must be a [url-or-path as defined above](#url-or-path), that is
 
 NOTE: the Data Package specification places no restrictions on the form of the schema Object. This flexibility enables specific communities to define schemas appropriate for the data they manage. As an example, the [Tabular Data Package](https://specs.frictionlessdata.io/tabular-data-package/) specification requires the schema to conform to [Table Schema](../table-schema/).
 
-### URL or Path
+## URL or Path
 
 A `url-or-path` is a `string` with the following additional constraints:
 
