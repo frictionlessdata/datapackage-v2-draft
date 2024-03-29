@@ -4,7 +4,7 @@ sidebar:
   order: 10
 ---
 
-It is a full changelog for Data Package Standard.
+This document includes all meaningful changes made to the **specifications** consisting the Data Package Standard. It does not track changes made to other documents like recipes or guides.
 
 ## v2.0.0-draft.1
 
@@ -12,7 +12,7 @@ It is a full changelog for Data Package Standard.
 
 ### Overview
 
-The Data Package (v2) draft release includes rich set of the specification improvements accepted by the Data Package Working Group during the active phase of the Data Package (v2) Standard work.
+The Data Package (v2) draft release includes a rich set of the specification improvements accepted by the Data Package Working Group during the active phase of the Data Package (v2) work.
 
 ### Changes
 
