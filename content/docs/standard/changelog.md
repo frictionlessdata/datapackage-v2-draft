@@ -22,21 +22,35 @@ It is a full changelog for Data Package Standard.
 
 #### Data Package
 
-- **Added `contributor.roles` property** ([#18](https://github.com/frictionlessdata/datapackage/pull/18))
-- **Added `contributor.given/familyName`** ([#20](https://github.com/frictionlessdata/datapackage/pull/20))
-- **Fixed `version` property in Data Package profile** ([#3](https://github.com/frictionlessdata/datapackage/pull/3))
+##### Added `contributor.given/familyName`
+
+This change adds two new properties to the `contributor` object: `givenName` and `familyName`. Please read more about [`package.contributors`](../../specifications/data-resource/#contributors) property.
+
+> [Pull Request -- #20](https://github.com/frictionlessdata/datapackage/pull/20)
+
+##### Added `contributor.roles` property
+
+This change adds a new `contributors.roles` property that replaces `contributor.role`. Please read more about [`package.contributors`](../../specifications/data-resource/#contributors) property.
+
+> [Pull Request -- #18](https://github.com/frictionlessdata/datapackage/pull/18)
+
+##### Fixed `version` property in Data Package profile
+
+This change adds omitted `version` property to the Data Package profiles.
+
+> [Pull Request -- #3](https://github.com/frictionlessdata/datapackage/pull/3)
 
 #### Data Resource
 
 ##### Relaxed `resource.name` rules but keep it required and unique
 
-This change relaxes requirements to `resource.name` allowing it to be any string. This property still needs to present and be unique among resources.
+This change relaxes requirements to `resource.name` allowing it to be any string. This property still needs to present and be unique among resources. Please read more about [`resource.name`](../../specifications/data-resource/#name) property.
 
 > [Pull Request -- #27](https://github.com/frictionlessdata/datapackage/pull/27)
 
 ##### Clarified `resource.encoding` property
 
-This change updates the `resource.encoding` property definition to properly support binary file formats like Parquet.
+This change updates the `resource.encoding` property definition to properly support binary file formats like Parquet. Please read more about [`resource.encoding`](../../specifications/data-resource/#encoding) property.
 
 > [Pull Request -- #15](https://github.com/frictionlessdata/datapackage/pull/15)
 
