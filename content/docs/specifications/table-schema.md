@@ -35,23 +35,27 @@ In case of tables in spreadsheets or CSV files we often interpret the first row 
 
 To illustrate, here's a classic spreadsheet table:
 
-    field     field
-      |         |
-      |         |
-      V         V
+```text
+field     field
+  |         |
+  |         |
+  V         V
 
-     A     |    B    |    C    |    D      <--- Row (Header)
-     ------------------------------------
-     valA  |   valB  |  valC   |   valD    <--- Row
-     ...
+ A     |    B    |    C    |    D      <--- Row (Header)
+ ------------------------------------
+ valA  |   valB  |  valC   |   valD    <--- Row
+ ...
+```
 
 In JSON, a table would be:
 
-    [
-      { "A": value, "B": value, ... },
-      { "A": value, "B": value, ... },
-      ...
-    ]
+```json
+[
+  { "A": value, "B": value, ... },
+  { "A": value, "B": value, ... },
+  ...
+]
+```
 
 #### Physical and logical representation
 
@@ -73,12 +77,9 @@ The descriptor `MAY` have the additional properties set out below and `MAY` cont
 
 The following is an illustration of this structure:
 
-```javascript
+```json
 {
-  // fields is an ordered list of field descriptors
-  // one for each field (column) in the table
   "fields": [
-    // a field-descriptor
     {
       "name": "name of field (e.g. column name)",
       "title": "A nicer human readable label or title for the field",
@@ -88,14 +89,11 @@ The following is an illustration of this structure:
       "description": "A description for the field"
       ...
     },
-    ... more field descriptors
+    ...
   ],
-  // (optional) specification of missing values
   "missingValues": [ ... ],
-  // (optional) specification of the primary key
-  "primaryKey": ...
-  // (optional) specification of the foreign keys
-  "foreignKeys": ...
+  "primaryKey": [ ... ]
+  "foreignKeys": [... ]
 }
 ```
 
@@ -126,7 +124,7 @@ a user interface for data entry.
 
 Here is an illustration:
 
-```javascript
+```json
 {
   "name": "name of field (e.g. column name)",
   "title": "A nicer human readable label or title for the field",
@@ -135,7 +133,7 @@ Here is an illustration:
   "example": "An example value for the field",
   "description": "A description for the field",
   "constraints": {
-      // a constraints-descriptor
+      ...
   }
 }
 ```
@@ -194,16 +192,9 @@ A field's `type` property is a string indicating the type of this field.
 
 A field's `format` property is a string, indicating a format for the field type.
 
-Both `type` and `format` are optional: in a field descriptor, the absence of a
-`type` property indicates that the field is of the type "any", and the
-absence of a `format` property indicates that the field's type `format` is
-"default".
+Both `type` and `format` are optional: in a field descriptor, the absence of a `type` property indicates that the field is of the type "any", and the absence of a `format` property indicates that the field's type `format` is "default".
 
-Types are based on the [type set of
-json-schema](http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1)
-with some additions and minor modifications (cf other type lists include
-those in [Elasticsearch
-types](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)).
+Types are based on the [type set of json-schema](http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1) with some additions and minor modifications (cf other type lists include those in [Elasticsearch types](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)).
 
 The type list with associated formats and other related properties is as
 follows.
@@ -224,12 +215,7 @@ The field contains strings, that is, sequences of characters.
 
 The field contains numbers of any kind including decimals.
 
-The lexical formatting follows that of decimal in [XMLSchema][xsd-decimal]: a
-non-empty finite-length sequence of decimal digits separated by a period as a
-decimal indicator. An optional leading sign is allowed. If the sign is omitted,
-"+" is assumed. Leading and trailing zeroes are optional. If the fractional
-part is zero, the period and following zero(es) can be omitted. For example:
-'-1.23', '12678967.543233', '+100000.00', '210'.
+The lexical formatting follows that of decimal in [XMLSchema](https://www.w3.org/TR/xmlschema-2/#decimal): a non-empty finite-length sequence of decimal digits separated by a period as a decimal indicator. An optional leading sign is allowed. If the sign is omitted, "+" is assumed. Leading and trailing zeroes are optional. If the fractional part is zero, the period and following zero(es) can be omitted. For example: '-1.23', '12678967.543233', '+100000.00', '210'.
 
 The following special string values are permitted (case need not be respected):
 
@@ -239,20 +225,15 @@ The following special string values are permitted (case need not be respected):
 
 A number `MAY` also have a trailing:
 
-- exponent: this `MUST` consist of an E followed by an optional + or - sign
-  followed by one or more decimal digits (0-9)
+- exponent: this `MUST` consist of an E followed by an optional + or - sign followed by one or more decimal digits (0-9)
 
 This lexical formatting `MAY` be modified using these additional properties:
 
-- **decimalChar**: A string whose value is used to represent a decimal point
-  within the number. The default value is ".".
-- **groupChar**: A string whose value is used to group digits within the
-  number. This property does not have a default value. A common value is "," e.g. "100,000".
+- **decimalChar**: A string whose value is used to represent a decimal point within the number. The default value is ".".
+- **groupChar**: A string whose value is used to group digits within the number. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
 `format`: no options (other than the default).
-
-[xsd-decimal]: https://www.w3.org/TR/xmlschema-2/#decimal
 
 #### integer
 
@@ -262,8 +243,7 @@ Integer values are indicated in the standard way for any valid integer.
 
 This lexical formatting `MAY` be modified using these additional properties:
 
-- **groupChar**: A string whose value is used to group digits within the
-  integer. This property does not have a default value. A common value is "," e.g. "100,000".
+- **groupChar**: A string whose value is used to group digits within the integer. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
 `format`: no options (other than the default).
@@ -311,7 +291,7 @@ The field contains a date with a time.
 `format`:
 
 - **default**: The lexical representation `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`.
-- **\<PATTERN\>**: values in this field can be parsed according to `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime][strptime]. Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": ""%d/%m/%Y %H:%M:%S"` which would correspond to a date with time like: `12/11/2018 09:15:32`.
+- **\<PATTERN\>**: values in this field can be parsed according to `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime](https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior). Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": ""%d/%m/%Y %H:%M:%S"` which would correspond to a date with time like: `12/11/2018 09:15:32`.
 - **any**: Any parsable representation of the value. The implementing library can attempt to parse the datetime via a range of strategies. An example is `dateutil.parser.parse` from the `python-dateutils` library. It is `NOT RECOMMENDED` to use `any` format as it might cause interoperability issues.
 
 #### date
@@ -336,35 +316,19 @@ The field contains a time without a date.
 
 #### year
 
-A calendar year as per [XMLSchema `gYear`][xsd-gyear].
-
-Usual lexical representation is `YYYY`. There are no format options.
-
-[xsd-gyear]: https://www.w3.org/TR/xmlschema-2/#gYear
+A calendar year as per [XMLSchema `gYear`](https://www.w3.org/TR/xmlschema-2/#gYear). Usual lexical representation is `YYYY`. There are no format options.
 
 #### yearmonth
 
-A specific month in a specific year as per [XMLSchema
-`gYearMonth`][xsd-gyearmonth].
-
-Usual lexical representation is: `YYYY-MM`. There are no format options.
-
-[xsd-gyearmonth]: https://www.w3.org/TR/xmlschema-2/#gYearMonth
+A specific month in a specific year as per [XMLSchema `gYearMonth`](https://www.w3.org/TR/xmlschema-2/#gYearMonth). Usual lexical representation is: `YYYY-MM`. There are no format options.
 
 #### duration
 
 A duration of time.
 
-We follow the definition of [XML Schema duration datatype][xsd-duration] directly
-and that definition is implicitly inlined here.
+We follow the definition of [XML Schema duration datatype](http://www.w3.org/TR/xmlschema-2/#duration) directly and that definition is implicitly inlined here.
 
-To summarize: the lexical representation for duration is the [ISO 8601][iso8601-duration]
-extended format PnYnMnDTnHnMnS, where nY represents the number of years, nM the
-number of months, nD the number of days, 'T' is the date/time separator, nH the
-number of hours, nM the number of minutes and nS the number of seconds. The
-number of seconds can include decimal digits to arbitrary precision. Date and
-time elements including their designator `MAY` be omitted if their value is zero,
-and lower order elements `MAY` also be omitted for reduced precision.
+To summarize: the lexical representation for duration is the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format PnYnMnDTnHnMnS, where nY represents the number of years, nM the number of months, nD the number of days, 'T' is the date/time separator, nH the number of hours, nM the number of minutes and nS the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
 
 `format`: no options (other than the default).
 
@@ -435,14 +399,13 @@ Note, that for the CSV data source the `id` field is interpreted as a string bec
 
 ### Rich Types
 
-A richer, "semantic", description of the "type" of data in a given column `MAY`
-be provided using a `rdfType` property on a field descriptor.
+A richer, "semantic", description of the "type" of data in a given column `MAY` be provided using a `rdfType` property on a field descriptor.
 
-The value of the `rdfType` property `MUST` be the URI of a RDF Class, that is an instance or subclass of [RDF Schema Class object][rdfs-class]
+The value of the `rdfType` property `MUST` be the URI of a RDF Class, that is an instance or subclass of [RDF Schema Class object](https://www.w3.org/TR/rdf-schema/#ch_class).
 
 Here is an example using the Schema.org RDF Class `http://schema.org/Country`:
 
-```
+```text
 | Country | Year Date | Value |
 | ------- | --------- | ----- |
 | US      | 2010      | ...   |
@@ -450,31 +413,26 @@ Here is an example using the Schema.org RDF Class `http://schema.org/Country`:
 
 The corresponding Table Schema is:
 
-```javascript
+```json
+{
+  "fields": [
     {
-      fields: [
-        {
-          "name": "Country",
-          "type": "string",
-          "rdfType": "http://schema.org/Country"
-        }
-        ...
-      }
+      "name": "Country",
+      "type": "string",
+      "rdfType": "http://schema.org/Country"
     }
+    ...
+  }
+}
 ```
-
-[rdfs-class]: https://www.w3.org/TR/rdf-schema/#ch_class
 
 ### Constraints
 
-The `constraints` property on Table Schema Fields can be used by consumers to list constraints for validating field values. For example, validating the data in a [Tabular Data Resource][tdr] against its Table Schema; or as a means to validate data being collected or updated via a data entry interface.
-
-[tdr]: http://specs.frictionlessdata.io/tabular-data-resource/
+The `constraints` property on Table Schema Fields can be used by consumers to list constraints for validating field values. For example, validating the data in a [Tabular Data Resource](https://specs.frictionlessdata.io/tabular-data-package/) against its Table Schema; or as a means to validate data being collected or updated via a data entry interface.
 
 All constraints `MUST` be tested against the logical representation of data, and the physical representation of constraint values `MAY` be primitive types as possible in JSON, or represented as strings that are castable with the `type` and `format` rules of the field.
 
-A constraints descriptor `MUST` be a JSON `object` and `MAY` contain one or more of the following
-properties.
+A constraints descriptor `MUST` be a JSON `object` and `MAY` contain one or more of the following properties.
 
 <table>
   <tr>
@@ -646,11 +604,12 @@ properties.
   </tr>
 </table>
 
-**Implementors**:
+:::note[Implementation Note]
 
 - Implementations `SHOULD` report an error if an attempt is made to evaluate a value against an unsupported constraint.
 - A constraints descriptor `MAY` contain multiple constraints, in which case implementations `MUST` apply all the constraints when determining if a field value is valid.
 - Constraints `MUST` be applied on the logical representation of field values and constraint values.
+  :::
 
 ## Other Properties
 
@@ -660,9 +619,7 @@ In additional to field descriptors, there are the following "table level" proper
 
 Many datasets arrive with missing data values, either because a value was not collected or it never existed. Missing values may be indicated simply by the value being empty in other cases a special value may have been used e.g. `-`, `NaN`, `0`, `-9999` etc.
 
-`missingValues` dictates which string values `MUST` be treated as `null` values. This conversion to `null` is done before any other attempted type-specific string conversion.
-The default value `[ "" ]` means that empty strings will be converted to null before any other processing takes place.
-Providing the empty list `[]` means that no conversion to null will be done, on any value.
+`missingValues` dictates which string values `MUST` be treated as `null` values. This conversion to `null` is done before any other attempted type-specific string conversion. The default value `[ "" ]` means that empty strings will be converted to null before any other processing takes place. Providing the empty list `[]` means that no conversion to null will be done, on any value.
 
 `missingValues` `MUST` be an `array` where each entry is a `string`.
 
@@ -670,7 +627,7 @@ Providing the empty list `[]` means that no conversion to null will be done, on 
 
 Examples:
 
-```javascript
+```text
 "missingValues": [""]
 "missingValues": ["-"]
 "missingValues": ["NaN", "-"]
@@ -678,13 +635,9 @@ Examples:
 
 ### Primary Key
 
-A primary key is a field or set of fields that uniquely identifies each row in
-the table. Per SQL standards, the fields cannot be `null`, so their use in the
-primary key is equivalent to adding `required: true` to their
-[`constraints`](#constraints).
+A primary key is a field or set of fields that uniquely identifies each row in the table. Per SQL standards, the fields cannot be `null`, so their use in the primary key is equivalent to adding `required: true` to their [`constraints`](#constraints).
 
-The `primaryKey` entry in the schema `object` is optional. If present it specifies
-the primary key for this table.
+The `primaryKey` entry in the schema `object` is optional. If present it specifies the primary key for this table.
 
 The `primaryKey`, if present, `MUST` be an array of strings with each string corresponding to one of the field `name` values in the `fields` array (denoting that the primary key is made up of those fields). It is acceptable to have an array with a single value (indicating just one field in the primary key). Strictly, order of values in the array does not matter. However, it is `RECOMMENDED` that one follow the order the fields in the `fields` has as client applications `MAY` utilize the order of the primary key list (e.g. in concatenating values together).
 
@@ -755,13 +708,9 @@ In contrast with `field.constraints.unique`, `uniqueKeys` allows to define uniqu
 
 ### Foreign Keys
 
-A foreign key is a reference where values in a field (or fields) on the
-table ('resource' in data package terminology) described by this Table Schema
-connect to values a field (or fields) on this or a separate table (resource).
-They are directly modelled on the concept of foreign keys in SQL.
+A foreign key is a reference where values in a field (or fields) on the table ('resource' in data package terminology) described by this Table Schema connect to values a field (or fields) on this or a separate table (resource). They are directly modelled on the concept of foreign keys in SQL.
 
-The `foreignKeys` property, if present, `MUST` be an Array. Each entry in the
-array `MUST` be a `foreignKey`. A `foreignKey` `MUST` be a `object` and `MUST` have the following properties:
+The `foreignKeys` property, if present, `MUST` be an Array. Each entry in the array `MUST` be a `foreignKey`. A `foreignKey` `MUST` be a `object` and `MUST` have the following properties:
 
 - `fields` - `fields` is an array of strings specifying the
   field or fields on this resource that form the source part of the foreign
@@ -836,23 +785,13 @@ If the value of the `foreignKey.reference.resource` property is an empty string 
 Data consumer MUST support the `foreignKey.fields` and `foreignKey.reference.fields` properties in a form of a single string e.g. `"fields": "a"` which was a part of the `v1.0` of the specification.
 :::
 
-## Appendix: Related Work
+## Related Work
 
 Table Schema draws content and/or inspiration from, among others, the following specifications and implementations:
 
-- [XML Schema][]
-- [Google BigQuery][]
-- [JSON Schema][]
-- [DSPL][]
-- [HTML5 Forms][]
-- [Elasticsearch][]
-
-[xml schema]: http://www.w3.org/TR/xmlschema-2/#built-in-primitive-datatypes
-[google bigquery]: https://developers.google.com/bigquery/docs/import#loading_json_files
-[json schema]: http://json-schema.org
-[dspl]: https://developers.google.com/public-data/docs/schema/dspl18
-[html5 forms]: http://www.whatwg.org/specs/web-apps/current-work/#attr-input-typ
-[elasticsearch]: http://www.elasticsearch.org/guide/reference/mapping/
-[strptime]: https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior
-[iso8601-duration]: https://en.wikipedia.org/wiki/ISO_8601#Durations
-[xsd-duration]: http://www.w3.org/TR/xmlschema-2/#duration
+- [XML Schema](http://www.w3.org/TR/xmlschema-2/#built-in-primitive-datatypes)
+- [Google BigQuery](https://developers.google.com/bigquery/docs/import#loading_json_files)
+- [JSON Schema](http://json-schema.org)
+- [DSPL](https://developers.google.com/public-data/docs/schema/dspl18)
+- [HTML5 Forms](http://www.whatwg.org/specs/web-apps/current-work/#attr-input-typ)
+- [Elasticsearch](http://www.elasticsearch.org/guide/reference/mapping/)
