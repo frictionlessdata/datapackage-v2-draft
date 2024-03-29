@@ -38,7 +38,7 @@ The data included in the package can be provided as:
 - Remote resources, referenced by URL
 - "Inline" data (see below) which is included directly in the descriptor
 
-### Illustrative Structure
+## Structure
 
 A minimal data package on disk would be a directory containing a single file:
 
@@ -77,9 +77,7 @@ Several example data packages can be found in the [datasets organization on gith
 [gdp]: https://github.com/datasets/gdp
 [3166]: https://github.com/datasets/country-codes
 
-## Specification
-
-### Descriptor
+## Descriptor
 
 The descriptor is the central file in a Data Package. It provides:
 
@@ -128,31 +126,21 @@ Here is an illustrative example of a datapackage JSON file:
 }
 ```
 
-### Resource Information
+## Properties
 
-Packaged data resources are described in the `resources` property of the package descriptor. This property `MUST` be an array of `objects`. Each object `MUST` follow the [Data Resource specification][dr].
+### Required
 
-[dr]: /data-resource/
-
-### Metadata
-
-#### Required Properties
+#### `resources`
 
 The `resources` property is `REQUIRED`, with at least one resource.
 
-#### Recommended Properties
+Packaged data resources are described in the `resources` property of the package descriptor. This property `MUST` be an array of `objects`. Each object `MUST` follow the [Data Resource ](../data-resource/) specification.
+
+### Recommended
 
 In addition to the required properties, the following properties `SHOULD` be included in every package descriptor:
 
-##### `name`
-
-The name is a simple name or identifier to be used for this package in relation to any registry in which this package will be deposited.
-
-- It `SHOULD` be human-readable and consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
-- It `SHOULD` be unique in relation to any registry in which this package will be deposited (and preferably globally unique).
-- It `SHOULD` be invariant, meaning that it `SHOULD NOT` change when a data package is updated, unless the new package version `SHOULD` be considered a distinct package, e.g. due to significant changes in structure or interpretation. Version distinction `SHOULD` be left to the version property. As a corollary, the name also `SHOULD NOT` include an indication of time range covered.
-
-##### `id`
+#### `id`
 
 A property reserved for globally unique identifiers. Examples of identifiers that are unique include UUIDs and DOIs.
 
@@ -172,7 +160,15 @@ Examples:
 }
 ```
 
-##### `licenses`
+#### `name`
+
+The name is a simple name or identifier to be used for this package in relation to any registry in which this package will be deposited.
+
+- It `SHOULD` be human-readable and consist only of lowercase alphanumeric characters plus ".", "-" and "\_".
+- It `SHOULD` be unique in relation to any registry in which this package will be deposited (and preferably globally unique).
+- It `SHOULD` be invariant, meaning that it `SHOULD NOT` change when a data package is updated, unless the new package version `SHOULD` be considered a distinct package, e.g. due to significant changes in structure or interpretation. Version distinction `SHOULD` be left to the version property. As a corollary, the name also `SHOULD NOT` include an indication of time range covered.
+
+#### `licenses`
 
 The license(s) under which the package is provided.
 
@@ -199,7 +195,7 @@ Here is an example:
 [semver]: http://semver.org
 [url-or-path]: /data-resource/#url-or-path
 
-##### `profile`
+#### `profile`
 
 A string identifying the [profile][] of this descriptor as per the [profiles][profile] specification.
 
@@ -219,43 +215,51 @@ Examples:
 }
 ```
 
-#### Optional Properties
+### Optional
 
 The following are commonly used properties that the package descriptor `MAY` contain:
 
-##### `title`
+#### `title`
 
 A `string` providing a title or one sentence description for this package
 
-##### `description`
+#### `description`
 
 A description of the package. The description `MUST` be [markdown][] formatted -- this also allows for simple plain text as plain text is itself valid markdown. The first paragraph (up to the first double line break) `SHOULD` be usable as summary information for the package.
 
-##### `homepage`
+#### `homepage`
 
 A URL for the home on the web that is related to this data package.
 
-##### `version`
+#### `image`
+
+An image to use for this data package. For example, when showing the package in a listing.
+
+The value of the image property `MUST` be a string pointing to the location of the image. The string `MUST` be a [url-or-path][], that is a fully qualified HTTP address, or a relative POSIX path (see [the url-or-path definition in Data Resource for details][url-or-path]).
+
+#### `version`
 
 A version string identifying the version of the package. It `SHOULD` conform to the [Semantic Versioning][semver] requirements and `SHOULD` follow the [Data Package Version](/recipes/#data-package-version) recipe.
 
-##### `sources`
+#### `created`
 
-The raw sources for this data package. It `MUST` be an array of Source objects. A Source object `MUST` have at least one property. A Source object is `RECOMMENDED` to have `title` property and `MAY` have `path`, `email`, and `version` properties. Example:
+The datetime on which this was created.
 
-```json
-"sources": [{
-  "title": "World Bank and OECD",
-  "path": "http://data.worldbank.org/indicator/NY.GDP.MKTP.CD"
-}]
+Note: semantics may vary between publishers -- for some this is the datetime the data was created, for others the datetime the package was created.
+
+The datetime `MUST` conform to the string formats for datetime as described in [RFC3339][]. Example:
+
+```javascript
+{
+  "created": "1985-04-12T23:20:50.52Z"
+}
 ```
 
-- `title`: title of the source (e.g. document or organization name)
-- `path`: A [url-or-path][] string, that is a fully qualified HTTP address, or a relative POSIX path (see [the url-or-path definition in Data Resource for details][url-or-path]).
-- `email`: An email address
-- `version`: A version of the source
+#### `keywords`
 
-##### `contributors`
+An Array of string keywords to assist users searching for the package in catalogs.
+
+#### `contributors`
 
 The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have at least one property. A Contributor is RECOMMENDED to have `title` property and MAY contain `givenName`, `familyName`, `path`, `email`, `roles`, and `organization` properties. An example of the object structure is as follows:
 
@@ -286,29 +290,21 @@ References:
 If the `roles` property is not provided a data consumer MUST fall back to using `role` property which was a part of the `v1.0` of the specification. This property has the same semantics but it is a string allowing to specify only a single role.
 :::
 
-##### `keywords`
+#### `sources`
 
-An Array of string keywords to assist users searching for the package in catalogs.
+The raw sources for this data package. It `MUST` be an array of Source objects. A Source object `MUST` have at least one property. A Source object is `RECOMMENDED` to have `title` property and `MAY` have `path`, `email`, and `version` properties. Example:
 
-##### `image`
-
-An image to use for this data package. For example, when showing the package in a listing.
-
-The value of the image property `MUST` be a string pointing to the location of the image. The string `MUST` be a [url-or-path][], that is a fully qualified HTTP address, or a relative POSIX path (see [the url-or-path definition in Data Resource for details][url-or-path]).
-
-##### `created`
-
-The datetime on which this was created.
-
-Note: semantics may vary between publishers -- for some this is the datetime the data was created, for others the datetime the package was created.
-
-The datetime `MUST` conform to the string formats for datetime as described in [RFC3339][]. Example:
-
-```javascript
-{
-  "created": "1985-04-12T23:20:50.52Z"
-}
+```json
+"sources": [{
+  "title": "World Bank and OECD",
+  "path": "http://data.worldbank.org/indicator/NY.GDP.MKTP.CD"
+}]
 ```
+
+- `title`: title of the source (e.g. document or organization name)
+- `path`: A [url-or-path][] string, that is a fully qualified HTTP address, or a relative POSIX path (see [the url-or-path definition in Data Resource for details][url-or-path]).
+- `email`: An email address
+- `version`: A version of the source
 
 [RFC3339]: https://tools.ietf.org/html/rfc3339#section-5.6
 [dc-temporal]: http://dublincore.org/documents/usageguide/qualifiers.shtml#temporal
