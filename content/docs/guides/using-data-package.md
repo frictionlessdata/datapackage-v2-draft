@@ -18,6 +18,8 @@ The simplest way to start using the Data Package Standard is by installing [Open
 
 You can use the visual interface as you usually do in any modern IDE, adding and moving files, validating data, etc. Under the hood, Open Data Editor will be creating Data Package descriptors for your datasets (can be explicitly done by creating a dataset), inferring metadata, and data types. When the data curation work is done a data package can be validated and published, for example, to CKAN.
 
+Please refer to the [Open Data Editor's documentation](https://opendataeditor.okfn.org) to read about all the features.
+
 ## frictionless-py
 
 If you prefer a command-line interface, or Python, there is [frictionless-py](https://framework.frictionlessdata.io/), a complete framework for managing data packages. Here are main commands available in CLI:
