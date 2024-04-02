@@ -461,6 +461,65 @@ The boolean field can be customised with these additional properties:
 - **trueValues**: `[ "true", "True", "TRUE", "1" ]`
 - **falseValues**: `[ "false", "False", "FALSE", "0" ]`
 
+### `categorical`
+
+The field contains categorical data, defined as data with a finite set of possible values that represent levels of a categorical variable.
+
+The `categorical` type facilitates interoperability with software packages that support categorical data types, including:
+
+- Value labels or formats ([Stata](https://www.stata.com/manuals13/dlabel.pdf), [SAS](https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/proc/p1upn25lbfo6mkn1wncu4dyh9q91.htm), and [SPSS](https://www.ibm.com/docs/en/spss-statistics/beta?topic=data-adding-value-labels))
+- Categoricals ([Pandas](https://pandas.pydata.org/docs/user_guide/categorical.html), and [Polars](https://docs.pola.rs/user-guide/concepts/data-types/categoricals/))
+- [Enums (DuckDB)](https://duckdb.org/docs/sql/data_types/enum.html)
+- [Factors (R)](https://www.stat.berkeley.edu/~s133/factors.html)
+- [CategoricalVectors (Julia)](https://dataframes.juliadata.org/stable/man/categorical/)
+
+Although [`enum`](#enum) constraints can provide similar functionality for validation purposes, the `categorical` type is intended for use when data producers want to explicitly indicate to implementations that the field `SHOULD` be loaded as a categorical data type when supported by the implementation.
+
+The `categorical` field type `MUST` have the property `categories` that defines the set of possible values of the field. The `categories` property `MUST` be an array of strings, or an array of objects.
+
+When the `categories` property is an array of strings, the strings `MUST` be unique and `MUST` match the physical values of the field. For example:
+
+```json
+{
+  "name": "fruit",
+  "type": "categorical",
+  "categories": ["apple", "orange", "banana"]
+}
+```
+
+When the `categories` property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be a string or number that matches the physical value of the field when representing that level. The optional `label` property, when present, `MUST` be a string that provides a human-readable label for the level. For example, if the codes `0`, `1`, and `2` were used as codes to represent the levels `apple`, `orange`, and `banana` in the previous example, the `categories` property would be defined as follows:
+
+```json
+{
+  "name": "fruit",
+  "type": "categorical",
+  "categories": [
+    { "value": 0, "label": "apple" },
+    { "value": 1, "label": "orange" },
+    { "value": 2, "label": "banana" }
+  ]
+}
+```
+
+The `categorical` field type `MAY` additionally have the property `ordered` that indicates whether the categories have a natural order. When present, the `ordered` property `MUST` be a boolean. For example:
+
+```json
+{
+  "name": "agreementLevel",
+  "type": "categorical",
+  "categories": [
+    { "value": 1, "label": "Strongly Disagree" },
+    { "value": 2 },
+    { "value": 3 },
+    { "value": 4 },
+    { "value": 5, "label": "Strongly Agree" }
+  ],
+  "ordered": true
+}
+```
+
+When the property `ordered` is not specified, implementations `MUST` assume a default value of `false`.
+
 ### `object`
 
 The field contains a valid JSON object.
