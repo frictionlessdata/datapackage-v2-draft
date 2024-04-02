@@ -47,6 +47,36 @@ Example of a relative path that this will work both as a relative path on disk a
 `/` (absolute path) and `../` (relative parent path) are forbidden to avoid security vulnerabilities when implementing data package software. These limitations on resource `path` ensure that resource paths only point to files within the data package directory and its subdirectories. This prevents data package software being exploited by a malicious user to gain unintended access to sensitive information. For example, suppose a data package hosting service stores packages on disk and allows access via an API. A malicious user uploads a data package with a resource path like `/etc/passwd`. The user then requests the data for that resource and the server naively opens `/etc/passwd` and returns that data to the caller.
 :::
 
+### Tabular Data
+
+Tabular data consists of a set of rows. Each row has a set of fields (columns). We usually expect that each row has the same set of fields and thus we can talk about _the_ fields for the table as a whole.
+
+In case of tables in spreadsheets or CSV files we often interpret the first row as a header row, giving the names of the fields. By contrast, in other situations, e.g. tables in SQL databases, the field names are explicitly designated.
+
+To illustrate, here's a classic spreadsheet table:
+
+```text
+field     field
+  |         |
+  |         |
+  V         V
+
+ A     |    B    |    C    |    D      <--- Row (Header)
+ ------------------------------------
+ valA  |   valB  |  valC   |   valD    <--- Row
+ ...
+```
+
+In JSON, a table would be:
+
+```json
+[
+  { "A": value, "B": value, ... },
+  { "A": value, "B": value, ... },
+  ...
+]
+```
+
 ### Data Representation
 
 In order to talk about data representation and processing of tabular data from data sources, it is useful to introduce the concepts of the `physical`, `native`, and `logical` representation of data.
