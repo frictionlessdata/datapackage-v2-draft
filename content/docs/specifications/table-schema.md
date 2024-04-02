@@ -402,7 +402,7 @@ If [native representation](../glossary/#native-representation) is a string, form
 
 - **decimalChar**: A string whose value is used to represent a decimal point within the number. The default value is ".".
 - **groupChar**: A string whose value is used to group digits within the number. This property does not have a default value. A common value is "," e.g. "100,000".
-- **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
+- **bareNumber**: a boolean field with a default of `true`. If `true` the contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
 ### `integer`
 
@@ -413,13 +413,13 @@ Integer values are indicated in the standard way for any valid integer.
 If [native representation](../glossary/#native-representation) is a string, formatting `MAY` be modified using these additional properties:
 
 - **groupChar**: A string whose value is used to group digits within the integer. This property does not have a default value. A common value is "," e.g. "100,000".
-- **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
+- **bareNumber**: a boolean field with a default of `true`. If `true` the contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
 ### `boolean`
 
 The field contains boolean (true/false) data.
 
-In the physical representations of data where boolean values are represented with strings, the values set in `trueValues` and `falseValues` are to be cast to their logical representation as booleans. `trueValues` and `falseValues` are arrays which can be customised to user need. The default values for these are in the additional properties section below.
+If [native representation](../glossary/#native-representation) is a string, the values set in `trueValues` and `falseValues` are to be cast to their logical representation as booleans. `trueValues` and `falseValues` are arrays which can be customised to user need. The default values for these are in the additional properties section below.
 
 The boolean field can be customised with these additional properties:
 
@@ -436,7 +436,7 @@ The field contains a valid JSON array.
 
 ### `list`
 
-The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. If [native representation](../glossary/#native-representation) is a string,, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
+The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. If [native representation](../glossary/#native-representation) is a string, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
 
 `format`: no options (other than the default).
 
@@ -560,7 +560,7 @@ Note, that for the CSV data source the `id` field is interpreted as a string bec
 
 The `constraints` property on Table Schema Fields can be used by consumers to list constraints for validating field values. For example, validating the data in a [Tabular Data Resource](https://specs.frictionlessdata.io/tabular-data-package/) against its Table Schema; or as a means to validate data being collected or updated via a data entry interface.
 
-All constraints `MUST` be tested against the logical representation of data, and the physical representation of constraint values `MAY` be primitive types as possible in JSON, or represented as strings that are castable with the `type` and `format` rules of the field.
+All constraints `MUST` be tested against the logical representation of data, and the native representation of constraint values `MAY` be primitive types as possible in JSON, or represented as strings that are castable with the `type` and `format` rules of the field.
 
 A constraints descriptor `MUST` be a JSON `object` and `MAY` contain one or more of the following properties:
 
@@ -569,7 +569,7 @@ A constraints descriptor `MUST` be a JSON `object` and `MAY` contain one or more
 - **Type**: boolean
 - **Fields**: all
 
-Indicates whether this field cannot be `null`. If required is `false` (the default), then `null` is allowed. See the section on `missingValues` for how, in the physical representation of the data, strings can represent `null` values.
+Indicates whether this field cannot be `null`. If required is `false` (the default), then `null` is allowed. See the section on `missingValues` for how, in the native representation of the data, strings can represent `null` values.
 
 ### `unique`
 
