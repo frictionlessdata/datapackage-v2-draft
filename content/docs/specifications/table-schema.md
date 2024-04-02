@@ -382,11 +382,19 @@ Supported formats:
 - **binary**: A base64 encoded string representing binary data.
 - **uuid**: A string that is a uuid.
 
+**Native Representaiton**
+
+Values `MUST` be represented as strings.
+
 ### `number`
 
 The field contains numbers of any kind including decimals.
 
-If [native representation](../glossary/#native-representation) is a string, formatting follows that of decimal in [XMLSchema](https://www.w3.org/TR/xmlschema-2/#decimal): a non-empty finite-length sequence of decimal digits separated by a period as a decimal indicator. An optional leading sign is allowed. If the sign is omitted, "+" is assumed. Leading and trailing zeroes are optional. If the fractional part is zero, the period and following zero(es) can be omitted. For example: '-1.23', '12678967.543233', '+100000.00', '210'.
+**Native Representaiton**
+
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings following the rules below.
+
+Formatting follows that of decimal in [XMLSchema](https://www.w3.org/TR/xmlschema-2/#decimal): a non-empty finite-length sequence of decimal digits separated by a period as a decimal indicator. An optional leading sign is allowed. If the sign is omitted, "+" is assumed. Leading and trailing zeroes are optional. If the fractional part is zero, the period and following zero(es) can be omitted. For example: '-1.23', '12678967.543233', '+100000.00', '210'.
 
 The following special string values are permitted (case need not be respected):
 
@@ -398,7 +406,7 @@ A number `MAY` also have a trailing:
 
 - exponent: this `MUST` consist of an E followed by an optional + or - sign followed by one or more decimal digits (0-9)
 
-If [native representation](../glossary/#native-representation) is a string, formatting `MAY` be modified using these additional properties:
+Formatting `MAY` be modified using these additional properties:
 
 - **decimalChar**: A string whose value is used to represent a decimal point within the number. The default value is ".".
 - **groupChar**: A string whose value is used to group digits within the number. This property does not have a default value. A common value is "," e.g. "100,000".
@@ -408,9 +416,11 @@ If [native representation](../glossary/#native-representation) is a string, form
 
 The field contains integers - that is whole numbers.
 
-Integer values are indicated in the standard way for any valid integer.
+**Native Representaiton**
 
-If [native representation](../glossary/#native-representation) is a string, formatting `MAY` be modified using these additional properties:
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings following the rules below.
+
+Integer values are indicated in the standard way for any valid integer. Formatting `MAY` be modified using these additional properties:
 
 - **groupChar**: A string whose value is used to group digits within the integer. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
@@ -419,7 +429,11 @@ If [native representation](../glossary/#native-representation) is a string, form
 
 The field contains boolean (true/false) data.
 
-If [native representation](../glossary/#native-representation) is a string, the values set in `trueValues` and `falseValues` are to be cast to their logical representation as booleans. `trueValues` and `falseValues` are arrays which can be customised to user need. The default values for these are in the additional properties section below.
+**Native Representaiton**
+
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings following the rules below.
+
+The values set in `trueValues` and `falseValues` are to be cast to their logical representation as booleans. `trueValues` and `falseValues` are arrays which can be customised to user need. The default values for these are in the additional properties section below.
 
 The boolean field can be customised with these additional properties:
 
@@ -430,15 +444,27 @@ The boolean field can be customised with these additional properties:
 
 The field contains a valid JSON object.
 
+**Native Representaiton**
+
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be strings that are valid serialized JSON objects.
+
 ### `array`
 
 The field contains a valid JSON array.
 
+**Native Representaiton**
+
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be strings that are valid serialized JSON arrays.
+
 ### `list`
 
-The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. If [native representation](../glossary/#native-representation) is a string, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
+The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type.
 
-`format`: no options (other than the default).
+**Native Representaiton**
+
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings following the rules below.
+
+The field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
 
 The list field can be customised with these additional properties:
 
@@ -449,9 +475,11 @@ The list field can be customised with these additional properties:
 
 The field contains a date with a time.
 
-Supported formats:
+**Native Representaiton**
 
-- **default**: If [native representation](../glossary/#native-representation) is a string, `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`.
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings in one of the following formats:
+
+- **default**: values `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`.
 - **\<PATTERN\>**: values in this field can be parsed according to `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime](https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior). Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": ""%d/%m/%Y %H:%M:%S"` which would correspond to a date with time like: `12/11/2018 09:15:32`.
 - **any**: Any parsable representation of the value. The implementing library can attempt to parse the datetime via a range of strategies. An example is `dateutil.parser.parse` from the `python-dateutils` library. It is `NOT RECOMMENDED` to use `any` format as it might cause interoperability issues.
 
@@ -459,9 +487,11 @@ Supported formats:
 
 The field contains a date without a time.
 
-Supported formats:
+**Native Representaiton**
 
-- **default**: If [native representation](../glossary/#native-representation) is a string, `MUST` be `yyyy-mm-dd` e.g. `2024-01-26`
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings in one of the following formats:
+
+- **default**: values `MUST` be `yyyy-mm-dd` e.g. `2024-01-26`
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
@@ -469,33 +499,49 @@ Supported formats:
 
 The field contains a time without a date.
 
-Supported formats:
+**Native Representaiton**
 
-- **default**: If [native representation](../glossary/#native-representation) is a string, `MUST` be `hh:mm:ss` e.g. `15:00:00`
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings in one of the following formats:
+
+- **default**: values `MUST` be `hh:mm:ss` e.g. `15:00:00`
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
 ### `year`
 
-A calendar year as per [XMLSchema `gYear`](https://www.w3.org/TR/xmlschema-2/#gYear). Usual [native representation](../glossary/#native-representation) representation as a string is `YYYY`. There are no format options.
+A calendar year.
+
+**Native Representaiton**
+
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings as per [XMLSchema `gYear`](https://www.w3.org/TR/xmlschema-2/#gYear). Usual representation as a string is `YYYY`.
 
 ### `yearmonth`
 
-A specific month in a specific year as per [XMLSchema `gYearMonth`](https://www.w3.org/TR/xmlschema-2/#gYearMonth). Usual [native representation](../glossary/#native-representation) as a string is `YYYY-MM`. There are no format options.
+A specific month in a specific year.
+
+**Native Representaiton**
+
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings as per [XMLSchema `gYearMonth`](https://www.w3.org/TR/xmlschema-2/#gYearMonth). Usual representation as a string is `YYYY-MM`.
 
 ### `duration`
 
 A duration of time.
 
+**Native Representaiton**
+
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings following the rules below.
+
 We follow the definition of [XML Schema duration datatype](http://www.w3.org/TR/xmlschema-2/#duration) directly and that definition is implicitly inlined here.
 
-If [native representation](../glossary/#native-representation) is a string, the duration is the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format `PnYnMnDTnHnMnS`, where `nY` represents the number of years, `nM` the number of months, `nD` the number of days, `T` is the date/time separator, `nH` the number of hours, `nM` the number of minutes and `nS` the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
+The duration is the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format `PnYnMnDTnHnMnS`, where `nY` represents the number of years, `nM` the number of months, `nD` the number of days, `T` is the date/time separator, `nH` the number of hours, `nM` the number of minutes and `nS` the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
 
 ### `geopoint`
 
 The field contains data describing a geographic point.
 
-Supported formats:
+**Native Representaiton**
+
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings in one of the following formats:
 
 - **default**: A string of the pattern "lon, lat", where each value is a number, and `lon` is the longitude and `lat` is the latitude (note the space is optional after the `,`). E.g. `"90.50, 45.50"`.
 - **array**: A JSON array, or a string parsable as a JSON array, of exactly two items, where each item is a number, and the first item is `lon` and the second
@@ -506,7 +552,9 @@ Supported formats:
 
 The field contains a JSON object according to GeoJSON or TopoJSON spec.
 
-Supported formats:
+**Native Representaiton**
+
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings in one of the following formats:
 
 - **default**: A geojson object as per the [GeoJSON spec](http://geojson.org/).
 - **topojson**: A topojson object as per the [TopoJSON spec](https://github.com/topojson/topojson-specification/blob/master/README.md)
@@ -555,6 +603,10 @@ While this JSON data file will have logical values as below:
 ```
 
 Note, that for the CSV data source the `id` field is interpreted as a string because CSV supports only one data type i.e. string, and for the JSON data source the `id` field is interpreted as an integer because JSON supports a numeric data type and the value was declared as an integer. Also, for the Table Schema above a `type` property for each field can be omitted as it is a default field type.
+
+**Native Representaiton**
+
+Values `MUST` be natively represented by a data format.
 
 ## Field Constraints
 
