@@ -386,7 +386,7 @@ Supported formats:
 
 The field contains numbers of any kind including decimals.
 
-The lexical formatting follows that of decimal in [XMLSchema](https://www.w3.org/TR/xmlschema-2/#decimal): a non-empty finite-length sequence of decimal digits separated by a period as a decimal indicator. An optional leading sign is allowed. If the sign is omitted, "+" is assumed. Leading and trailing zeroes are optional. If the fractional part is zero, the period and following zero(es) can be omitted. For example: '-1.23', '12678967.543233', '+100000.00', '210'.
+If [native representation](../glossary/#native-representation) is a string, formatting follows that of decimal in [XMLSchema](https://www.w3.org/TR/xmlschema-2/#decimal): a non-empty finite-length sequence of decimal digits separated by a period as a decimal indicator. An optional leading sign is allowed. If the sign is omitted, "+" is assumed. Leading and trailing zeroes are optional. If the fractional part is zero, the period and following zero(es) can be omitted. For example: '-1.23', '12678967.543233', '+100000.00', '210'.
 
 The following special string values are permitted (case need not be respected):
 
@@ -398,7 +398,7 @@ A number `MAY` also have a trailing:
 
 - exponent: this `MUST` consist of an E followed by an optional + or - sign followed by one or more decimal digits (0-9)
 
-This lexical formatting `MAY` be modified using these additional properties:
+If [native representation](../glossary/#native-representation) is a string, formatting `MAY` be modified using these additional properties:
 
 - **decimalChar**: A string whose value is used to represent a decimal point within the number. The default value is ".".
 - **groupChar**: A string whose value is used to group digits within the number. This property does not have a default value. A common value is "," e.g. "100,000".
@@ -410,7 +410,7 @@ The field contains integers - that is whole numbers.
 
 Integer values are indicated in the standard way for any valid integer.
 
-This lexical formatting `MAY` be modified using these additional properties:
+If [native representation](../glossary/#native-representation) is a string, formatting `MAY` be modified using these additional properties:
 
 - **groupChar**: A string whose value is used to group digits within the integer. This property does not have a default value. A common value is "," e.g. "100,000".
 - **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
@@ -436,14 +436,14 @@ The field contains a valid JSON array.
 
 ### `list`
 
-The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. In the lexical representation, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
+The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. If [native representation](../glossary/#native-representation) is a string,, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
 
 `format`: no options (other than the default).
 
 The list field can be customised with these additional properties:
 
-- **delimiter**: specifies the character sequence which separates lexically represented list items. If not present, the default is `,` (comma).
-- **itemType**: specifies the list item type in terms of existent Table Schema types. If present, it `MUST` be one of `string`, `integer`, `boolean`, `number`, `datetme`, `date`, and `time`. If not present, the default is `string`. A data consumer `MUST` process list items as it were individual values of the corresponding data type. Note, that on lexical level only default formats are supported, for example, for a list with `itemType` set to `date`, items have to be in default form for dates i.e. `yyyy-mm-dd`.
+- **delimiter**: specifies the character sequence which separates, if [native representation](../glossary/#native-representation) is a string. If not present, the default is `,` (comma).
+- **itemType**: specifies the list item type in terms of existent Table Schema types. If present, it `MUST` be one of `string`, `integer`, `boolean`, `number`, `datetme`, `date`, and `time`. If not present, the default is `string`. A data consumer `MUST` process list items as it were individual values of the corresponding data type. Note, that if [native representation](../glossary/#native-representation) is a string, only default formats are supported, for example, for a list with `itemType` set to `date`, items have to be in default form for dates i.e. `yyyy-mm-dd`.
 
 ### `datetime`
 
@@ -451,7 +451,7 @@ The field contains a date with a time.
 
 Supported formats:
 
-- **default**: The lexical representation `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`.
+- **default**: If [native representation](../glossary/#native-representation) is a string, `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`.
 - **\<PATTERN\>**: values in this field can be parsed according to `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime](https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior). Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": ""%d/%m/%Y %H:%M:%S"` which would correspond to a date with time like: `12/11/2018 09:15:32`.
 - **any**: Any parsable representation of the value. The implementing library can attempt to parse the datetime via a range of strategies. An example is `dateutil.parser.parse` from the `python-dateutils` library. It is `NOT RECOMMENDED` to use `any` format as it might cause interoperability issues.
 
@@ -461,7 +461,7 @@ The field contains a date without a time.
 
 Supported formats:
 
-- **default**: The lexical representation `MUST` be `yyyy-mm-dd` e.g. `2024-01-26`
+- **default**: If [native representation](../glossary/#native-representation) is a string, `MUST` be `yyyy-mm-dd` e.g. `2024-01-26`
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
@@ -471,17 +471,17 @@ The field contains a time without a date.
 
 Supported formats:
 
-- **default**: The lexical representation `MUST` be `hh:mm:ss` e.g. `15:00:00`
+- **default**: If [native representation](../glossary/#native-representation) is a string, `MUST` be `hh:mm:ss` e.g. `15:00:00`
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
 ### `year`
 
-A calendar year as per [XMLSchema `gYear`](https://www.w3.org/TR/xmlschema-2/#gYear). Usual lexical representation is `YYYY`. There are no format options.
+A calendar year as per [XMLSchema `gYear`](https://www.w3.org/TR/xmlschema-2/#gYear). Usual [native representation](../glossary/#native-representation) representation as a string is `YYYY`. There are no format options.
 
 ### `yearmonth`
 
-A specific month in a specific year as per [XMLSchema `gYearMonth`](https://www.w3.org/TR/xmlschema-2/#gYearMonth). Usual lexical representation is: `YYYY-MM`. There are no format options.
+A specific month in a specific year as per [XMLSchema `gYearMonth`](https://www.w3.org/TR/xmlschema-2/#gYearMonth). Usual [native representation](../glossary/#native-representation) as a string is `YYYY-MM`. There are no format options.
 
 ### `duration`
 
@@ -489,7 +489,7 @@ A duration of time.
 
 We follow the definition of [XML Schema duration datatype](http://www.w3.org/TR/xmlschema-2/#duration) directly and that definition is implicitly inlined here.
 
-To summarize: the lexical representation for duration is the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format PnYnMnDTnHnMnS, where nY represents the number of years, nM the number of months, nD the number of days, 'T' is the date/time separator, nH the number of hours, nM the number of minutes and nS the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
+If [native representation](../glossary/#native-representation) is a string, the duration is the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format `PnYnMnDTnHnMnS`, where `nY` represents the number of years, `nM` the number of months, `nD` the number of days, `T` is the date/time separator, `nH` the number of hours, `nM` the number of minutes and `nS` the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
 
 ### `geopoint`
 
