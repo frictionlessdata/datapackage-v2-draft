@@ -19,6 +19,20 @@ The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `S
 
 ## Definitions
 
+### Descriptor
+
+The Data Package Standard uses a concept of a `descriptor` to represent metadata defined according to the core specefications such as Data Package or Table Schema.
+
+On logical level, a descriptor is represented by a data structure. The data structure `MUST` be a JSON `object` as defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
+
+On physical level, a descriptor is represented by a file. The file `MUST` contains a valid JSON `object` as defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
+
+This specification does not define any discoverability mechanisms. Any URI can be used to directly reference a file containing a descriptor.
+
+:::note[Other Formats]
+A descriptor `MAY` be serialized using alternative formats like YAML or TOML as an internal part of some project or systems if supported by corresponding implementations. A descriptor `SHOULD NOT` be externally published in any other format rather than JSON.
+:::
+
 ### URL or Path
 
 A `URL or Path` is a `string` with the following additional constraints:
