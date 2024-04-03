@@ -33,6 +33,10 @@ This specification does not define any discoverability mechanisms. Any URI can b
 A descriptor `MAY` be serialized using alternative formats like YAML or TOML as an internal part of some project or systems if supported by corresponding implementations. A descriptor `SHOULD NOT` be externally published in any other format rather than JSON.
 :::
 
+#### Custom Properties
+
+The Data Package specifications define a set of standard properties to be used and allows custom properties to be added. It is `RECOMMENDED` to use `namespace:property` naming convention for custom properties.
+
 ### URL or Path
 
 A `URL or Path` is a `string` with the following additional constraints:
