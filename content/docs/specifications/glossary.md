@@ -49,7 +49,7 @@ Example of a relative path that this will work both as a relative path on disk a
 
 ### Tabular Data
 
-Tabular data consists of a set of rows. Each row has a set of fields (columns). We usually expect that each row has the same set of fields and thus we can talk about _the_ fields for the table as a whole.
+Tabular data consists of a list of rows. Each row has a list of fields (columns). We usually expect that each row has the same list of fields and thus we can talk about the fields for the table as a whole.
 
 In case of tables in spreadsheets or CSV files we often interpret the first row as a header row, giving the names of the fields. By contrast, in other situations, e.g. tables in SQL databases, the field names are explicitly designated.
 
@@ -101,7 +101,7 @@ id|name
 
 #### Native Representation
 
-The `native` representation of data refers to the representation of data in a form that is produced by a format-specific driver in some computational environment. The Data Package Standard itself does not define any data formats and relies on existent data formats and corresponding drivers on the implementations level.
+The `native` representation of data refers to the representation of data in a form that is produced by a format-specific driver in some computational environment. The Data Package Standard itself does not define any data formats and relies on existent data formats (such as CSV, JSON, or SQL) and corresponding drivers on the implementations level.
 
 Having a Data Resource definition as below:
 
@@ -115,7 +115,7 @@ Having a Data Resource definition as below:
 }
 ```
 
-The data from the exemplar CSV in `native` representation will be:
+The data from the CSV example above will be in `native` representation (we use a JavaScript-based example for illustration):
 
 ```javascript
 {id: "1", name: "apple"}
@@ -146,7 +146,7 @@ Having a Data Resource definition as below:
 }
 ```
 
-The data from the exemplar CSV in `logical` representation will be:
+The data from the CSV example above will be in `logical` representation (we use a JavaScript-based example for illustration):
 
 ```javascript
 {id: 1, name: "apple"}
