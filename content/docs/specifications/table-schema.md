@@ -482,7 +482,7 @@ The `categorical` type facilitates interoperability with software packages that 
 - [Factors (R)](https://www.stat.berkeley.edu/~s133/factors.html)
 - [CategoricalVectors (Julia)](https://dataframes.juliadata.org/stable/man/categorical/)
 
-Although [`enum`](#enum) constraints can provide similar functionality for validation purposes, the `categorical` type is intended for use when data producers want to explicitly indicate to implementations that the field `SHOULD` be loaded as a categorical data type when supported by the implementation.
+Although the `categorical` field type restricts a field to a finite set of possible values, like an [`enum`](#enum) constraint, the `categorical` field type enables data producers to explicitly indicate to implementations that a field `SHOULD` be loaded as a categorical data type (when supported by the implementation). By contrast, `enum` constraints simply add validation rules to existing field types. When an `enum` constraint is defined on a `categorical` field, the values in the `enum` constraint `MUST` be a subset of the physical values representing the levels of the `categorical`.
 
 The `categorical` field type `MUST` have the property `categories` that defines the set of possible values of the field. The `categories` property `MUST` be an array of strings, or an array of objects.
 
