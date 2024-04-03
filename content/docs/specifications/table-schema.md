@@ -461,7 +461,7 @@ The list field can be customised with this additional property:
 
 **Native Representaiton**
 
-If supported, values `MUST` be natively represented by a data format. If not supported, the field `MUST` contain a string with list items separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. The list items `MUST` be serialized in default format of the corresponding `itemType`. The delimiter can be customised with this additional property:
+If supported, values `MUST` be natively represented by a data format. If not supported, the field `MUST` contain a string with list items separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. The list items `MUST` be serialized using a default format of the corresponding `itemType`. The delimiter can be customised with this additional property:
 
 - **delimiter**: specifies the character sequence which separates list items. If not present, the default is `,` (comma).
 
