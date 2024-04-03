@@ -32,7 +32,7 @@ This specification havily relies on the following concepts:
 - [Tabular Data](../glossary/#tabular-data)
 - [Data Representation](../glossary/#data-representation)
 
-In this document, we will explicitly refer to either the `native` or `logical` representation of data in places where it prevents ambiguity for those engaging with the specification, especially implementors.
+In this document, we will explicitly refer to either the [Native Representation](../glossary/#native-representation) or [Logical Representation](../glossary/#logical-representation) of data in places where it prevents ambiguity for those engaging with the specification, especially implementors. Note, that this specification does not deal in any way with [Physical Representation](../glossary/#physical-representation) of data.
 
 ## Descriptor
 

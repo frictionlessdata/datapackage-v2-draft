@@ -91,7 +91,7 @@ For example, here is a hexadecimal representation of a CSV file encoded using "U
 69 64 7C 6E 61 6D 65 0A 31 7C 61 70 70 6C 65 0A 32 7C 6F 72 61 6E 67 65
 ```
 
-For a reference the same file in textual form:
+For a reference, the file contents after being decoded to a textual form:
 
 ```text
 id|name
@@ -103,7 +103,7 @@ id|name
 
 The `native` representation of data refers to the representation of data in a form that is produced by a format-specific driver in some computational environment. The Data Package Standard itself does not define any data formats and relies on existent data formats and corresponding drivers on the implementations level.
 
-Having the Data Resource definition as below:
+Having a Data Resource definition as below:
 
 ```json
 {
@@ -128,7 +128,7 @@ Note that handled by a CSV reader that took into account the dialect information
 
 The `logical` representation of data refers to the "ideal" representation of the data in terms of the Data Package standard types, data structures, and relations, all as defined by the specifications. We could say that the specifications is about the logical representation of data, as well as about ways in which to handle serialization and deserialization between `physical` representation of data and the `logical` representation of data.
 
-Having the Data Resource definition as below:
+Having a Data Resource definition as below:
 
 ```json
 {
