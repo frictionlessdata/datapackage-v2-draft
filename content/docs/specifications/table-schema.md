@@ -88,18 +88,17 @@ A Table Schema descriptor `MAY` contain a property `fieldsMatch` that `MUST` be 
 
 Many datasets arrive with missing data values, either because a value was not collected or it never existed. Missing values may be indicated simply by the value being empty in other cases a special value may have been used e.g. `-`, `NaN`, `0`, `-9999` etc.
 
-`missingValues` dictates which string values `MUST` be treated as `null` values. This conversion to `null` is done before any other attempted type-specific string conversion. The default value `[ "" ]` means that empty strings will be converted to null before any other processing takes place. Providing the empty list `[]` means that no conversion to null will be done, on any value.
+The `missingValues` property configures which native values `MUST` be treated as logical `null` values. If provided, the `missingValues` property `MUST` be an `array` of values.
 
-`missingValues` `MUST` be an `array` where each entry is a `string`.
+This conversion to `null` is done before any other attempted type-specific conversion. The default value `[ "" ]` means that empty strings will be converted to null before any other processing takes place. Providing the empty list `[]` means that no conversion to null will be done, on any value.
 
-**Why strings**: `missingValues` are strings rather than being the data type of the particular field. This allows for comparison prior to casting and for fields to have missing value which are not of their type, for example a `number` field to have missing values indicated by `-`.
-
-Examples:
+Examples of the `missingValues` property:
 
 ```text
 "missingValues": [""]
 "missingValues": ["-"]
 "missingValues": ["NaN", "-"]
+"missingValues": [-9999]
 ```
 
 #### `primaryKey`

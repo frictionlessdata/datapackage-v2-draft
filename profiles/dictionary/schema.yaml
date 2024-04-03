@@ -217,8 +217,6 @@ tableSchemaFalseValues:
   default: ["false", "False", "FALSE", "0"]
 tableSchemaMissingValues:
   type: array
-  items:
-    type: string
   default:
     - ""
   description: Values that when encountered in the source, should be considered
