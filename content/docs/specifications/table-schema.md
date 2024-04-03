@@ -454,18 +454,17 @@ If supported, values `MUST` be natively represented by a data format. If not sup
 
 ### `list`
 
-The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type.
+The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
+
+The list field can be customised with this additional property:
+
+- **itemType**: specifies the list item type in terms of existent Table Schema types. If present, it `MUST` be one of `string`, `integer`, `boolean`, `number`, `datetme`, `date`, and `time`. If not present, the default is `string`. A data consumer `MUST` process list items as it were individual values of the corresponding data type.
 
 **Native Representaiton**
 
-If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings following the rules below.
+If supported, values `MUST` be natively represented by a data format. If not supported, the field `MUST` contain a string with list items separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. The list items `MUST` be serialized in default format of the corresponding `itemType`. The delimiter can be customised with this additional property:
 
-The field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
-
-The list field can be customised with these additional properties:
-
-- **delimiter**: specifies the character sequence which separates, if [native representation](../glossary/#native-representation) is a string. If not present, the default is `,` (comma).
-- **itemType**: specifies the list item type in terms of existent Table Schema types. If present, it `MUST` be one of `string`, `integer`, `boolean`, `number`, `datetme`, `date`, and `time`. If not present, the default is `string`. A data consumer `MUST` process list items as it were individual values of the corresponding data type. Note, that if [native representation](../glossary/#native-representation) is a string, only default formats are supported, for example, for a list with `itemType` set to `date`, items have to be in default form for dates i.e. `yyyy-mm-dd`.
+- **delimiter**: specifies the character sequence which separates list items. If not present, the default is `,` (comma).
 
 ### `datetime`
 
