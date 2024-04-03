@@ -427,18 +427,14 @@ Integer values are indicated in the standard way for any valid integer. Formatti
 
 ### `boolean`
 
-The field contains boolean (true/false) data.
+The field contains boolean data i.e. logical `true` or logical `false`.
 
 **Native Representaiton**
 
-If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings following the rules below.
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as defined by the `trueValues` and `falseValues` properties that can be customized to user need:
 
-The values set in `trueValues` and `falseValues` are to be cast to their logical representation as booleans. `trueValues` and `falseValues` are arrays which can be customised to user need. The default values for these are in the additional properties section below.
-
-The boolean field can be customised with these additional properties:
-
-- **trueValues**: `[ "true", "True", "TRUE", "1" ]`
-- **falseValues**: `[ "false", "False", "FALSE", "0" ]`
+- **trueValues**: An array of native values to be interpreted as logical `true`. The default is `[ "true", "True", "TRUE", "1" ]`.
+- **falseValues**: An array of native values to be interpreted as logical `false`. The default is `[ "false", "False", "FALSE", "0" ]`.
 
 ### `object`
 
