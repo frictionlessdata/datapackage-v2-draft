@@ -115,7 +115,7 @@ Having a Data Resource definition as below:
 }
 ```
 
-The data from the CSV example above will be in `native` representation (we use a JavaScript-based example for illustration):
+The data from the CSV example above will be in `native` representation (we use a JavaScript-based environment for illustration):
 
 ```javascript
 {id: "1", name: "apple"}
@@ -146,7 +146,7 @@ Having a Data Resource definition as below:
 }
 ```
 
-The data from the CSV example above will be in `logical` representation (we use a JavaScript-based example for illustration):
+The data from the CSV example above will be in `logical` representation (we use a JavaScript-based environment for illustration):
 
 ```javascript
 {id: 1, name: "apple"}
