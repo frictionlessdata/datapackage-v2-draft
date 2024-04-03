@@ -468,7 +468,7 @@ If supported, values `MUST` be natively represented by a data format. If not sup
 
 ### `datetime`
 
-The field contains a date with a time.
+The field contains a date with a time and an optional timezone.
 
 **Native Representaiton**
 
@@ -504,7 +504,7 @@ If supported, values `MUST` be natively represented by a data format. If not sup
 
 ### `year`
 
-A calendar year.
+The field contains a calendar year.
 
 **Native Representaiton**
 
@@ -512,7 +512,7 @@ If supported, values `MUST` be natively represented by a data format. If not sup
 
 ### `yearmonth`
 
-A specific month in a specific year.
+The field containts a specific month in a specific year.
 
 **Native Representaiton**
 
@@ -520,19 +520,17 @@ If supported, values `MUST` be natively represented by a data format. If not sup
 
 ### `duration`
 
-A duration of time.
+The field contains a duration of time.
 
 **Native Representaiton**
 
-If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings following the rules below.
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings as per [XML Schema `duration`](http://www.w3.org/TR/xmlschema-2/#duration).
 
-We follow the definition of [XML Schema duration datatype](http://www.w3.org/TR/xmlschema-2/#duration) directly and that definition is implicitly inlined here.
-
-The duration is the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format `PnYnMnDTnHnMnS`, where `nY` represents the number of years, `nM` the number of months, `nD` the number of days, `T` is the date/time separator, `nH` the number of hours, `nM` the number of minutes and `nS` the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
+The duration `MUST` be in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format `PnYnMnDTnHnMnS`, where `nY` represents the number of years, `nM` the number of months, `nD` the number of days, `T` is the date/time separator, `nH` the number of hours, `nM` the number of minutes and `nS` the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
 
 ### `geopoint`
 
-The field contains data describing a geographic point.
+The field contains data describing a geographic point i.e. `lon` and `lat` values that are floating point numbers.
 
 **Native Representaiton**
 
@@ -541,22 +539,24 @@ If supported, values `MUST` be natively represented by a data format. If not sup
 - **default**: A string of the pattern "lon, lat", where each value is a number, and `lon` is the longitude and `lat` is the latitude (note the space is optional after the `,`). E.g. `"90.50, 45.50"`.
 - **array**: A JSON array, or a string parsable as a JSON array, of exactly two items, where each item is a number, and the first item is `lon` and the second
   item is `lat` e.g. `[90.50, 45.50]`
-- **object**: A JSON object with exactly two keys, `lat` and `lon` and each value is a number e.g. `{"lon": 90.50, "lat": 45.50}`
+- **object**: A JSON object with exactly two keys, `lon` and `lat` and each value is a number e.g. `{"lon": 90.50, "lat": 45.50}`
 
 ### `geojson`
 
-The field contains a JSON object according to GeoJSON or TopoJSON spec.
+The field contains a JSON object according to GeoJSON or TopoJSON specifications.
+
+Supported formats:
+
+- **default**: A geojson object as per the [GeoJSON spec](http://geojson.org/).
+- **topojson**: A topojson object as per the [TopoJSON spec](https://github.com/topojson/topojson-specification/blob/master/README.md).
 
 **Native Representaiton**
 
-If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings in one of the following formats:
-
-- **default**: A geojson object as per the [GeoJSON spec](http://geojson.org/).
-- **topojson**: A topojson object as per the [TopoJSON spec](https://github.com/topojson/topojson-specification/blob/master/README.md)
+If supported, values `MUST` be natively represented by a data format. If not supported, values `MUST` be represented as strings that are valid serialized JSON objects.
 
 ### `any`
 
-The field contains values of a unspecified or mixed type. A data consumer `MUST NOT` perform any processing on this field's values and `MUST` interpret them as it is in the data source. This data type is directly modelled on the concept of the `any` type of strongly typed object-oriented languages like [TypeScript](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any).
+The field contains values of a unspecified or mixed type. A data consumer `MUST NOT` perform any processing on values and `MUST` interpret them as it is in [Native Representaiton](../glossary/#native-representation) of data. This data type is directly modelled on the concept of the `any` type of strongly typed object-oriented languages like [TypeScript](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any).
 
 For example, having a Table Schema below:
 
