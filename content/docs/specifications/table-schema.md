@@ -555,7 +555,7 @@ If supported, values `MUST` be natively represented by a data format. If not sup
 
 ### `any`
 
-The field contains values of a unspecified or mixed type. A data consumer `MUST NOT` perform any processing on values and `MUST` interpret them as it is in [Native Representaiton](../glossary/#native-representation) of data. This data type is directly modelled on the concept of the `any` type of strongly typed object-oriented languages like [TypeScript](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any).
+The field contains values of a unspecified or mixed type. A data consumer `MUST NOT` perform any processing on values and `MUST` interpret them as it is in native representation of data. This data type is directly modelled on the concept of the `any` type of strongly typed object-oriented languages like [TypeScript](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#any).
 
 For example, having a Table Schema below:
 
