@@ -125,9 +125,18 @@ Many datasets arrive with missing data values, either because a value was not co
 
 `missingValues` dictates which string values `MUST` be treated as `null` values. This conversion to `null` is done before any other attempted type-specific string conversion. The default value `[ "" ]` means that empty strings will be converted to null before any other processing takes place. Providing the empty list `[]` means that no conversion to null will be done, on any value.
 
-`missingValues` `MUST` be an `array` where each entry is a `string`.
+`missingValues` `MUST` be an `array` where each entry is a `string`, or an `array` where each entry is an `object`.
 
-**Why strings**: `missingValues` are strings rather than being the data type of the particular field. This allows for comparison prior to casting and for fields to have missing value which are not of their type, for example a `number` field to have missing values indicated by `-`.
+If an `array` of `object`s is provided, each object `MUST` have a `value` and optional `label` property. The `value` property `MUST` be a `string` that matches the physical value of the field. The optional `label` property `MUST` be a `string` that provides a human-readable label for the missing value. For example:
+
+```json
+"missingValues": [
+  { "value": "", "label": "OMITTED" },
+  { "value": "-99", "label": "REFUSED" }
+]
+```
+
+**Why strings**: `missingValues` are specified as strings rather than being the data type of the particular field. This allows for comparison prior to casting and for fields to have missing value which are not of their type, for example a `number` field to have missing values indicated by `-`.
 
 Examples:
 
