@@ -83,6 +83,8 @@ Standard properties of the descriptor are described below. A descriptor `MAY` in
 
 ### General
 
+The properties below are applicable to any Data Resource.
+
 #### `name` [required]
 
 A resource `MUST` contain a `name` property. The name is a simple name or identifier to be used for this resource.
@@ -167,12 +169,12 @@ Prior to release 1.0.0-beta.18 (Nov 17 2016) there was a `url` property distinct
 
 A Data Resource descriptor `MAY` contain a property `type` that `MUST` be a string with the following possible values:
 
-- `table`: indicates that the resource is tabular as per [Tabular Data](../glossary/#tabular-data) definition. Please read more about [Tabular Resource](#tabular).
+- `table`: indicates that the resource is tabular as per [Tabular Data](../glossary/#tabular-data) definition. Please read more about [Tabular Resource](#tabular) properties.
 
-If property `type` is not provided, the resource `SHOULD` be considered to be a non-specific file. An implementation `MAY` provide some additional interfaces to non-specific files using their type detection mechanisms.
+If property `type` is not provided, the resource is considered to be a non-specific file. An implementation `MAY` provide some additional interfaces, for example, tabular, to non-specific files if `type` can be detected from the data source or format.
 
 :::note[Backward Compatibility]
-If a resource has `profile` property that equals to `tabular-data-resource` or `https://specs.frictionlessdata.io/schemas/tabular-data-resource.json`, an implementation `MUST` treat it as `type` property was set to `table`
+If a resource has `profile` property that equals to `tabular-data-resource` or `https://specs.frictionlessdata.io/schemas/tabular-data-resource.json`, an implementation `MUST` treat it as `type` property were set to `table`
 :::
 
 #### `title`
@@ -219,14 +221,67 @@ List of licenses as for [Data Package](../data-package/#licenses). If not specif
 
 ### Tabular
 
-#### `schema`
+The properties below are applicable to any Tabular Data Resource.
 
-A Data Resource `MAY` have a `schema` property to describe the schema of the resource data.
+#### `data`
 
-The value for the `schema` property on a `resource` MUST be an `object` representing the schema OR a `string` that identifies the location of the schema.
+If the `data` property is used for providing data for a Tabular Data Resource than it `MUST` be an `array` where each item in the array `MUST` be either:
 
-If a `string` it must be a [URL or Path](../glossary/#url-or-path), that is a fully qualified http URL or a relative POSIX path. The file at the location specified by this [URL or Path](../glossary/#url-or-path) string `MUST` be a JSON document containing the schema.
+- an array where each entry in the array is the value for that cell in the table OR
+- an object where each key corresponds to the header for that row and the value corresponds to the cell value for that row for that header.
 
-NOTE: the Data Package specification places no restrictions on the form of the schema Object. This flexibility enables specific communities to define schemas appropriate for the data they manage. As an example, the [Tabular Data Package](https://specs.frictionlessdata.io/tabular-data-package/) specification requires the schema to conform to [Table Schema](../table-schema/).
+Array of arrays example:
+
+```json
+[
+  ["A", "B", "C"],
+  [1, 2, 3],
+  [4, 5, 6]
+]
+```
+
+Array of objects example:
+
+```json
+[
+  { "A": 1, "B": 2, "C": 3 },
+  { "A": 4, "B": 5, "C": 6 }
+]
+```
 
 #### `dialect`
+
+A Tabular Data Resource `MAY` have a `dialect` property to describe a tabular dialect of the resource data. If provided, the `dialect` property `MUST` be a [Table Dialect](../table-dialect) descriptor in a form of an object or [URL-or-Path](../glossary/#url-or-path).
+
+An example of a resource with a dialect:
+
+```json
+{
+  "name": "table",
+  "type": "table",
+  "path": "table.csv",
+  "dialect": {
+    "delimiter": ";"
+  }
+}
+```
+
+#### `schema`
+
+A Tabular Data Resource `SHOULD` have a `schema` property to describe a tabular schema of the resource data. If provided, the `schema` property `MUST` be a [Table Schema](../table-schema) descriptor in a form of an object or [URL-or-Path](../glossary/#url-or-path).
+
+An example of a resource with a schema:
+
+```json
+{
+  "name": "table",
+  "type": "table",
+  "path": "table.csv",
+  "schema": {
+    "fields": [
+      { "name": "id", "type": "integer" },
+      { "name": "name", "type": "string" }
+    ]
+  }
+}
+```
