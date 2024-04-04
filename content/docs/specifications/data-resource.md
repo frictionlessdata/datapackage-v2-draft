@@ -175,24 +175,6 @@ If property `type` is not provided, the resource `SHOULD` be considered to be a 
 If a resource has `profile` property that equals to `tabular-data-resource` or `https://specs.frictionlessdata.io/schemas/tabular-data-resource.json`, an implementation `MUST` treat it as `type` property was set to `table`
 :::
 
-#### `profile`
-
-A string identifying the profile of this descriptor as per the [profiles](https://specs.frictionlessdata.io/profiles/) specification.
-
-Examples:
-
-```json
-{
-  "profile": "tabular-data-resource"
-}
-```
-
-```json
-{
-  "profile": "http://example.com/my-profiles-json-schema.json"
-}
-```
-
 #### `title`
 
 Title or label for the resource.
