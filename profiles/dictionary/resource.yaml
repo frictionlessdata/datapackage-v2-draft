@@ -26,9 +26,6 @@ dataResource:
     type:
       "$ref": "#/definitions/resourceType"
       propertyOrder: 235
-    schema:
-      "$ref": "#/definitions/anySchema"
-      propertyOrder: 40
     title:
       "$ref": "#/definitions/title"
       propertyOrder: 50
