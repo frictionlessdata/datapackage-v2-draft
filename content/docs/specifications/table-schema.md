@@ -34,6 +34,8 @@ This specification heavily relies on the following concepts:
 
 In this document, we will explicitly refer to either the [Native Representation](../glossary/#native-representation) or [Logical Representation](../glossary/#logical-representation) of data in places where it prevents ambiguity for those engaging with the specification, especially implementors. Note, that this specification does not deal in any way with [Physical Representation](../glossary/#physical-representation) of data.
 
+Note, that whenever a native value is allowed to be provided in this spec, the most similar JSON type should be used to represent it. If no such type exists (e.g. in case there's a native date value), a string representation of that value should be provided. Such mappings between native types and JSON types, and the string representations described above are file format specific and left for implementors to decide (unless defined explicitly in this specification or its appendixes).
+
 ## Descriptor
 
 A Table Schema is represented by a descriptor. The descriptor `MUST` be a JSON `object` (JSON is defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)).
