@@ -27,7 +27,7 @@ Table Schema is a simple language- and implementation-agnostic way to declare a 
 
 ## Concepts
 
-This specification havily relies on the following concepts:
+This specification heavily relies on the following concepts:
 
 - [Tabular Data](../glossary/#tabular-data)
 - [Data Representation](../glossary/#data-representation)
