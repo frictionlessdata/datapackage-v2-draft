@@ -4,8 +4,8 @@ title: Translation Support
 
 <table>
   <tr>
-    <th>Author(s)</th>
-    <td>TODO</td>
+    <th>Authors</th>
+    <td>Paul Walsh</td>
   </tr>
 </table>
 

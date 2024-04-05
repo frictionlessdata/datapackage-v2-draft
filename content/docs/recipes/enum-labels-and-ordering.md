@@ -4,8 +4,8 @@ title: Enum Labels and Ordering
 
 <table>
   <tr>
-    <th>Author(s)</th>
-    <td>Phil Schumm</td>
+    <th>Authors</th>
+    <td>Phil Schumm, Peter Desmet</td>
   </tr>
 </table>
 

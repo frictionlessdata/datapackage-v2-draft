@@ -4,8 +4,8 @@ title: External Foreign Keys
 
 <table>
   <tr>
-    <th>Author(s)</th>
-    <td>TODO</td>
+    <th>Authors</th>
+    <td>Stephen Gates</td>
   </tr>
 </table>
 

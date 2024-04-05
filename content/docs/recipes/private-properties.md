@@ -4,13 +4,10 @@ title: Private Properties
 
 <table>
   <tr>
-    <th>Author(s)</th>
-    <td>TODO</td>
+    <th>Authors</th>
+    <td>Rufus Pollock, Paul Walsh</td>
   </tr>
 </table>
-
-[issues]: https://github.com/frictionlessdata/specs/issues
-[repo]: https://github.com/frictionlessdata/specs
 
 Some software that implements the Frictionless Data specifications may need to store additional information on the various Frictionless Data descriptors.
 

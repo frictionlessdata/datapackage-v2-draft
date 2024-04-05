@@ -1,11 +1,11 @@
 ---
-title: Nested Resources
+title: Files Inside Archives
 ---
 
 <table>
   <tr>
-    <th>Author(s)</th>
-    <td>TODO</td>
+    <th>Authors</th>
+    <td>Carles Pina Estany</td>
   </tr>
 </table>
 

@@ -4,8 +4,8 @@ title: Caching of Resources
 
 <table>
   <tr>
-    <th>Author(s)</th>
-    <td>TODO</td>
+    <th>Authors</th>
+    <td>Rufus Pollock, Paul Walsh</td>
   </tr>
 </table>
 

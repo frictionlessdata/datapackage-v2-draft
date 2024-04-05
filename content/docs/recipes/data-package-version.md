@@ -4,8 +4,8 @@ title: Data Package Version
 
 <table>
   <tr>
-    <th>Author(s)</th>
-    <td>TODO</td>
+    <th>Authors</th>
+    <td>Rufus Pollock</td>
   </tr>
 </table>
 

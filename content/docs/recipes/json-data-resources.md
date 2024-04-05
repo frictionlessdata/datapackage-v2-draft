@@ -4,8 +4,8 @@ title: JSON Data Resources
 
 <table>
   <tr>
-    <th>Author(s)</th>
-    <td>TODO</td>
+    <th>Authors</th>
+    <td>Michael Joseph Rosenthal</td>
   </tr>
 </table>
 

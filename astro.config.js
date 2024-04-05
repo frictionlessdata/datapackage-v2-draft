@@ -1,5 +1,7 @@
+import { rehypeHeadingIds } from "@astrojs/markdown-remark"
 import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
+import rehypeAutolinkHeadings from "rehype-autolink-headings"
 
 // https://astro.build/config
 export default defineConfig({
@@ -36,9 +38,9 @@ export default defineConfig({
           autogenerate: { directory: "extensions" },
         },
         {
-          label: "Patterns",
+          label: "Recipes",
           collapsed: true,
-          autogenerate: { directory: "patterns" },
+          autogenerate: { directory: "recipes" },
         },
         {
           label: "Guides",
@@ -98,4 +100,16 @@ export default defineConfig({
       ],
     }),
   ],
+  markdown: {
+    rehypePlugins: [
+      rehypeHeadingIds,
+      [
+        rehypeAutolinkHeadings,
+        {
+          // Wrap the heading text in a link.
+          behavior: "wrap",
+        },
+      ],
+    ],
+  },
 })
