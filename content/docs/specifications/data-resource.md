@@ -161,23 +161,13 @@ Or inline CSV:
 Prior to release 1.0.0-beta.18 (Nov 17 2016) there was a `url` property distinct from `path`. In order to support backwards compatibility, implementors `MAY` want to automatically convert a `url` property to a `path` property and issue a warning.
 :::
 
-### `profile`
+### `$schema`
 
-A string identifying the profile of this descriptor as per the [profiles](https://specs.frictionlessdata.io/profiles/) specification.
+A Data Resource descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition and `MUST` include all the metadata constraints required by this specification.
 
-Examples:
-
-```json
-{
-  "profile": "tabular-data-resource"
-}
-```
-
-```json
-{
-  "profile": "http://example.com/my-profiles-json-schema.json"
-}
-```
+:::note[Backward Compatibility]
+If the `$schema` property is not provided but a descriptor has the `profile` property a data consumer `MUST` validate the descriptor according to the [Profiles](https://specs.frictionlessdata.io/profiles/) specification.
+:::
 
 ### `title`
 

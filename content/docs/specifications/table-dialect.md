@@ -68,6 +68,10 @@ id,name
 
 General properties are format-agnostic. Usually, there are useful for defining dialects for delimiter-based and spreadsheet-based formats like CSV or Excel.
 
+#### `$schema`
+
+A Table Dialect descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition and `MUST` include all the metadata constraints required by this specification.
+
 #### `header`
 
 A Table Dialect descriptor `MAY` have the `header` property that `MUST` be boolean with default value `true`. This property indicates whether the file includes a header row. If `true` the first row in the file `MUST` be interpreted as a header row, not data.

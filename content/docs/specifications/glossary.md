@@ -26,7 +26,7 @@ A profile is a URL that `MUST`:
 - resolves to a valid JSON Schema descriptor
 - be versioned and idempotent i.e. once published under some version it cannot be changed
 
-A profile is both used as a metadata version identifier and the location of a JSON Schema against which this metadata `MUST` be valid and `MUST` be validated.
+A profile is both used as a metadata version identifier and the location of a JSON Schema against which a descriptor having it as a `$schema` property `MUST` be valid and `MUST` be validated.
 
 :::note[Implementation Note]
 It is recommended to cache profiles using their URL as a unique key.
