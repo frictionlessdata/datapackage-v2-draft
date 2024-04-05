@@ -69,6 +69,7 @@ First of all, we need to create a Data Package profile. Note that it includes a 
           "type": "array",
           "item": {
             "type": "object",
+            "required": ["geopoint"],
             "properties": {
               "geopoint": {
                 "type": "object",
