@@ -54,7 +54,7 @@ First of all, we need to create a Data Package profile. Note that it includes a 
 
 ```json
 {
-  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Spatial Data Package Profile",
   "type": "object",
   "allOf": [
