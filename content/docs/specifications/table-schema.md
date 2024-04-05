@@ -111,7 +111,7 @@ The way Table Schema `fields` are mapped onto the data source fields are defined
 
 #### `$schema`
 
-A Table Schema descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition and `MUST` include all the metadata constraints required by this specification.
+A Table Schema descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
 
 #### `fieldsMatch`
 

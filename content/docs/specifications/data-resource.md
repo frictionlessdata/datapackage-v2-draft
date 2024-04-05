@@ -163,7 +163,7 @@ Prior to release 1.0.0-beta.18 (Nov 17 2016) there was a `url` property distinct
 
 ### `$schema`
 
-A Data Resource descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition and `MUST` include all the metadata constraints required by this specification.
+A Data Resource descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
 
 :::note[Backward Compatibility]
 If the `$schema` property is not provided but a descriptor has the `profile` property a data consumer `MUST` validate the descriptor according to the [Profiles](https://specs.frictionlessdata.io/profiles/) specification.

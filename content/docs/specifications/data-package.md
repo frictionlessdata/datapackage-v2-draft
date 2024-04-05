@@ -126,7 +126,7 @@ Packaged data resources are described in the `resources` property of the package
 
 ### `$schema`
 
-A Data Package descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition and `MUST` include all the metadata constraints required by this specification. The default value is `https://datapackage.org/profiles/1.0./datapackage.json`.
+A Data Package descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification. The default value is `https://datapackage.org/profiles/1.0./datapackage.json`.
 
 :::note[Backward Compatibility]
 If the `$schema` property is not provided but a descriptor has the `profile` property a data consumer `MUST` validate the descriptor according to the [Profiles](https://specs.frictionlessdata.io/profiles/) specification.

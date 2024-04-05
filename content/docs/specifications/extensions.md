@@ -11,7 +11,7 @@ sidebar:
   </tr>
 </table>
 
-Data Package Standard provides rich extensibility features for domain-specific needs.
+Data Package Standard extensibility features for domain-specific needs.
 
 ## Language
 
@@ -19,7 +19,7 @@ The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `S
 
 ## Introduction
 
-Data Package Standard provides a rich set of metadata and data features for general applications. At the same time, Data Package Standard at its core is domain-agnostic and does not provide any built-in features to describe metadata in specific knowledge areas such as biology or medicine.
+Data Package Standard provides a rich set of metadata and data features for general applications. At the same time, Data Package Standard at its core is domain-agnostic and does not provide any builtin means to describe metadata in specific knowledge areas such as biology or medicine.
 
 A domain-specific extension is the way to enrich Data Package's metadata to meet specific needs of a knowledge domain. For example, there are some prominent Data Package extensions:
 
@@ -28,8 +28,86 @@ A domain-specific extension is the way to enrich Data Package's metadata to meet
 
 ## Extension
 
-Data Package Standard has a simple yet powerful extension mechanism based on the [Profile](../glossary/#profile) concept.
+Data Package Standard has a simple yet powerful extension mechanism based on the [Profile](../glossary/#profile) concept. An extension is, generally speaking, a project that provides one or more domain-specific profiles to the Data Package Standard specifications.
 
-A custom profile can be provided as a `$schema` property in a descriptor for each of the core specifications: Data Package, Data Resource, Table Dialect, and Table Schema. Having a profile instructs implementation to validate a descriptor using JSON Schema rules from the profile. This system empowers rich metadata extensibility features that can be used in many domain-specific applications.
+From user-perspective, a custom profile can be provided as a `$schema` property in a corresponding specification [Descriptor](../glossary/#descriptor). Having a profile instructs implementation to validate a descriptor using JSON Schema rules of the profile.
 
-Usually,
+Usually, Data Package is the specification that is extended. As a container format, it is the most natural target for metadata enrichment. At the same time, technically any of the core specifications can be extended. For example, if you build a Table Schema catalog, it is possible to extend a Table Schema specification using the same approach as described below.
+
+Note, that the Data Package Standard's extension system completely relies on JSON Schema without extending its builtin features in any way. It makes the system highly robust and provides rich tooling support such as [text editor validation](https://code.visualstudio.com/docs/languages/json#_mapping-in-the-json).
+
+Combining modern JSON Schema features with an ability to provide profiles to any of the core Data Package Standard specification descriptors, allows to achieve almost any of metadata enrichment goals including but not limited to:
+
+- introducing custom properties on any metadata level
+- requiring a resource list to comply with an extension rules
+- ensuring tabular data rules restricting it to a specific Table Schema
+- modularity with combination of custom profiles on different metadata levels
+- combining existent profiles as a part of a high-level extension
+
+## Example
+
+For example, we will create a Spatial Data Package that requires a `geopoint` marker to be provided for each resource consisting a Data Package and .
+
+### Profile
+
+First of all, we need to create a Data Package profile. Note that it includes a default data package profile as per the [specification requirement](../data-package/#schema):
+
+```json
+{
+  "$schema": "http://json-schema.org/draft/2020-12/schema",
+  "title": "Spatial Data Package Profile",
+  "type": "object",
+  "allOf": [
+    { "$ref": "https://datapackage.org/profiles/2.0/datapackage.json" },
+    { "$ref": "#/definitions/spatialMixin" }
+  ],
+  "definitions": {
+    "spatialMixin": {
+      "type": "object",
+      "properties": {
+        "resources": {
+          "type": "array",
+          "item": {
+            "type": "object",
+            "properties": {
+              "geopoint": {
+                "type": "object",
+                "properties": {
+                  "lon": { "type": "number" },
+                  "lat": { "type": "number" },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Descriptor
+
+Consider that the profile above is published at `https://spatial.datapackage.org/profiles/1.0/datapackage.json`. In this case, a Data Package descriptor compatible to exemplar Spatial Data Package (v1) will look as below:
+
+```json
+{
+  "$schema": "https://spatial.datapackage.org/profiles/1.0/datapackage.json",
+  "title": "Spatial Data Package Descriptor",
+  "resources": [
+    {
+      "name": "expedition-1",
+      "path": "expedition-1.csv",
+      "geopoint": {
+        "lon": 90,
+        "lat": 90
+      }
+    }
+  ]
+}
+```
+
+### Software
+
+On the software level, all the Data Package implementations, even though they are not aware of this extension, will now be validating any Spatial Data Package descriptors from above according to the introduced domain-specific rules. At the same time, we encourage extensions authors to build on top of Data Package implementations to support domain-specific properties on the programming models level as well.

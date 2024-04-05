@@ -70,7 +70,7 @@ General properties are format-agnostic. Usually, there are useful for defining d
 
 #### `$schema`
 
-A Table Dialect descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition and `MUST` include all the metadata constraints required by this specification.
+A Table Dialect descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
 
 #### `header`
 
