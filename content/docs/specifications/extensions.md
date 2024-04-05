@@ -12,6 +12,6 @@ sidebar:
   </tr>
 </table>
 
-:::caution
-This section is under development
-:::
+For example, a descriptor for a data package extension might have the property `$schema` set to `https://raw.githubusercontent.com/organization/project/main/automotive-datapackage-2.3.json`.
+
+If the `$schema` property indicates an extension, a data consumer `MUST` retrieve a Data Package version from the extension JSON Schema according the rules described in the [Extensions](../extensions) specification.

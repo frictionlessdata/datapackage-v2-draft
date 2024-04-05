@@ -126,18 +126,7 @@ Packaged data resources are described in the `resources` property of the package
 
 ### `$schema`
 
-A Data Package descriptor `SHOULD` have the `$schema` property that `MUST` be an URL with default value `https://datapackage.org/profiles/datapackage-1.0.json`.
-
-The `$schema` property is both used as a Data Package version identifier and the location of a [JSON Schema file](../glossary/#metadata-profile) against which this Data Package `MUST` be valid.
-
-The `$schema` property `MUST`:
-
-- be exactly `https://datapackage.json/profiles/datapackage-X.Y.json` where `X` and `Y` are major and minor Data Package Standard versions OR
-- ends with `/EXTENSION-datapackage-X.Y.json` where `EXTENSION` is a name of an extension limited to the `[a-z0-9]` characters subset, and `X` and `Y` are major and minor extension versions.
-
-For example, a descriptor for a data package extension might have the property `$schema` set to `https://raw.githubusercontent.com/organization/project/main/automotive-datapackage-2.3.json`.
-
-If the `$schema` property indicates an extension, a data consumer `MUST` retrieve a Data Package version from the extension JSON Schema according the rules described in the [Extensions](../extensions) specification.
+A Data Package descriptor `SHOULD` have the `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition. The default value is `https://datapackage.org/profiles/1.0./datapackage.json`.
 
 :::note[Backward Compatibility]
 If the `$schema` property is not provided but a descriptor has the `profile` property a data consumer `MUST` validate the descriptor according to the [Profiles](https://specs.frictionlessdata.io/profiles/) specification.
