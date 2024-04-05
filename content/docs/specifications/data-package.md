@@ -195,24 +195,6 @@ Here is an example:
 - `path`: A [URL or Path](../glossary/#url-or-path) string, that is a fully qualified HTTP address, or a relative POSIX path.
 - `title`: A human-readable title.
 
-### `profile`
-
-A string identifying the profile of this descriptor as per the [profiles](https://specs.frictionlessdata.io/profiles/) specification.
-
-Examples:
-
-```json
-{
-  "profile": "tabular-data-package"
-}
-```
-
-```json
-{
-  "profile": "http://example.com/my-profiles-json-schema.json"
-}
-```
-
 ### `title`
 
 A `string` providing a title or one sentence description for this package
