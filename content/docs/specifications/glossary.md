@@ -26,7 +26,11 @@ A profile is a URL that `MUST`:
 - resolves to a valid JSON Schema descriptor under the `draft-07` version
 - be versioned and idempotent i.e. once published under some version it cannot be changed
 
-A profile is both used as a metadata version identifier and the location of a JSON Schema against which a descriptor having it as a `$schema` property `MUST` be valid and `MUST` be validated. Profiles is the mechanism for creating Data Package Standard [Extensions](../extensions).
+A profile is both used as a metadata version identifier and the location of a JSON Schema against which a descriptor having it as a root level `$schema` property `MUST` be valid and `MUST` be validated.
+
+Similarly to [JSON Schema](https://json-schema.org/understanding-json-schema/reference/schema#schema), the `$schema` property has effect only on the root level of a descriptor. For example, if a Table Dialect is published as a file it can include a `$schema` property that affects its validation. If the same dialect is an object inlined into a Data Package descriptor, the dialect's `$schema` property `MUST` be ignored and the descriptor as whole `MUST` be validated against a root level `$schema` property provided by the package.
+
+Data Package Standard employes profiles as a mechanism for creating extensions as per [Extensions](../extensions) specification.
 
 :::note[Implementation Note]
 It is recommended to cache profiles using their URL as a unique key.

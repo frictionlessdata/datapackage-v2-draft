@@ -34,15 +34,15 @@ From user-perspective, a custom profile can be provided as a `$schema` property 
 
 Usually, Data Package is the specification that is extended. As a container format, it is the most natural target for metadata enrichment. At the same time, technically any of the core specifications can be extended. For example, if you build a Table Schema catalog, it is possible to extend a Table Schema specification using the same approach as described below.
 
-Note, that the Data Package Standard's extension system completely relies on JSON Schema without extending its builtin features in any way. It makes the system highly robust and provides rich tooling support such as [text editor validation](https://code.visualstudio.com/docs/languages/json#_mapping-in-the-json).
+Note, that the Data Package Standard's extension system completely relies on the JSON Schema Standard without extending its builtin features in any way. It makes the system robust and provides rich tooling support such as [text editor validation](https://code.visualstudio.com/docs/languages/json#_mapping-in-the-json).
 
 Combining modern JSON Schema features with an ability to provide profiles to any of the core Data Package Standard specification descriptors, allows to achieve almost any of metadata enrichment goals including but not limited to:
 
 - introducing custom properties on any metadata level
 - requiring a resource list to comply with an extension rules
 - ensuring tabular data rules restricting it to a specific Table Schema
-- modularity with combination of custom profiles on different metadata levels
 - combining existent profiles as a part of a high-level extension
+- creating domain-specific dialect and schema catalogues
 
 ## Example
 
