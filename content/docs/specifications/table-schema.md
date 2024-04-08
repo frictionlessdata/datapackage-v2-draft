@@ -474,13 +474,7 @@ The boolean field can be customised with these additional properties:
 
 The field contains categorical data, defined as data with a finite set of possible values that represent levels of a categorical variable.
 
-The `categorical` type facilitates interoperability with software packages that support categorical data types, including:
-
-- Value labels or formats ([Stata](https://www.stata.com/manuals13/dlabel.pdf), [SAS](https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/proc/p1upn25lbfo6mkn1wncu4dyh9q91.htm), and [SPSS](https://www.ibm.com/docs/en/spss-statistics/beta?topic=data-adding-value-labels))
-- Categoricals ([Pandas](https://pandas.pydata.org/docs/user_guide/categorical.html), and [Polars](https://docs.pola.rs/user-guide/concepts/data-types/categoricals/))
-- [Enums (DuckDB)](https://duckdb.org/docs/sql/data_types/enum.html)
-- [Factors (R)](https://www.stat.berkeley.edu/~s133/factors.html)
-- [CategoricalVectors (Julia)](https://dataframes.juliadata.org/stable/man/categorical/)
+The `categorical` type facilitates interoperability with software packages that support categorical data types, including: Value labels or formats ([Stata](https://www.stata.com/manuals13/dlabel.pdf), [SAS](https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/proc/p1upn25lbfo6mkn1wncu4dyh9q91.htm), and [SPSS](https://www.ibm.com/docs/en/spss-statistics/beta?topic=data-adding-value-labels)), Categoricals ([Pandas](https://pandas.pydata.org/docs/user_guide/categorical.html), and [Polars](https://docs.pola.rs/user-guide/concepts/data-types/categoricals/)), Enums ([DuckDB](https://duckdb.org/docs/sql/data_types/enum.html)), Factors ([R](https://www.stat.berkeley.edu/~s133/factors.html)), and CategoricalVectors ([Julia](https://dataframes.juliadata.org/stable/man/categorical/)).
 
 Although the `categorical` field type restricts a field to a finite set of possible values, like an [`enum`](#enum) constraint, the `categorical` field type enables data producers to explicitly indicate to implementations that a field `SHOULD` be loaded as a categorical data type (when supported by the implementation). By contrast, `enum` constraints simply add validation rules to existing field types. When an `enum` constraint is defined on a `categorical` field, the values in the `enum` constraint `MUST` be a subset of the physical values representing the levels of the `categorical`.
 
