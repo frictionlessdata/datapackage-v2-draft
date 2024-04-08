@@ -510,7 +510,7 @@ When the `categories` property is an array of objects, each object `MUST` have a
 }
 ```
 
-The `categorical` field type `MAY` additionally have the property `ordered` that indicates whether the categories have a natural order. When present, the `ordered` property `MUST` be a boolean. For example:
+The `categorical` field type `MAY` additionally have the property `ordered` that indicates whether the levels of the `categorical` have a natural order. When present, the `ordered` property `MUST` be a boolean. When `ordered` is `true`, implementations `SHOULD` use the order of the levels as defined in the `categories` property as the natural order of the levels. For example:
 
 ```json
 {
@@ -527,7 +527,7 @@ The `categorical` field type `MAY` additionally have the property `ordered` that
 }
 ```
 
-When the property `ordered` is not specified, implementations `MUST` assume a default value of `false`.
+When the property `ordered` is `false` or not present, implementations `SHOULD` assume that the levels of the `categorical` do not have a natural order.
 
 ### `object`
 
