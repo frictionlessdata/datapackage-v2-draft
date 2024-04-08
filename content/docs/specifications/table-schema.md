@@ -744,6 +744,10 @@ A regular expression that can be used to test field values. If the regular expre
 
 The value of the field `MUST` exactly match one of the values in the `enum` array.
 
+:::note[Backward Compatibility]
+Many `v1.0` implementations imported fields with `enum` constraints as categorical data types. Starting in `v2.0` this behavior is discouraged in favor of explicit use of the [`categorical`](#categorical) field type. In `v2.0`, an `enum` constraint `SHOULD` be interpreted by implementations as a validation rule on an existing field type, and `SHOULD NOT` change the imported data type of the field.
+:::
+
 :::note[Implementation Note]
 
 - Implementations `SHOULD` report an error if an attempt is made to evaluate a value against an unsupported constraint.
