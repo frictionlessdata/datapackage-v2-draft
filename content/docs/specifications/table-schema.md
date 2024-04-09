@@ -504,7 +504,7 @@ When the `categories` property is an array of objects, each object `MUST` have a
 }
 ```
 
-The `categorical` field type `MAY` additionally have the property `ordered` that indicates whether the levels of the `categorical` have a natural order. When present, the `ordered` property `MUST` be a boolean. When `ordered` is `true`, implementations `SHOULD` interpret the order of the levels as defined in the `categories` property as the natural ordering of the levels, in ascending order. For example:
+The `categorical` field type `MAY` additionally have the property `ordered` that indicates whether the levels of the `categorical` have a natural order. When present, the `ordered` property `MUST` be a boolean. When `ordered` is `true`, implementations `SHOULD` interpret the order of the levels as defined in the `categories` property as the natural ordering of the levels, in ascending order. In cases where the physical values are numeric and `ordered` is `true`, the order of the levels `SHOULD` match the numerical order of the values (e.g., 1, 2, 3, ...) to avoid ambiguity. For example:
 
 ```json
 {
