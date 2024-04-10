@@ -112,4 +112,4 @@ Consider that the profile above is published at `https://spatial.datapackage.org
 
 ### Software
 
-On the software level, all the Data Package implementations, even though they are not aware of this extension, will now be validating any Spatial Data Package descriptors from above according to the introduced domain-specific rules. At the same time, we encourage extensions authors to build on top of Data Package implementations to support domain-specific properties on the programming models level as well.
+Even though they are not aware of the extension, any Data Package software implementation will be validating a Spatial Data Package out of the box: both the domain-specific properties as well as the general Data Package properties. We do encourage extensions authors however to build on top of existing software to support domain-specific properties on the programming models level as well.
