@@ -7,7 +7,7 @@ sidebar:
 <table>
   <tr>
     <th>Authors</th>
-    <td>Rufus Pollock, Paul Walsh, Evgeny Karev, Peter Desmet</td>
+    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet</td>
   </tr>
   <tr>
     <th>Profile</th>
@@ -75,11 +75,16 @@ Several example data packages can be found in the [datasets organization on gith
 
 ## Descriptor
 
+Data Package descriptor `MUST` be a descriptor as per [Descriptor](../glossary/#descriptor) definition. A list of standard properties that can be included into a descriptor is defined in the [Properties](#properties) section.
+
+When available as a file a descriptor `MUST` be named `datapackage.json` and it `MUST` be placed in the top-level directory (relative to any other resources provided as part of the data package).
+
 The descriptor is the central file in a Data Package. It provides:
 
 - General metadata such as the package's title, license, publisher etc
 - A list of the data "resources" that make up the package including their location on disk or online and other relevant information (including, possibly, schema information about these data resources in a structured form)
 
+<<<<<<< HEAD
 A Data Package descriptor `MUST` be a valid JSON `object`. (JSON is defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)). When available as a file it `MUST` be named `datapackage.json` and it `MUST` be placed in the top-level directory (relative to any other resources provided as part of the data package).
 
 The descriptor `MUST` contain a `resources` property describing the data resources.
@@ -99,6 +104,9 @@ Adherence to the specification does not imply that additional, non-specified pro
 This flexibility enables specific communities to extend Data Packages as appropriate for the data they manage. As an example, the [Fiscal Data Package](https://fiscal.datapackage.org) specification extends Data Package for publishing and consuming fiscal data.
 
 Here is an illustrative example of a datapackage JSON file:
+=======
+An example of a Data Package descriptor:
+>>>>>>> main
 
 ```json
 {
@@ -113,6 +121,10 @@ Here is an illustrative example of a datapackage JSON file:
   ]
 }
 ```
+
+:::note[File Names]
+A file containing a Data Package descriptor `MAY` have other name rather than `datapackage.json` as an internal part of some project or system if supported by corresponding implementations. A descriptor `SHOULD NOT` be externally published under any other name than `datapackage.json`.
+:::
 
 ## Properties
 

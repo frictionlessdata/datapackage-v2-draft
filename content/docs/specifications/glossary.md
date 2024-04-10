@@ -7,7 +7,7 @@ sidebar:
 <table>
   <tr>
     <th>Authors</th>
-    <td>Rufus Pollock, Paul Walsh, Evgeny Karev, Peter Desmet</td>
+    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet</td>
   </tr>
 </table>
 
@@ -18,6 +18,38 @@ A dictionary of special terms for the Data Package Standard.
 The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `SHOULD NOT`, `RECOMMENDED`, `MAY`, and `OPTIONAL` in this document are to be interpreted as described in [RFC 2119](https://www.ietf.org/rfc/rfc2119.txt)
 
 ## Definitions
+
+### Descriptor
+
+The Data Package Standard uses a concept of a `descriptor` to represent metadata defined according to the core specefications such as Data Package or Table Schema.
+
+On logical level, a descriptor is represented by a data structure. The data structure `MUST` be a JSON `object` as defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
+
+On physical level, a descriptor is represented by a file. The file `MUST` contains a valid JSON `object` as defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
+
+This specification does not define any discoverability mechanisms. Any URI can be used to directly reference a file containing a descriptor.
+
+:::note[File Formats]
+A descriptor `MAY` be serialized using alternative formats like YAML or TOML as an internal part of some project or system if supported by corresponding implementations. A descriptor `SHOULD NOT` be externally published in any other format rather than JSON.
+:::
+
+#### Custom Properties
+
+The Data Package specifications define a set of standard properties to be used and allows custom properties to be added. It is `RECOMMENDED` to use `namespace:property` naming convention for custom properties.
+
+Adherence to a specification does not imply that additional, non-specified properties cannot be used: a descriptor `MAY` include any number of properties in additional to those described as required and optional properties. For example, if you were storing time series data and wanted to list the temporal coverage of the data in the Data Package you could add a property `temporal` (cf [Dublin Core](http://dublincore.org/documents/usageguide/qualifiers.shtml#temporal)):
+
+```json
+{
+  "dc:temporal": {
+    "name": "19th Century",
+    "start": "1800-01-01",
+    "end": "1899-12-31"
+  }
+}
+```
+
+This flexibility enables specific communities to extend Data Packages as appropriate for the data they manage. As an example, the [Fiscal Data Package](https://fiscal.datapackage.org) specification extends Data Package for publishing and consuming fiscal data.
 
 ### URL or Path
 
