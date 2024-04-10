@@ -11,7 +11,7 @@ sidebar:
   </tr>
 </table>
 
-Data Package Standard extensibility features for domain-specific needs.
+The Data Package Standard extensibility features for domain-specific needs.
 
 ## Language
 
@@ -19,7 +19,7 @@ The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `S
 
 ## Introduction
 
-Data Package Standard provides a rich set of metadata and data features for general applications. At the same time, Data Package Standard at its core is domain-agnostic and does not provide any builtin means to describe metadata in specific knowledge areas such as biology or medicine.
+The Data Package Standard provides a rich set of metadata and data features for general applications. At the same time, the Data Package Standard at its core is domain-agnostic and does not provide any builtin means to describe metadata in specific knowledge areas such as biology or medicine.
 
 A domain-specific extension is the way to enrich Data Package's metadata to meet specific needs of a knowledge domain. For example, there are some prominent Data Package extensions:
 
@@ -28,7 +28,7 @@ A domain-specific extension is the way to enrich Data Package's metadata to meet
 
 ## Extension
 
-Data Package Standard has a simple yet powerful extension mechanism based on the [Profile](../glossary/#profile) concept. An extension is, generally speaking, a project that provides one or more domain-specific profiles to the Data Package Standard specifications.
+The Data Package Standard has a simple yet powerful extension mechanism based on the [Profile](../glossary/#profile) concept. An extension is, generally speaking, a project that provides one or more domain-specific profiles to the Data Package Standard specifications.
 
 From user-perspective, a custom profile can be provided as a `$schema` property in a corresponding specification [Descriptor](../glossary/#descriptor). Having a profile instructs implementation to validate a descriptor using JSON Schema rules of the profile.
 
@@ -38,12 +38,12 @@ Note, that the Data Package Standard's extension system completely relies on the
 
 Combining modern JSON Schema features with an ability to provide profiles to any of the core Data Package Standard specification descriptors, allows to achieve almost any of metadata enrichment goals including but not limited to:
 
-- adding new domain-specific properties
-- requiring existing properties to comply with certain requirements
-- defining what resources are expected
-- requiring resources to meet certain dialect or schema requirements
-- combining existent profiles as a part of a high-level extension
-- creating domain-specific dialect and schema catalogues
+- Adding new domain-specific properties.
+- Requiring existing properties to comply with certain requirements.
+- Defining what resources are expected.
+- Requiring resources to meet certain dialect or schema requirements.
+- Combining existent profiles as a part of a high-level extension.
+- Creating domain-specific dialect and schema catalogues.
 
 ## Example
 
