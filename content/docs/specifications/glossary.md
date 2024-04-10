@@ -24,7 +24,7 @@ The key words `MUST`, `MUST NOT`, `REQUIRED`, `SHALL`, `SHALL NOT`, `SHOULD`, `S
 A profile is a URL that `MUST`:
 
 - resolves to a valid JSON Schema descriptor under the `draft-07` version
-- be versioned and idempotent i.e. once published under some version it cannot be changed
+- be versioned and immutable i.e. once published under some version it cannot be changed
 
 A profile is both used as a metadata version identifier and the location of a JSON Schema against which a descriptor having it as a root level `$schema` property `MUST` be valid and `MUST` be validated.
 
