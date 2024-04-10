@@ -101,7 +101,7 @@ An example of a Data Package descriptor:
 ```
 
 :::note[File Names]
-A file containing a Data Package descriptor `MAY` have other name rather than `datapackage.json` as an internal part of some project or system if supported by corresponding implementations. A descriptor `SHOULD NOT` be externally published under any other name rather than `datapackage.json`.
+A file containing a Data Package descriptor `MAY` have other name rather than `datapackage.json` as an internal part of some project or system if supported by corresponding implementations. A descriptor `SHOULD NOT` be externally published under any other name than `datapackage.json`.
 :::
 
 ## Properties
