@@ -84,29 +84,7 @@ The descriptor is the central file in a Data Package. It provides:
 - General metadata such as the package's title, license, publisher etc
 - A list of the data "resources" that make up the package including their location on disk or online and other relevant information (including, possibly, schema information about these data resources in a structured form)
 
-<<<<<<< HEAD
-A Data Package descriptor `MUST` be a valid JSON `object`. (JSON is defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)). When available as a file it `MUST` be named `datapackage.json` and it `MUST` be placed in the top-level directory (relative to any other resources provided as part of the data package).
-
-The descriptor `MUST` contain a `resources` property describing the data resources.
-
-All other properties are considered `metadata` properties. The descriptor `MAY` contain any number of other `metadata` properties. The following sections provides a description of required and optional metadata properties for a Data Package descriptor.
-
-Adherence to the specification does not imply that additional, non-specified properties cannot be used: a descriptor `MAY` include any number of properties in additional to those described as required and optional properties. For example, if you were storing time series data and wanted to list the temporal coverage of the data in the Data Package you could add a property `temporal` (cf [Dublin Core](http://dublincore.org/documents/usageguide/qualifiers.shtml#temporal)):
-
-```json
-"temporal": {
-  "name": "19th Century",
-  "start": "1800-01-01",
-  "end": "1899-12-31"
-}
-```
-
-This flexibility enables specific communities to extend Data Packages as appropriate for the data they manage. As an example, the [Fiscal Data Package](https://fiscal.datapackage.org) specification extends Data Package for publishing and consuming fiscal data.
-
-Here is an illustrative example of a datapackage JSON file:
-=======
 An example of a Data Package descriptor:
->>>>>>> main
 
 ```json
 {
