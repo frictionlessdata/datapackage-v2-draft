@@ -38,9 +38,10 @@ Note, that the Data Package Standard's extension system completely relies on the
 
 Combining modern JSON Schema features with an ability to provide profiles to any of the core Data Package Standard specification descriptors, allows to achieve almost any of metadata enrichment goals including but not limited to:
 
-- introducing custom properties on any metadata level
-- requiring a resource list to comply with an extension rules
-- ensuring tabular data rules restricting it to a specific Table Schema
+- adding new domain-specific properties
+- requiring existing properties to comply with certain requirements
+- defining what resources are expected
+- requiring resources to meet certain dialect or schema requirements
 - combining existent profiles as a part of a high-level extension
 - creating domain-specific dialect and schema catalogues
 
