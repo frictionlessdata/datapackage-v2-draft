@@ -7,7 +7,7 @@ sidebar:
 <table>
   <tr>
     <th>Authors</th>
-    <td>Rufus Pollock, Paul Walsh, Evgeny Karev, Peter Desmet, Ethan Welty, DC Slagel</td>
+    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet, Ethan Welty, DC Slagel</td>
   </tr>
   <tr>
     <th>Profile</th>
@@ -38,11 +38,9 @@ Note, that whenever a native value is allowed to be provided in this spec, the m
 
 ## Descriptor
 
-A Table Schema is represented by a descriptor. The descriptor `MUST` be a JSON `object` (JSON is defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)).
+Table Schema descriptor `MUST` be a descriptor as per [Descriptor](../glossary/#descriptor) definition. A list of standard properties that can be included into a descriptor is defined in the [Properties](#properties) section.
 
-The descriptor `MAY` have the additional properties set out below and `MAY` contain any number of other properties not defined in this specification.
-
-The following is an illustration of this structure:
+An example of a Table Schema descriptor:
 
 ```json
 {
@@ -59,7 +57,7 @@ The following is an illustration of this structure:
     ...
   ],
   "missingValues": [ ... ],
-  "primaryKey": [ ... ]
+  "primaryKey": [ ... ],
   "foreignKeys": [... ]
 }
 ```
