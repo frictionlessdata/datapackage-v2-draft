@@ -47,7 +47,7 @@ Combining modern JSON Schema features with an ability to provide profiles to any
 
 ## Example
 
-For example, we will create a Spatial Data Package that requires a `geopoint` marker to be provided for each resource consisting a Data Package and .
+For example, we will create a Spatial Data Package that requires a `geopoint` marker to be provided for each resource consisting a Data Package.
 
 ### Profile
 
