@@ -150,7 +150,7 @@ The license(s) under which the package is provided.
 This property is not legally binding and does not guarantee the package is licensed under the terms defined in this property.
 :::
 
-`licenses` `MUST` be an array. Each item in the array is a License. Each `MUST` be an `object`. The object `MUST` contain a `name` property and/or a `path` property. It `MAY` contain a `title` property:
+`licenses` `MUST` be an array. Each item in the array is a License. Each `MUST` be an `object`. The object `MUST` contain a `name` property and/or a `path` property, and it `MAY` contain a `title` property:
 
 - `name`: A string containing an [Open Definition license ID](http://licenses.opendefinition.org/)
 - `path`: A [URL or Path](../glossary/#url-or-path), that is a fully qualified HTTP address, or a relative POSIX path.
@@ -226,7 +226,7 @@ An Array of string keywords to assist users searching for the package in catalog
 
 ### `contributors`
 
-The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have at least one property. A Contributor is RECOMMENDED to have `title` property and MAY contain `givenName`, `familyName`, `path`, `email`, `roles`, and `organization` properties:
+The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have at least one property. A Contributor is `RECOMMENDED` to have `title` property and `MAY` contain `givenName`, `familyName`, `path`, `email`, `roles`, and `organization` properties:
 
 - `title`: A string containing a name of the contributor.
 - `givenName`: A string containing name a person has been given, if the contributor is a person.
