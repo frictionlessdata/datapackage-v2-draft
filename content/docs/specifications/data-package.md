@@ -114,6 +114,16 @@ The `resources` property is `REQUIRED`, with at least one resource.
 
 Packaged data resources are described in the `resources` property of the package descriptor. This property `MUST` be an array of `objects`. Each object `MUST` follow the [Data Resource ](../data-resource/) specification.
 
+### `$schema`
+
+A root level Data Package descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
+
+The default value is `https://datapackage.org/profiles/1.0/datapackage.json` and the recommended value is `https://datapackage.org/profiles/2.0/datapackage.json`.
+
+:::note[Backward Compatibility]
+If the `$schema` property is not provided but a descriptor has the `profile` property a data consumer `MUST` validate the descriptor according to the [Profiles](https://specs.frictionlessdata.io/profiles/) specification.
+:::
+
 ### `name`
 
 The name is a simple name or identifier to be used for this package in relation to any registry in which this package will be deposited.
@@ -150,9 +160,13 @@ The license(s) under which the package is provided.
 This property is not legally binding and does not guarantee the package is licensed under the terms defined in this property.
 :::
 
-`licenses` `MUST` be an array. Each item in the array is a License. Each `MUST` be an `object`. The object `MUST` contain a `name` property and/or a `path` property. It `MAY` contain a `title` property.
+`licenses` `MUST` be an array. Each item in the array is a License. Each `MUST` be an `object`. The object `MUST` contain a `name` property and/or a `path` property, and it `MAY` contain a `title` property:
 
-Here is an example:
+- `name`: A string containing an [Open Definition license ID](http://licenses.opendefinition.org/)
+- `path`: A [URL or Path](../glossary/#url-or-path), that is a fully qualified HTTP address, or a relative POSIX path.
+- `title`: A string containing human-readable title.
+
+An example of using the `licenses` property:
 
 ```json
 "licenses": [{
@@ -160,28 +174,6 @@ Here is an example:
   "path": "http://opendatacommons.org/licenses/pddl/",
   "title": "Open Data Commons Public Domain Dedication and License v1.0"
 }]
-```
-
-- `name`: The `name` `MUST` be an [Open Definition license ID](http://licenses.opendefinition.org/)
-- `path`: A [URL or Path](../glossary/#url-or-path) string, that is a fully qualified HTTP address, or a relative POSIX path.
-- `title`: A human-readable title.
-
-### `profile`
-
-A string identifying the profile of this descriptor as per the [profiles](https://specs.frictionlessdata.io/profiles/) specification.
-
-Examples:
-
-```json
-{
-  "profile": "tabular-data-package"
-}
-```
-
-```json
-{
-  "profile": "http://example.com/my-profiles-json-schema.json"
-}
 ```
 
 ### `title`
@@ -226,7 +218,17 @@ An Array of string keywords to assist users searching for the package in catalog
 
 ### `contributors`
 
-The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have at least one property. A Contributor is RECOMMENDED to have `title` property and MAY contain `givenName`, `familyName`, `path`, `email`, `roles`, and `organization` properties. An example of the object structure is as follows:
+The people or organizations who contributed to this Data Package. It `MUST` be an array. Each entry is a Contributor and `MUST` be an `object`. A Contributor `MUST` have at least one property. A Contributor is `RECOMMENDED` to have `title` property and `MAY` contain `givenName`, `familyName`, `path`, `email`, `roles`, and `organization` properties:
+
+- `title`: A string containing a name of the contributor.
+- `givenName`: A string containing name a person has been given, if the contributor is a person.
+- `familyName`: A string containing familial name that a person inherits, if the contributor is a person.
+- `path`: A fully qualified URL pointing to a relevant location online for the contributor.
+- `email`: A string containing an email address.
+- `roles`: An array of strings describing the roles of the contributor. A role is `RECOMMENDED` to follow an established vocabulary, such as [DataCite Metadata Schema's contributorRole](https://support.datacite.org/docs/datacite-metadata-schema-v44-recommended-and-optional-properties#7a-contributortype) or [CreDIT](https://credit.niso.org/). Useful roles to indicate are: `creator`, `contact`, `rightsHolder`, and `dataCurator`.
+- `organization`: A string describing the organization this contributor is affiliated to.
+
+An example of the object structure is as follows:
 
 ```json
 "contributors": [{
@@ -236,14 +238,6 @@ The people or organizations who contributed to this Data Package. It `MUST` be a
   "roles": ["creator"]
 }]
 ```
-
-- `title`: name of the contributor.
-- `givenName`: name a person has been given, if the contributor is a person.
-- `familyName`: familial name that a person inherits, if the contributor is a person.
-- `path`: a fully qualified http URL pointing to a relevant location online for the contributor
-- `email`: An email address
-- `roles`: an array of strings describing the roles of the contributor. A role is `RECOMMENDED` to follow an established vocabulary, such as [DataCite Metadata Schema's contributorRole](https://support.datacite.org/docs/datacite-metadata-schema-v44-recommended-and-optional-properties#7a-contributortype) or [CreDIT](https://credit.niso.org/). Useful roles to indicate are: `creator`, `contact`, `rightsHolder`, and `dataCurator`.
-- `organization`: a string describing the organization this contributor is affiliated to.
 
 Use of the `creator` role does not imply that that person was the original creator of the data in the data package - merely that they created and/or maintain the data package. It is common for data packages to "package" up data from elsewhere. The original origin of the data can be indicated with the `sources` property - see above.
 
@@ -257,7 +251,14 @@ If the `roles` property is not provided a data consumer MUST fall back to using 
 
 ### `sources`
 
-The raw sources for this data package. It `MUST` be an array of Source objects. A Source object `MUST` have at least one property. A Source object is `RECOMMENDED` to have `title` property and `MAY` have `path`, `email`, and `version` properties. Example:
+The raw sources for this data package. It `MUST` be an array of Source objects. A Source object `MUST` have at least one property. A Source object is `RECOMMENDED` to have `title` property and `MAY` have `path`, `email`, and `version` properties:
+
+- `title`: A string containing a title of the source (e.g. document or organization name).
+- `path`: A [URL or Path](../glossary/#url-or-path), that is a fully qualified HTTP address, or a relative POSIX path.
+- `email`: A string containing an email address.
+- `version`: A string containing a version of the source.
+
+An example of the object structure is as follows:
 
 ```json
 "sources": [{
@@ -265,8 +266,3 @@ The raw sources for this data package. It `MUST` be an array of Source objects. 
   "path": "http://data.worldbank.org/indicator/NY.GDP.MKTP.CD"
 }]
 ```
-
-- `title`: title of the source (e.g. document or organization name)
-- `path`: A [URL or Path](../glossary/#url-or-path) string, that is a fully qualified HTTP address, or a relative POSIX path.
-- `email`: An email address
-- `version`: A version of the source
