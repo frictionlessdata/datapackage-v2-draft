@@ -5,9 +5,9 @@ dataPackage:
   required:
     - resources
   properties:
-    profile:
-      "$ref": "#/definitions/profile"
-      default: "data-package"
+    $schema:
+      "$ref": "#/definitions/$schema"
+      default: https://datapackage.org/profiles/1.0/datapackage.json
       propertyOrder: 10
     name:
       "$ref": "#/definitions/name"

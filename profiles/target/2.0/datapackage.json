@@ -7,17 +7,12 @@
     "resources"
   ],
   "properties": {
-    "profile": {
-      "default": "data-package",
+    "$schema": {
+      "default": "https://datapackage.org/profiles/1.0/datapackage.json",
       "propertyOrder": 10,
       "title": "Profile",
       "description": "The profile of this descriptor.",
-      "context": "Every Package and Resource descriptor has a profile. The default profile, if none is declared, is `data-package` for Package and `data-resource` for Resource.",
-      "type": "string",
-      "examples": [
-        "{\n  \"profile\": \"tabular-data-package\"\n}\n",
-        "{\n  \"profile\": \"http://example.com/my-profiles-json-schema.json\"\n}\n"
-      ]
+      "type": "string"
     },
     "name": {
       "propertyOrder": 20,
@@ -259,17 +254,12 @@
           }
         ],
         "properties": {
-          "profile": {
+          "$schema": {
+            "default": "https://datapackage.org/profiles/1.0/dataresource.json",
             "propertyOrder": 10,
-            "default": "data-resource",
             "title": "Profile",
             "description": "The profile of this descriptor.",
-            "context": "Every Package and Resource descriptor has a profile. The default profile, if none is declared, is `data-package` for Package and `data-resource` for Resource.",
-            "type": "string",
-            "examples": [
-              "{\n  \"profile\": \"tabular-data-package\"\n}\n",
-              "{\n  \"profile\": \"http://example.com/my-profiles-json-schema.json\"\n}\n"
-            ]
+            "type": "string"
           },
           "name": {
             "propertyOrder": 20,
@@ -538,6 +528,13 @@
             "description": "The Table dialect descriptor.",
             "type": "object",
             "properties": {
+              "$schema": {
+                "default": "https://datapackage.org/profiles/1.0/tabledialect.json",
+                "propertyOrder": 10,
+                "title": "Profile",
+                "description": "The profile of this descriptor.",
+                "type": "string"
+              },
               "header": {
                 "title": "Header",
                 "description": "Specifies if the file includes a header row, always as the first row in the file.",
@@ -680,6 +677,13 @@
               "fields"
             ],
             "properties": {
+              "$schema": {
+                "default": "https://datapackage.org/profiles/1.0/tableschema.json",
+                "propertyOrder": 10,
+                "title": "Profile",
+                "description": "The profile of this descriptor.",
+                "type": "string"
+              },
               "fields": {
                 "type": "array",
                 "minItems": 1,

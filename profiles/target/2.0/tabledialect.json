@@ -4,6 +4,13 @@
   "description": "The Table dialect descriptor.",
   "type": "object",
   "properties": {
+    "$schema": {
+      "default": "https://datapackage.org/profiles/1.0/tabledialect.json",
+      "propertyOrder": 10,
+      "title": "Profile",
+      "description": "The profile of this descriptor.",
+      "type": "string"
+    },
     "header": {
       "title": "Header",
       "description": "Specifies if the file includes a header row, always as the first row in the file.",

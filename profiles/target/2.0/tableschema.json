@@ -10,6 +10,13 @@
     "fields"
   ],
   "properties": {
+    "$schema": {
+      "default": "https://datapackage.org/profiles/1.0/tableschema.json",
+      "propertyOrder": 10,
+      "title": "Profile",
+      "description": "The profile of this descriptor.",
+      "type": "string"
+    },
     "fields": {
       "type": "array",
       "minItems": 1,
