@@ -633,14 +633,14 @@ If `true`, then all values for that field `MUST` be unique within the data file 
 ### `minLength`
 
 - **Type**: integer
-- **Fields**: collections (string, array, object)
+- **Fields**: collections (string, list, array, object)
 
 An integer that specifies the minimum length of a value.
 
 ### `maxLength`
 
 - **Type**: integer
-- **Fields**: collections (string, array, object)
+- **Fields**: collections (string, list, array, object)
 
 An integer that specifies the maximum length of a value.
 
