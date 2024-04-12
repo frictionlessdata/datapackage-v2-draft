@@ -129,7 +129,7 @@ Or inline CSV:
 ```
 
 :::note[Backward Compatibility]
-If `path` property is not provided but there is a `url` property, an implementation `MUST` treat it as the `path` property equivalent.
+If `path` property is not provided but there is a `url` property as was defined in Data Package Standard (v0), an implementation `MUST` treat it as the `path` property equivalent.
 :::
 
 #### `type`
