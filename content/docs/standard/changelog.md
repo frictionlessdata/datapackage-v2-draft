@@ -78,25 +78,25 @@ This change adds a new specification Table Dialect that superseeds and extends t
 
 ##### Updated property `primaryKey`
 
-[`primaryKey`](../../specifications/table-schema/#primarykey) should now always be an array of strings, not a string. ([#28](https://github.com/frictionlessdata/datapackage/pull/28)).
+[`primaryKey`](../../specifications/table-schema/#primarykey) should now always be an array of strings, not a string ([#28](https://github.com/frictionlessdata/datapackage/pull/28)).
 
 ##### Updated property `foreignKeys`
 
 [`foreignKeys`](../../specifications/table-schema/#foreignkeys) should now always be an array of strings, not a string ([#28](https://github.com/frictionlessdata/datapackage/pull/28)).
 
-`foreignKey.resource.reference` can now be omitted for self-referencing foreign keys. Previously it required setting resource to an empty string ([#29](https://github.com/frictionlessdata/datapackage/pull/29).
+`foreignKeys.reference.resource` can now be omitted for self-referencing foreign keys. Previously it required setting resource to an empty string ([#29](https://github.com/frictionlessdata/datapackage/pull/29)).
 
 ##### New property `fieldsMatch`
 
-[fieldsMatch](../../specifications/table-schema/#fieldsmatch) clarifies the default field matching behaviour between Table Schema and data source fields (i.e. all fields are defined and in the same order) and adds new modes for matching fields ([#39](https://github.com/frictionlessdata/datapackage/pull/39)).
+[fieldsMatch](../../specifications/table-schema/#fieldsmatch) allows to specify how fields in a Table Schema match the fields in the data source. The default (`exact`) matches the Data Package v1 behaviour, but other values (e.g. `subset`, `superset`) allow to define fewer or more fields and match on field names. This new property extends and makes explicit the `schema_sync` option in Frictionless Framework ([#39](https://github.com/frictionlessdata/datapackage/pull/39)).
 
 ##### New property `uniqueKeys`
 
-[`uniqueKeys`](../../specifications/table-schema/#uniquekeys) allows to specify which fields are required to have unique logical values. It is an alternative to the `field.contraints.unique` property and is modelled after the corresponding SQL feature ([#30](https://github.com/frictionlessdata/datapackage/pull/30)).
+[`uniqueKeys`](../../specifications/table-schema/#uniquekeys) allows to specify which fields are required to have unique logical values. It is an alternative to `field.contraints.unique` and is modelled after the corresponding SQL feature ([#30](https://github.com/frictionlessdata/datapackage/pull/30)).
 
 ##### New field property `missingValues`
 
-[`missingValues`](../../specifications/table-schema/#missingvalues) allows to specify missing values per field, and overwrites `missingValues` specifified at a resource level ([#24](https://github.com/frictionlessdata/datapackage/pull/24)).
+[`missingValues`](../../specifications/table-schema/#missingvalues) allows to specify missing values per field, and overwrites `missingValues` specified at a resource level ([#24](https://github.com/frictionlessdata/datapackage/pull/24)).
 
 ##### Updated field type `datetime`
 
@@ -108,15 +108,15 @@ The definition for [`geopoint`](../../specifications/table-schema/#geopoint) now
 
 ##### Updated field type `any`
 
-[`any`](../../specifications/table-schema/#any) is now the default field type and ensures that the field type is not inferred if not provided ([#13](https://github.com/frictionlessdata/datapackage/pull/13)).
+[`any`](../../specifications/table-schema/#any) is now the default field type and clarifies that the field type should not be inferred if not provided ([#13](https://github.com/frictionlessdata/datapackage/pull/13)).
 
 ##### New field type `list`
 
-[`list`](../../specifications/table-schema/#list) allows to specify fields containing collections of primary values, separated by a delimiter (e.g. `value1,value`) ([#38](https://github.com/frictionlessdata/datapackage/pull/38)).
+[`list`](../../specifications/table-schema/#list) allows to specify fields containing collections of primary values separated by a delimiter (e.g. `value1,value2`) ([#38](https://github.com/frictionlessdata/datapackage/pull/38)).
 
 ##### Updated constraints `minimum` and `maximum`
 
-[`minimum`](../../specifications/table-schema/#minimum) and [`maximum`](../../specifications/table-schema/#maximum) are now extended to support the `duration` field type ([#8](https://github.com/frictionlessdata/datapackage/pull/8).
+[`minimum`](../../specifications/table-schema/#minimum) and [`maximum`](../../specifications/table-schema/#maximum) are now extended to support the `duration` field type ([#8](https://github.com/frictionlessdata/datapackage/pull/8)).
 
 ##### New constraint `jsonschema`
 
@@ -124,7 +124,7 @@ The definition for [`geopoint`](../../specifications/table-schema/#geopoint) now
 
 ##### New constraints `exclusiveMinimum` and `exclusiveMaximum`
 
-[`exclusiveMinimum`](../../specifications/table-schema/#exclusiveminimum) and [`exclusiveMaximum`](../../specifications/table-schema/#exclusivemaximum) can be used to specify exclusive minimum and maximum contraints ([#11](https://github.com/frictionlessdata/datapackage/pull/11)).
+[`exclusiveMinimum`](../../specifications/table-schema/#exclusiveminimum) and [`exclusiveMaximum`](../../specifications/table-schema/#exclusivemaximum) can be used to specify exclusive minimum and maximum values ([#11](https://github.com/frictionlessdata/datapackage/pull/11)).
 
 ##### New integer property `groupChar`
 
