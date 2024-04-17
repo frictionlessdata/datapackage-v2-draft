@@ -16,45 +16,45 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 
 ### Data Package
 
-##### Updated property `version`
+##### `version` (updated)
 
 [`version`](../../specifications/data-package/#version) is now included in the specification, while in Data Package v1 it was erroneously only part of the documentation ([#3](https://github.com/frictionlessdata/datapackage/pull/3)).
 
-##### Updated property `contributor.title`
+##### `contributor.title` (updated)
 
 [`contributor.title`](../../specifications/data-package/#contributors) is no longer required ([#7](https://github.com/frictionlessdata/datapackage/pull/7)).
 
-##### New properties `contributor.givenName` and `contributor.familyName`
+##### `contributor.givenName` and `contributor.familyName` (new)
 
 [`contributor.givenName`](../../specifications/data-package/#contributors) and [`contributor.familyName`](../../specifications/data-package/#contributors) can be used to specify the given and family name of contributor, if it is a person ([#20](https://github.com/frictionlessdata/datapackage/pull/20)).
 
-##### New property `contributor.roles`
+##### `contributor.roles` (new)
 
 [`contributor.roles`](../../specifications/data-package/#contributors) allows to specify multiple roles per contributor, rather than having to duplicate the contributor. Other changes from the now deprecated `role` are that it recommendeds to follow an established vocabulary and has new suggested values ([#18](https://github.com/frictionlessdata/datapackage/pull/18)).
 
-##### Deprecated property `contributor.role`
+##### `contributor.role` (deprecated)
 
 `contributor.role` has been deprecated in favour of `contributor.roles`, see above ([#18](https://github.com/frictionlessdata/datapackage/pull/18)).
 
-##### Updated property `source.title`
+##### `source.title` (updated)
 
 [`source.title`](../../specifications/data-package/#sources) is no longer required ([#7](https://github.com/frictionlessdata/datapackage/pull/7)).
 
-##### New property `source.version`
+##### `source.version` (new)
 
 [`source.version`](../../specifications/data-package/#sources) allows to specify which version of a source was used ([#10](https://github.com/frictionlessdata/datapackage/pull/10)).
 
 ### Data Resource
 
-##### Updated property `name`
+##### `name` (updated)
 
 [name](../../specifications/data-resource/#name-required) now allows any string. It previously required the name to only consist of lowercase alphanumeric characters plus `.`, `-` and `_`. The property is still required and must be unique among resources ([#27](https://github.com/frictionlessdata/datapackage/pull/27)).
 
-##### Updated property `path`
+##### `path` (updated)
 
 [path](../../specifications/data-resource/#path-or-data-required) now explicitely forbids hidden folders (starting with dot `.`) ([#19](https://github.com/frictionlessdata/datapackage/pull/19)).
 
-##### Updated property `encoding`
+##### `encoding` (updated)
 
 [encoding](../../specifications/data-resource/#encoding)'s definition has been updated to support binary formats like Parquet ([#15](https://github.com/frictionlessdata/datapackage/pull/15)).
 
@@ -66,61 +66,63 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 
 #### Schema
 
-##### New property `fieldsMatch`
+##### `fieldsMatch` (new)
 
 [fieldsMatch](../../specifications/table-schema/#fieldsmatch) allows to specify how fields in a Table Schema match the fields in the data source. The default (`exact`) matches the Data Package v1 behaviour, but other values (e.g. `subset`, `superset`) allow to define fewer or more fields and match on field names. This new property extends and makes explicit the `schema_sync` option in Frictionless Framework ([#39](https://github.com/frictionlessdata/datapackage/pull/39)).
 
-##### Updated property `primaryKey`
+##### `primaryKey` (updated)
 
 [`primaryKey`](../../specifications/table-schema/#primarykey) should now always be an array of strings, not a string ([#28](https://github.com/frictionlessdata/datapackage/pull/28)).
 
-##### New property `uniqueKeys`
+##### `uniqueKeys` (new)
 
 [`uniqueKeys`](../../specifications/table-schema/#uniquekeys) allows to specify which fields are required to have unique logical values. It is an alternative to `field.contraints.unique` and is modelled after the corresponding SQL feature ([#30](https://github.com/frictionlessdata/datapackage/pull/30)).
 
-##### Updated property `foreignKeys`
+##### `foreignKeys` (updated)
 
 [`foreignKeys`](../../specifications/table-schema/#foreignkeys) should now always be an array of strings, not a string ([#28](https://github.com/frictionlessdata/datapackage/pull/28)).
 
 `foreignKeys.reference.resource` can now be omitted for self-referencing foreign keys. Previously it required setting resource to an empty string ([#29](https://github.com/frictionlessdata/datapackage/pull/29)).
 
-##### New field property `missingValues`
+#### Fields
+
+##### `missingValues` (new)
 
 [`missingValues`](../../specifications/table-schema/#missingvalues) allows to specify missing values per field, and overwrites `missingValues` specified at a resource level ([#24](https://github.com/frictionlessdata/datapackage/pull/24)).
 
 #### Field Types
 
-##### Updated field type `integer`
+##### `integer` (updated)
 
-[`groupChar`](../../specifications/table-schema/#integer) can now be used for the `integer` field type. It was already available for `number` ([#6](https://github.com/frictionlessdata/datapackage/pull/6)).
+[`integer`](../../specifications/table-schema/#integer) now has a `groupChar` property. It was already available for `number` ([#6](https://github.com/frictionlessdata/datapackage/pull/6)).
 
-##### New field type `list`
+##### `list` (new)
 
 [`list`](../../specifications/table-schema/#list) allows to specify fields containing collections of primary values separated by a delimiter (e.g. `value1,value2`) ([#38](https://github.com/frictionlessdata/datapackage/pull/38)).
 
-##### Updated field type `datetime`
+##### `datetime` (updated)
 
-The default `format` for [`datetime`](../../specifications/table-schema/#datetime) is now extended to allow optional milliseconds and timezone parts ([#23](https://github.com/frictionlessdata/datapackage/pull/23)).
+[`datetime`](../../specifications/table-schema/#datetime)'s default `format` is now extended to allow optional milliseconds and timezone parts ([#23](https://github.com/frictionlessdata/datapackage/pull/23)).
 
-##### Updated field type `geopoint`
+##### `geopoint` (updated)
 
-The definition for [`geopoint`](../../specifications/table-schema/#geopoint) now clarifies that floating point numbers can be used for coordinate definitions ([#14](https://github.com/frictionlessdata/datapackage/pull/14)).
+[`geopoint`](../../specifications/table-schema/#geopoint)'s definition now clarifies that floating point numbers can be used for coordinate definitions ([#14](https://github.com/frictionlessdata/datapackage/pull/14)).
 
-##### Updated field type `any`
+##### `any` (updated)
 
 [`any`](../../specifications/table-schema/#any) is now the default field type and clarifies that the field type should not be inferred if not provided ([#13](https://github.com/frictionlessdata/datapackage/pull/13)).
 
 #### Field Constraints
 
-##### Updated constraints `minimum` and `maximum`
+##### `minimum` and `maximum` (updated)
 
 [`minimum`](../../specifications/table-schema/#minimum) and [`maximum`](../../specifications/table-schema/#maximum) are now extended to support the `duration` field type ([#8](https://github.com/frictionlessdata/datapackage/pull/8)).
 
-##### New constraints `exclusiveMinimum` and `exclusiveMaximum`
+##### `exclusiveMinimum` and `exclusiveMaximum` (new)
 
 [`exclusiveMinimum`](../../specifications/table-schema/#exclusiveminimum) and [`exclusiveMaximum`](../../specifications/table-schema/#exclusivemaximum) can be used to specify exclusive minimum and maximum values ([#11](https://github.com/frictionlessdata/datapackage/pull/11)).
 
-##### New constraint `jsonschema`
+##### `jsonschema` (new)
 
 [`jsonSchema`](../../specifications/table-schema/#jsonschema) can be used for the `object` and `array` field types ([#32](https://github.com/frictionlessdata/datapackage/pull/32)).
 
