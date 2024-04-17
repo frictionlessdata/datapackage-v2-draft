@@ -130,4 +130,4 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 
 > September 5, 2017
 
-Please refer to the the [Data Package (v1) website](https://specs.frictionlessdata.io/).
+Please refer to the [Data Package (v1) website](https://specs.frictionlessdata.io/).
