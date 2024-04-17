@@ -4,7 +4,7 @@ sidebar:
   order: 10
 ---
 
-This document includes all meaningful changes made to the Data Package Standard **specifications**. It does not cover changes made to other documents like recipes or guides.
+This document includes all meaningful changes made to the Data Package Standard **specifications**. It does not cover changes made to other documents like Recipes or Guides.
 
 ## v2.0-draft
 
@@ -20,29 +20,21 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 
 [`version`](../../specifications/data-package/#version) is now included in the specification, while in Data Package v1 it was erroneously only part of the documentation ([#3](https://github.com/frictionlessdata/datapackage/pull/3)).
 
-##### `contributor.title` (updated)
+##### `contributors` (updated)
 
-[`contributor.title`](../../specifications/data-package/#contributors) is no longer required ([#7](https://github.com/frictionlessdata/datapackage/pull/7)).
+[`contributors`](../../specifications/data-package/#contributors) was updated:
 
-##### `contributor.givenName` and `contributor.familyName` (new)
+- `contributor.title` is no longer required ([#7](https://github.com/frictionlessdata/datapackage/pull/7)).
+- `contributor.givenName` and `contributor.familyName` are new properties to specify the given and family name of contributor, if it is a person ([#20](https://github.com/frictionlessdata/datapackage/pull/20)).
+- `contributor.role` has been deprecated in favour of `contributor.roles`, see further ([#18](https://github.com/frictionlessdata/datapackage/pull/18)).
+- `contributor.roles` is a new property that allows to specify multiple roles per contributor, rather than having to duplicate the contributor. It recommendeds to follow an established vocabulary and has suggested values that are different from the deprecated `contributor.role` ([#18](https://github.com/frictionlessdata/datapackage/pull/18)).
 
-[`contributor.givenName`](../../specifications/data-package/#contributors) and [`contributor.familyName`](../../specifications/data-package/#contributors) can be used to specify the given and family name of contributor, if it is a person ([#20](https://github.com/frictionlessdata/datapackage/pull/20)).
+##### `sources` (updated)
 
-##### `contributor.roles` (new)
+[`sources`](../../specifications/data-package/#sources) was updated:
 
-[`contributor.roles`](../../specifications/data-package/#contributors) allows to specify multiple roles per contributor, rather than having to duplicate the contributor. Other changes from the now deprecated `role` are that it recommendeds to follow an established vocabulary and has new suggested values ([#18](https://github.com/frictionlessdata/datapackage/pull/18)).
-
-##### `contributor.role` (deprecated)
-
-`contributor.role` has been deprecated in favour of `contributor.roles`, see above ([#18](https://github.com/frictionlessdata/datapackage/pull/18)).
-
-##### `source.title` (updated)
-
-[`source.title`](../../specifications/data-package/#sources) is no longer required ([#7](https://github.com/frictionlessdata/datapackage/pull/7)).
-
-##### `source.version` (new)
-
-[`source.version`](../../specifications/data-package/#sources) allows to specify which version of a source was used ([#10](https://github.com/frictionlessdata/datapackage/pull/10)).
+- `source.title` is no longer required ([#7](https://github.com/frictionlessdata/datapackage/pull/7)).
+- `source.version` is a new property to specify which version of a source was used ([#10](https://github.com/frictionlessdata/datapackage/pull/10)).
 
 ### Data Resource
 
@@ -80,9 +72,10 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 
 ##### `foreignKeys` (updated)
 
-[`foreignKeys`](../../specifications/table-schema/#foreignkeys) should now always be an array of strings, not a string ([#28](https://github.com/frictionlessdata/datapackage/pull/28)).
+[`foreignKeys`](../../specifications/table-schema/#foreignkeys) was updated:
 
-`foreignKeys.reference.resource` can now be omitted for self-referencing foreign keys. Previously it required setting resource to an empty string ([#29](https://github.com/frictionlessdata/datapackage/pull/29)).
+- It should now always be an array of strings, not a string ([#28](https://github.com/frictionlessdata/datapackage/pull/28)).
+- `foreignKeys.reference.resource` can now be omitted for self-referencing foreign keys. Previously it required setting `resource` to an empty string ([#29](https://github.com/frictionlessdata/datapackage/pull/29)).
 
 #### Fields
 
