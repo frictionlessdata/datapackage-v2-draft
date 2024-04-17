@@ -52,27 +52,19 @@ This change adds omitted `version` property to the Data Package profiles.
 
 ##### Updated property `name`
 
-This change relaxes requirements to `resource.name` allowing it to be any string. This property still needs to present and be unique among resources. Please read more about [`resource.name`](../../specifications/data-resource/#name-required) property.
+[name](../../specifications/data-resource/#name-required) now allows any string. It previously required the name to only consist of lowercase alphanumeric characters plus `.`, `-` and `_`. The property is still required and must be unique among resources ([#27](https://github.com/frictionlessdata/datapackage/pull/27)).
 
-> [Pull Request -- #27](https://github.com/frictionlessdata/datapackage/pull/27)
 ##### Updated property `encoding`
 
+[encoding](../../specifications/data-resource/#encoding)'s definition has been updated to support binary formats like Parquet ([#15](https://github.com/frictionlessdata/datapackage/pull/15)).
 
-This change updates the `resource.encoding` property definition to properly support binary file formats like Parquet. Please read more about [`resource.encoding`](../../specifications/data-resource/#encoding) property.
 ##### Updated property `path`
 
-> [Pull Request -- #15](https://github.com/frictionlessdata/datapackage/pull/15)
-
-
-This change fixes definition in the Data Resource specification to explicitly forbid hidden folders.
-
-> [Pull Request -- #19](https://github.com/frictionlessdata/datapackage/pull/19)
+[path](../../specifications/data-resource/#path-or-data-required) now explicitely forbids hidden folders (starting with dot `.`) ([#19](https://github.com/frictionlessdata/datapackage/pull/19)).
 
 ### Table Dialect
 
-This change adds a new specification Table Dialect that superseeds and extends the CSV Dialect specification to work with other formats like JSON or Excel. Please refer to the [Table Dialect](../../specifications/table-dialect) specification.
-
-> [Pull Request -- #41](https://github.com/frictionlessdata/datapackage/pull/41)
+[Table Dialect](../../specifications/table-dialect) is a new specification that superseeds and extends the CSV Dialect specification. It support other formats like JSON or Excel ([#41](https://github.com/frictionlessdata/datapackage/pull/41)).
 
 ### Table Schema
 
