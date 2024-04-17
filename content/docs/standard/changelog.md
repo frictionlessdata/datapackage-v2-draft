@@ -14,39 +14,35 @@ This document includes all meaningful changes made to the **specifications** con
 
 The Data Package (v2) draft release includes a rich set of the specification improvements accepted by the Data Package Working Group during the active phase of the Data Package (v2) work.
 
-### Specifications
-
-##### Added `source.version` property
-
-This change adds a new property to make possible of providing information about source version. Please read more about [`source.version`](../../specifications/data-package/#sources) property.
-
-> [Pull Request -- #10](https://github.com/frictionlessdata/datapackage/pull/10)
-
-##### Made `contributor/source.title` not required
-
-This change allows omitting `title` property for the `contributor` and `source` objects making it more flexible for data producers.
-
-> [Pull Request -- #7](https://github.com/frictionlessdata/datapackage/pull/7)
-
 ### Data Package
 
-##### Added `contributor.given/familyName`
+##### Updated property `version`
 
-This change adds two new properties to the `contributor` object: `givenName` and `familyName`. Please read more about [`package.contributors`](../../specifications/data-package/#contributors) property.
+[`version`](../../specifications/data-package/#version) is now included in the specification, while in Data Package v1 it was erroneously only part of the documentation ([#3](https://github.com/frictionlessdata/datapackage/pull/3)).
 
-> [Pull Request -- #20](https://github.com/frictionlessdata/datapackage/pull/20)
+##### Updated property `contributor.title`
 
-##### Added `contributor.roles` property
+[`contributor.title`](../../specifications/data-package/#contributors) is no longer required ([#7](https://github.com/frictionlessdata/datapackage/pull/7)).
 
-This change adds a new `contributors.roles` property that replaces `contributor.role`. Please read more about [`package.contributors`](../../specifications/data-package/#contributors) property.
+##### Deprecated property `contributor.role`
 
-> [Pull Request -- #18](https://github.com/frictionlessdata/datapackage/pull/18)
+`contributor.role` has been deprecated in favour of `contributor.roles`, see further ([#18](https://github.com/frictionlessdata/datapackage/pull/18)).
 
-##### Fixed `version` property in Data Package profile
+##### Updated property `source.title`
 
-This change adds omitted `version` property to the Data Package profiles.
+[`source.title`](../../specifications/data-package/#sources) is no longer required ([#7](https://github.com/frictionlessdata/datapackage/pull/7)).
 
-> [Pull Request -- #3](https://github.com/frictionlessdata/datapackage/pull/3)
+##### New properties `contributor.givenName` and `contributor.familyName`
+
+[`contributor.givenName`](../../specifications/data-package/#contributors) and [`contributor.familyName`](../../specifications/data-package/#contributors) can be used to specify the given and family name of contributor, if it is a person ([#20](https://github.com/frictionlessdata/datapackage/pull/20)).
+
+##### New property `contributor.roles`
+
+[`contributor.roles`](../../specifications/data-package/#contributors) allows to specify multiple roles per contributor, rather than having to duplicate the contributor. Other changes from the now deprecated `role` are that it recommendeds to follow an established vocabulary and has new suggested values ([#18](https://github.com/frictionlessdata/datapackage/pull/18)).
+
+##### New property `source.version`
+
+[`source.version`](../../specifications/data-package/#sources) allows to specify which version of a source was used ([#10](https://github.com/frictionlessdata/datapackage/pull/10)).
 
 ### Data Resource
 
