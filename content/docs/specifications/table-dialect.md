@@ -7,11 +7,11 @@ sidebar:
 <table>
   <tr>
     <th>Authors</th>
-    <td>Rufus Pollock, Paul Walsh, Evgeny Karev, Peter Desmet</td>
+    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet</td>
   </tr>
   <tr>
     <th>Profile</th>
-    <td><a href="/profiles/table-dialect.json">table-dialect.json</a></td>
+    <td><a href="/profiles/2.0/tabledialect.json">https://datapackage.org/profiles/2.0/tabledialect.json</a></td>
   </tr>
 </table>
 
@@ -33,15 +33,17 @@ Table Dialect supersedes [CSV Dialect](https://specs.frictionlessdata.io/csv-dia
 
 ## Descriptor
 
-On logical level, Table Dialect descriptor is represented by a data structure. The data structure `MUST` be a JSON-serializable `object` as defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
+Table Dialect descriptor `MUST` be a descriptor as per [Descriptor](../glossary/#descriptor) definition. A list of standard properties that can be included into a descriptor is defined in the [Properties](#properties) section.
 
-On physical level, Table Dialect descriptor is represented by a file. A data producer `MAY` use any suitable serialization format. A data consumer `MUST` support JSON serialization format and `MAY` support other serialization formats like YAML or TOML.
+An example of a Table Dialect descriptor:
 
-The above states that JSON is the only serialization format that `MUST` be used for publishing a Table Dialect while other serialization formats can be used in projects or systems internally if supported by corresponding implementations.
-
-This specification does not define any discoverability mechanisms making a serialized Table Dialect be referenced only directly by its URI.
-
-This specification defines a set of standardized properties to be used and allows custom properties to be added. It is `RECOMMENDED` to use `namespace:property` naming convention for custom properties.
+```json
+{
+  "header": false,
+  "delimiter": ";",
+  "quoteChar": "'"
+}
+```
 
 ## Properties
 
@@ -67,6 +69,12 @@ id,name
 ### General
 
 General properties are format-agnostic. Usually, there are useful for defining dialects for delimiter-based and spreadsheet-based formats like CSV or Excel.
+
+#### `$schema`
+
+A root level Table Dialect descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
+
+The default value is `https://datapackage.org/profiles/1.0/tabledialect.json` and the recommended value is `https://datapackage.org/profiles/2.0/tabledialect.json`.
 
 #### `header`
 
@@ -561,4 +569,4 @@ Table Dialect is also orthogonal to the character encoding used in the CSV file.
 
 ## References
 
-Some related work can be found in [this comparison of csv dialect support](https://docs.google.com/spreadsheet/ccc?key=0AmU3V2vcPKrIdEhoU1NQSWtoQmJwcUNCelJtdkx2bFE&usp=sharing), this [example of similar JSON format](http://panda.readthedocs.org/en/latest/api.html#data-uploads), and in Python's [PEP 305](http://www.python.org/dev/peps/pep-0305/).
+Some related work can be found in [similar JSON format](http://panda.readthedocs.org/en/latest/api.html#data-uploads) and in Python's [PEP 305](http://www.python.org/dev/peps/pep-0305/).

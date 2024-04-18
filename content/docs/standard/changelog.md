@@ -6,7 +6,7 @@ sidebar:
 
 This document includes all meaningful changes made to the **specifications** consisting the Data Package Standard. It does not track changes made to other documents like recipes or guides.
 
-## v2.0.0-draft.1
+## v2.0-draft
 
 > April 1, 2024
 
@@ -74,7 +74,7 @@ This change fixes definition in the Data Resource specification to explicitly fo
 
 ##### First version of the specification
 
-This change adds a new specification Table Dialect that superseeds and extends the CSV Dialect specification to work with other formats like JSON or Excel.
+This change adds a new specification Table Dialect that superseeds and extends the CSV Dialect specification to work with other formats like JSON or Excel. Please refer to the [Table Dialect](../../specifications/table-dialect) specification.
 
 > [Pull Request -- #41](https://github.com/frictionlessdata/datapackage/pull/41)
 
@@ -158,7 +158,7 @@ This change fixes `minimum` and `maximum` constraint for the `duration` field ty
 
 > [Pull Request -- #8](https://github.com/frictionlessdata/datapackage/pull/8)
 
-## v1.0.0
+## v1.0
 
 > September 5, 2017
 

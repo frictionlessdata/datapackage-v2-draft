@@ -7,11 +7,11 @@ sidebar:
 <table>
   <tr>
     <th>Authors</th>
-    <td>Rufus Pollock, Paul Walsh, Evgeny Karev, Peter Desmet, Ethan Welty, DC Slagel</td>
+    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet, Ethan Welty, DC Slagel</td>
   </tr>
   <tr>
     <th>Profile</th>
-    <td><a href="/profiles/table-schema.json">table-schema.json</a></td>
+    <td><a href="/profiles/2.0/tableschema.json">https://datapackage.org/profiles/2.0/tableschema.json</a></td>
   </tr>
 </table>
 
@@ -71,11 +71,9 @@ For example, `constraints` `SHOULD` be tested on the logical representation of d
 
 ## Descriptor
 
-A Table Schema is represented by a descriptor. The descriptor `MUST` be a JSON `object` (JSON is defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)).
+Table Schema descriptor `MUST` be a descriptor as per [Descriptor](../glossary/#descriptor) definition. A list of standard properties that can be included into a descriptor is defined in the [Properties](#properties) section.
 
-The descriptor `MAY` have the additional properties set out below and `MAY` contain any number of other properties not defined in this specification.
-
-The following is an illustration of this structure:
+An example of a Table Schema descriptor:
 
 ```json
 {
@@ -92,7 +90,7 @@ The following is an illustration of this structure:
     ...
   ],
   "missingValues": [ ... ],
-  "primaryKey": [ ... ]
+  "primaryKey": [ ... ],
   "foreignKeys": [... ]
 }
 ```
@@ -107,7 +105,13 @@ A Table Schema descriptor `MAY` contain these standard properties:
 
 A Table Schema descriptor `MUST` contain a property `fields`. `fields` `MUST` be an array where each entry in the array is a [field descriptor](#field) as defined below.
 
-The way Table Schema `fields` are mapped onto the data source fields are defined by the `fieldsMatch` property. By default, the most strict approach is applied, i.e. fields in the data source `MUST` completely match the elements in the `fields` array, both in number and order. Using different options below, a data producer can relax requirements for the data source.
+The way Table Schema `fields` are mapped onto the data source fields are defined by the `fieldsMatch` property. By default, the most strict approach is applied, i.e. fields in the data source `MUST` completely match the elements in the `fields` array, both in number and order. Using different options of the `fieldsMatch` property, a data producer can relax requirements for the data source.
+
+#### `$schema`
+
+A root level Table Schema descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
+
+The default value is `https://datapackage.org/profiles/1.0/tableschema.json` and the recommended value is `https://datapackage.org/profiles/2.0/tableschema.json`.
 
 #### `fieldsMatch`
 
@@ -339,6 +343,10 @@ A field's `format` property is a string, indicating a format for the field type.
 Both `type` and `format` are optional: in a field descriptor, the absence of a `type` property indicates that the field is of the type "any", and the absence of a `format` property indicates that the field's type `format` is "default".
 
 Types are based on the [type set of json-schema](http://tools.ietf.org/html/draft-zyp-json-schema-03#section-5.1) with some additions and minor modifications (cf other type lists include those in [Elasticsearch types](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-types.html)).
+
+:::note[Backward Compatibility]
+If `format` property start with `fmt:` prefix, an implementation `MUST` remove the prefix as it was the way of providing temporal formats in Data Package Standard (v0).
+:::
 
 #### `title`
 
