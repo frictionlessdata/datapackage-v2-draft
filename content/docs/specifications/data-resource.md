@@ -57,7 +57,7 @@ The properties below are applicable to any Data Resource.
 A resource `MUST` contain a `name` property. The name is a simple name or identifier to be used for this resource.
 
 - It `MUST` be unique amongst all resources in this data package.
-- It `SHOULD` be human-readable and consist only of lowercase alphanumeric characters plus `.`, `-` and `\_`.
+- It `SHOULD` be human-readable and consist only of lowercase English alphanumeric characters plus `.`, `-` and `_`.
 - It would be usual for the name to correspond to the file name (minus the extension) of the data file the resource describes.
 
 #### `path` or `data` [required]
@@ -129,7 +129,7 @@ Or inline CSV:
 ```
 
 :::note[Backward Compatibility]
-Prior to release 1.0.0-beta.18 (Nov 17 2016) there was a `url` property distinct from `path`. In order to support backwards compatibility, implementors `MAY` want to automatically convert a `url` property to a `path` property and issue a warning.
+If `path` property is not provided but there is a `url` property as was defined in Data Package Standard (v0), an implementation `MUST` treat it as the `path` property equivalent.
 :::
 
 #### `type`
@@ -144,7 +144,7 @@ If property `type` is not provided, the resource is considered to be a non-speci
 If a resource has `profile` property that equals to `tabular-data-resource` or `https://specs.frictionlessdata.io/schemas/tabular-data-resource.json`, an implementation `MUST` treat it as `type` property were set to `table`
 :::
 
-### `$schema`
+#### `$schema`
 
 A root level Data Resource descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
 
@@ -152,6 +152,7 @@ The default value is `https://datapackage.org/profiles/1.0/dataresource.json` an
 
 :::note[Backward Compatibility]
 If the `$schema` property is not provided but a descriptor has the `profile` property a data consumer `MUST` validate the descriptor according to the [Profiles](https://specs.frictionlessdata.io/profiles/) specification.
+:::
 
 #### `title`
 
