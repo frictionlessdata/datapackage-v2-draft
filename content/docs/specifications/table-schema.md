@@ -531,6 +531,10 @@ The `categorical` field type `MAY` additionally have the property `ordered` to i
 
 When the property `ordered` is `false` or not present, and no ordering information is provided by the native format, implementations `SHOULD` assume that the levels of the `categorical` do not have a natural order.
 
+Although the categorical field type restricts a field to a finite set of possible values, similar to an enum constraint, the categorical field type enables data producers to explicitly indicate to implementations that a field SHOULD be loaded as a categorical data type (when supported by the implementation). By contrast, enum constraints simply add validation rules to existing field types.
+
+When an enum constraint is defined on a categorical field, the values in the enum constraint MUST be a subset of the logical values representing the levels of the categorical. Logical values of categorical levels are indicated by either a native value or object matching the corresponding level definition in the `categories` property.
+
 ### `object`
 
 The field contains a valid JSON object.
