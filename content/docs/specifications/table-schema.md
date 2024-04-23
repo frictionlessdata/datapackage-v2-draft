@@ -498,32 +498,32 @@ When the `categories` property is an array of strings, the strings `MUST` be uni
 }
 ```
 
-When the `categories` property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be a string or number that matches the physical value of the field when representing that level. The optional `label` property, when present, `MUST` be a string that provides a human-readable label for the level. For example, if the codes `0`, `1`, and `2` were used as codes to represent the levels `apple`, `orange`, and `banana` in the previous example, the `categories` property would be defined as follows:
+When the `categories` property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be a string that matches the physical value of the field when representing that level. The optional `label` property, when present, `MUST` be a string that provides a human-readable label for the level. For example, if the codes `"0"`, `"1"`, and `"2"` were used as codes to represent the levels `apple`, `orange`, and `banana` in the previous example, the `categories` property would be defined as follows:
 
 ```json
 {
   "name": "fruit",
   "type": "categorical",
   "categories": [
-    { "value": 0, "label": "apple" },
-    { "value": 1, "label": "orange" },
-    { "value": 2, "label": "banana" }
+    { "value": "0", "label": "apple" },
+    { "value": "1", "label": "orange" },
+    { "value": "2", "label": "banana" }
   ]
 }
 ```
 
-The `categorical` field type `MAY` additionally have the property `ordered` that indicates whether the levels of the `categorical` have a natural order. When present, the `ordered` property `MUST` be a boolean. When `ordered` is `true`, implementations `SHOULD` interpret the order of the levels as defined in the `categories` property as the natural ordering of the levels, in ascending order. In cases where the physical values are numeric and `ordered` is `true`, the order of the levels `SHOULD` match the numerical order of the values (e.g., 1, 2, 3, ...) to avoid ambiguity. For example:
+The `categorical` field type `MAY` additionally have the property `ordered` that indicates whether the levels of the `categorical` have a natural order. When present, the `ordered` property `MUST` be a boolean. When `ordered` is `true`, implementations `SHOULD` interpret the order of the levels as defined in the `categories` property as the natural ordering of the levels, in ascending order. For example:
 
 ```json
 {
   "name": "agreementLevel",
   "type": "categorical",
   "categories": [
-    { "value": 1, "label": "Strongly Disagree" },
-    { "value": 2 },
-    { "value": 3 },
-    { "value": 4 },
-    { "value": 5, "label": "Strongly Agree" }
+    { "value": "1", "label": "Strongly Disagree" },
+    { "value": "2" },
+    { "value": "3" },
+    { "value": "4" },
+    { "value": "5", "label": "Strongly Agree" }
   ],
   "ordered": true
 }
