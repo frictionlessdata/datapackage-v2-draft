@@ -482,13 +482,13 @@ The boolean field can be customised with these additional properties:
 
 The field contains categorical data, defined as data with a finite set of possible values that represent levels of a categorical variable.
 
-The `categorical` type facilitates interoperability with software packages that support categorical data types, including: Value labels or formats ([Stata](https://www.stata.com/manuals13/dlabel.pdf), [SAS](https://documentation.sas.com/doc/en/pgmsascdc/9.4_3.5/proc/p1upn25lbfo6mkn1wncu4dyh9q91.htm), and [SPSS](https://www.ibm.com/docs/en/spss-statistics/beta?topic=data-adding-value-labels)), Categoricals ([Pandas](https://pandas.pydata.org/docs/user_guide/categorical.html), and [Polars](https://docs.pola.rs/user-guide/concepts/data-types/categoricals/)), Enums ([DuckDB](https://duckdb.org/docs/sql/data_types/enum.html)), Factors ([R](https://www.stat.berkeley.edu/~s133/factors.html)), and CategoricalVectors ([Julia](https://dataframes.juliadata.org/stable/man/categorical/)).
+**Native Representaiton**
 
-Although the `categorical` field type restricts a field to a finite set of possible values, like an [`enum`](#enum) constraint, the `categorical` field type enables data producers to explicitly indicate to implementations that a field `SHOULD` be loaded as a categorical data type (when supported by the implementation). By contrast, `enum` constraints simply add validation rules to existing field types. When an `enum` constraint is defined on a `categorical` field, the values in the `enum` constraint `MUST` be a subset of the physical values representing the levels of the `categorical`.
+If supported, categorical values `MUST` be natively represented by the data format. In this case, the field `MAY` additionally include the `categories` property, as described below. If categorical values are not supported by the native format and instead represented using other native types (e.g. native strings or numbers) the `categories` property `MUST` be provided.
 
-The `categorical` field type `MUST` have the property `categories` that defines the set of possible values of the field. The `categories` property `MUST` be an array of strings, or an array of objects.
+The `categories` property `MUST` be an array of native values, or an array of objects.
 
-When the `categories` property is an array of strings, the strings `MUST` be unique and `MUST` match the physical values of the field. For example:
+When the `categories` property is an array of native values, the values `MUST` be unique and `MUST` match the native values of the field. For example:
 
 ```json
 {
@@ -498,7 +498,7 @@ When the `categories` property is an array of strings, the strings `MUST` be uni
 }
 ```
 
-When the `categories` property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be a string or number that matches the physical value of the field when representing that level. The optional `label` property, when present, `MUST` be a string that provides a human-readable label for the level. For example, if the codes `0`, `1`, and `2` were used as codes to represent the levels `apple`, `orange`, and `banana` in the previous example, the `categories` property would be defined as follows:
+When the `categories` property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be the native value of the field when representing that level. The optional `label` property, when present, `MUST` be a string that provides a human-readable label for the level. For example, if the native values `0`, `1`, and `2` were used as codes to represent the levels `apple`, `orange`, and `banana` in the previous example, the `categories` property would be defined as follows:
 
 ```json
 {
@@ -512,7 +512,7 @@ When the `categories` property is an array of objects, each object `MUST` have a
 }
 ```
 
-The `categorical` field type `MAY` additionally have the property `ordered` that indicates whether the levels of the `categorical` have a natural order. When present, the `ordered` property `MUST` be a boolean. When `ordered` is `true`, implementations `SHOULD` interpret the order of the levels as defined in the `categories` property as the natural ordering of the levels, in ascending order. In cases where the physical values are numeric and `ordered` is `true`, the order of the levels `SHOULD` match the numerical order of the values (e.g., 1, 2, 3, ...) to avoid ambiguity. For example:
+The `categorical` field type `MAY` additionally have the property `ordered` to indicate whether the levels of the `categorical` have a natural order. When present, the `ordered` property `MUST` be a boolean. When `ordered` is `true`, implementations `SHOULD` interpret the order of the levels as defined in the `categories` property as the natural ordering of the levels, in ascending order. In cases where the native values are numeric and `ordered` is `true`, the order of the levels `SHOULD` match the numerical order of the values (e.g., 1, 2, 3, ...) to avoid ambiguity. For example:
 
 ```json
 {
@@ -529,7 +529,7 @@ The `categorical` field type `MAY` additionally have the property `ordered` that
 }
 ```
 
-When the property `ordered` is `false` or not present, implementations `SHOULD` assume that the levels of the `categorical` do not have a natural order.
+When the property `ordered` is `false` or not present, and no ordering information is provided by the native format, implementations `SHOULD` assume that the levels of the `categorical` do not have a natural order.
 
 ### `object`
 
