@@ -7,7 +7,7 @@ sidebar:
 <table>
   <tr>
     <th>Authors</th>
-    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet</td>
+    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet, Data Package Working Group</td>
   </tr>
   <tr>
     <th>Profile</th>
@@ -72,7 +72,7 @@ General properties are format-agnostic. Usually, there are useful for defining d
 
 #### `$schema`
 
-A root level Table Dialect descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
+A root level Table Dialect descriptor `MAY` have a `$schema` property that `MUST` be a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
 
 The default value is `https://datapackage.org/profiles/1.0/tabledialect.json` and the recommended value is `https://datapackage.org/profiles/2.0/tabledialect.json`.
 
