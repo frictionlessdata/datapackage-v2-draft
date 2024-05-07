@@ -146,7 +146,7 @@ If a resource has `profile` property that equals to `tabular-data-resource` or `
 
 #### `$schema`
 
-A root level Data Resource descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
+A root level Data Resource descriptor `MAY` have a `$schema` property that `MUST` be a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
 
 The default value is `https://datapackage.org/profiles/1.0/dataresource.json` and the recommended value is `https://datapackage.org/profiles/2.0/dataresource.json`.
 
@@ -190,7 +190,7 @@ The MD5 hash for this resource. Other algorithms can be indicated by prefixing t
 
 #### `sources`
 
-List of data sources as for [Data Package](../data-package/#sources).
+List of data sources as for [Data Package](../data-package/#sources). If not specified the resource inherits from the data package.
 
 #### `licenses`
 
@@ -200,7 +200,9 @@ List of licenses as for [Data Package](../data-package/#licenses). If not specif
 
 The properties below are applicable to any Tabular Data Resource.
 
-#### `data`
+#### `path` or `data` [required]
+
+If the `path` property is used for providing data than it `MUST` contain [Tabular Data](../glossary/#tabular-data).
 
 If the `data` property is used for providing data for a Tabular Data Resource than it `MUST` be an `array` where each item in the array `MUST` be either:
 

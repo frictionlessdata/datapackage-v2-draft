@@ -77,7 +77,7 @@ Several example data packages can be found in the [datasets organization on gith
 
 Data Package descriptor `MUST` be a descriptor as per [Descriptor](../glossary/#descriptor) definition. A list of standard properties that can be included into a descriptor is defined in the [Properties](#properties) section.
 
-When available as a file a descriptor `MUST` be named `datapackage.json` and it `MUST` be placed in the top-level directory (relative to any other resources provided as part of the data package).
+When a data package is available as a physical or virtual directory containing files, a descriptor `MUST` be named `datapackage.json` and it `MUST` be placed on the top-level of the file structure (relative to any other resources provided as part of the data package).
 
 The descriptor is the central file in a Data Package. It provides:
 
@@ -116,7 +116,7 @@ Packaged data resources are described in the `resources` property of the package
 
 ### `$schema`
 
-A root level Data Package descriptor `MAY` have a `$schema` property that `MUST` point to a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
+A root level Data Package descriptor `MAY` have a `$schema` property that `MUST` be a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
 
 The default value is `https://datapackage.org/profiles/1.0/datapackage.json` and the recommended value is `https://datapackage.org/profiles/2.0/datapackage.json`.
 
@@ -266,3 +266,15 @@ An example of the object structure is as follows:
   "path": "http://data.worldbank.org/indicator/NY.GDP.MKTP.CD"
 }]
 ```
+
+## Related Work
+
+Data Package draws content and/or inspiration from, among others, the following specifications and implementations:
+
+- [DataCite](https://schema.datacite.org/)
+- [Zenodo](https://zenodo.org/)
+- [DCAT](https://www.w3.org/TR/vocab-dcat-3/)
+- [CKAN](https://ckan.org/)
+- [OAI-ORE](https://www.openarchives.org/ore/)
+- [DataONE](https://dataone-architecture-documentation.readthedocs.io/en/latest/design/DataPackage.html)
+- [Research Object Bundle](https://www.researchobject.org/specifications/bundle/)
