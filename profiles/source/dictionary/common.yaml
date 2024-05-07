@@ -124,10 +124,8 @@ tabularData:
 created:
   title: Created
   description: The datetime on which this descriptor was created.
-  context: The datetime must conform to the string formats for datetime as described
-    in [RFC3339](https://tools.ietf.org/html/rfc3339#section-5.6)
   type: string
-  format: date-time
+  pattern: "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})?$"
   examples:
     - |
       {
