@@ -202,13 +202,13 @@ A version string identifying the version of the package. It `SHOULD` conform to 
 
 The datetime on which this was created.
 
-Note: semantics may vary between publishers -- for some this is the datetime the data was created, for others the datetime the package was created.
+Semantics may vary between publishers -- for some this is the datetime the data was created, for others the datetime the package was created.
 
-The datetime `MUST` conform to the string formats for datetime as described in [RFC3339](https://tools.ietf.org/html/rfc3339#section-5.6). Example:
+The datetime `MUST` conform to the string formats for datetime as described in [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`:
 
 ```json
 {
-  "created": "1985-04-12T23:20:50.52Z"
+  "created": "1985-04-12T23:20:50.52"
 }
 ```
 
