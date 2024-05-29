@@ -131,7 +131,7 @@ Many datasets arrive with missing data values, either because a value was not co
 
 `missingValues` `MUST` be an `array` where each entry is a `string`, or an `array` where each entry is an `object`.
 
-If an `array` of `object`s is provided, each object `MUST` have a `value` and optional `label` property. The `value` property `MUST` be a `string` that matches the physical value of the field. The optional `label` property `MUST` be a `string` that provides a human-readable label for the missing value. For example:
+If an `array` of `object`s is provided, each object `MUST` have a `value` and optional `label` property. The `value` property `MUST` be a `string` that represents the missing value. The optional `label` property `MUST` be a `string` that provides a human-readable label for the missing value. For example:
 
 ```json
 "missingValues": [
@@ -380,7 +380,7 @@ When the `categories` property is an array of values, the values `MUST` be uniqu
 }
 ```
 
-When the `categories` property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be a value that matches the logical value of the field when representing that level. The optional `label` property, when present, `MUST` be a `string` that provides a human-readable label for the level. For example, if the `integer` values `0`, `1`, `2` were used as codes to represent the levels `"apple"`, `"orange"`, and `"banana"` in the previous example, the `categories` property would be defined as follows:
+When the `categories` property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be a logical value that defines the categorical level. The optional `label` property, when present, `MUST` be a `string` that provides a human-readable label for the level. For example, if the `integer` values `0`, `1`, `2` were used as codes to represent the levels `"apple"`, `"orange"`, and `"banana"` in the previous example, the `categories` property would be defined as follows:
 
 ```json
 {
