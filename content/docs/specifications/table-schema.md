@@ -355,6 +355,57 @@ An example value for the field
 
 See [Field Constraints](#field-constraints)
 
+#### `categories` / `categoriesOrdered`
+
+`string` and `integer` field types `MAY` include a `categories` property to indicate that the field contains categorical data, and the field `MAY` be loaded as a categorical data type if supported by the implementation. The `categories` property `MUST` be an array of values or an array of objects that define the levels of the categorical.
+
+When the `categories` property is an array of values, the values `MUST` be unique and `MUST` match logical values of the field. For example:
+
+```json
+{
+  "name": "fruit",
+  "type": "string",
+  "categories": ["apple", "orange", "banana"]
+}
+```
+
+When the categories property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be a value that matches the logical value of the field when representing that level. The optional `label` property, when present, `MUST` be a `string` that provides a human-readable label for the level. For example, if the `integer` values `0`, `1`, `2` were used as codes to represent the levels `"apple"`, `"orange"`, and `"banana"` in the previous example, the `categories` property would be defined as follows:
+
+```json
+{
+  "name": "fruit",
+  "type": "integer",
+  "categories": [
+    { "value": 0, "label": "apple" },
+    { "value": 1, "label": "orange" },
+    { "value": 2, "label": "banana" }
+  ]
+}
+```
+
+When the `categories` property is defined, it `MAY` be accompanied by a `categoriesOrdered` property in the field definition. When present, the `categoriesOrdered` property `MUST` be a boolean. When `categoriesOrdered` is true, implementations `SHOULD` interpret the order of the levels as defined in the `categories` property as the natural ordering of the levels. For example:
+
+```json
+{
+  "name": "agreementLevel",
+  "type": "integer",
+  "categories": [
+    { "value": 1, "label": "Strongly Disagree" },
+    { "value": 2 },
+    { "value": 3 },
+    { "value": 4 },
+    { "value": 5, "label": "Strongly Agree" }
+  ],
+  "categoriesOrdered": true
+}
+```
+
+When the property `categoriesOrdered` is `false` or not present, implementations `SHOULD` assume that the levels of the categorical do not have a natural order.
+
+Although the `categories` property restricts a field to a finite set of possible values, similar to an [`enum`](#enum) constraint, they explicitly indicate that the field `MAY` be loaded as a categorical data type if supported by the implementation. By contrast, `enum` constraints restrict values of a field, but `SHOULD` not change the data type of the field when loaded.
+
+`enum` constraints `MAY` be added to fields with the `categories` property, but when added, the values in the `enum` constraint `MUST` be a subset of the logical values defined in `categories`.
+
 #### `missingValues`
 
 A list of missing values for this field as per [Missing Values](#missingvalues) definition. If this property is defined, it takes precedence over the schema-level property and completely replaces it for the field without combining the values.
