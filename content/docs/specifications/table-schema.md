@@ -140,7 +140,7 @@ If an `array` of `object`s is provided, each object `MUST` have a `value` and op
 ]
 ```
 
-**Why strings**: `missingValues` are strings rather than being the data type of the particular field. This allows for comparison prior to casting and for fields to have missing value which are not of their type, for example a `number` field to have missing values indicated by `-`.
+**Why strings**: `missingValues` are strings rather than being the data type of the particular field. This allows for comparison prior to casting and for fields to have missing values which are not of their type, for example a `number` field to have missing values indicated by `-`.
 
 Examples:
 
