@@ -380,7 +380,7 @@ When the `categories` property is an array of values, the values `MUST` be uniqu
 }
 ```
 
-When the categories property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be a value that matches the logical value of the field when representing that level. The optional `label` property, when present, `MUST` be a `string` that provides a human-readable label for the level. For example, if the `integer` values `0`, `1`, `2` were used as codes to represent the levels `"apple"`, `"orange"`, and `"banana"` in the previous example, the `categories` property would be defined as follows:
+When the `categories` property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be a value that matches the logical value of the field when representing that level. The optional `label` property, when present, `MUST` be a `string` that provides a human-readable label for the level. For example, if the `integer` values `0`, `1`, `2` were used as codes to represent the levels `"apple"`, `"orange"`, and `"banana"` in the previous example, the `categories` property would be defined as follows:
 
 ```json
 {
@@ -394,7 +394,7 @@ When the categories property is an array of objects, each object `MUST` have a `
 }
 ```
 
-When the `categories` property is defined, it `MAY` be accompanied by a `categoriesOrdered` property in the field definition. When present, the `categoriesOrdered` property `MUST` be a boolean. When `categoriesOrdered` is true, implementations `SHOULD` interpret the order of the levels as defined in the `categories` property as the natural ordering of the levels. For example:
+When the `categories` property is defined, it `MAY` be accompanied by a `categoriesOrdered` property in the field definition. When present, the `categoriesOrdered` property `MUST` be a boolean. When `categoriesOrdered` is `true`, implementations `SHOULD` interpret the order of the levels as defined in the `categories` property as the natural ordering of the levels. For example:
 
 ```json
 {
