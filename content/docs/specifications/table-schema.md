@@ -127,11 +127,11 @@ A Table Schema descriptor `MAY` contain a property `fieldsMatch` that `MUST` be 
 
 Many datasets arrive with missing data values, either because a value was not collected or it never existed. Missing values may be indicated simply by the value being empty in other cases a special value may have been used e.g. `-`, `NaN`, `0`, `-9999` etc.
 
-`missingValues` dictates which values `SHOULD` be treated as missing values. Depending on implementation support for representing missing values, implementations `MAY` offer different ways of handling missingness when loading a field, including but not limited to: converting all missing values to null, loading missing values inline with a field's logical values, or loading the missing values for a field in a separate, additional column.
+`missingValues` dictates which values `SHOULD` be treated as missing values. Depending on implementation support for representing missing values, implementations `MAY` offer different ways of handling missingness when loading a field, including but not limited to: converting all missing values to `null`, loading missing values inline with a field's logical values, or loading the missing values for a field in a separate, additional column.
 
-`missingValues` `MUST` be an `array` where each entry is a `string`, or an `array` where each entry is an `object`.
+`missingValues` `MUST` be an `array` where each entry is a unique `string`, or an `array` where each entry is an `object`.
 
-If an `array` of `object`s is provided, each object `MUST` have a `value` and optional `label` property. The `value` property `MUST` be a `string` that represents the missing value. The optional `label` property `MUST` be a `string` that provides a human-readable label for the missing value. For example:
+If an `array` of `object`s is provided, each object `MUST` have a unique `value` and optional unique `label` property. The `value` property `MUST` be a `string` that represents the missing value. The optional `label` property `MUST` be a `string` that provides a human-readable label for the missing value. For example:
 
 ```json
 "missingValues": [
@@ -370,7 +370,7 @@ See [Field Constraints](#field-constraints)
 
 `string` and `integer` field types `MAY` include a `categories` property to indicate that the field contains categorical data, and the field `MAY` be loaded as a categorical data type if supported by the implementation. The `categories` property `MUST` be an array of values or an array of objects that define the levels of the categorical.
 
-When the `categories` property is an array of values, the values `MUST` be unique and `MUST` match logical values of the field. For example:
+When the `categories` property is an array of values, the values `MUST` be logical values that define the possible levels of the categorical. These values `MUST` be unique within the `categories` definition. For example:
 
 ```json
 {
@@ -380,7 +380,7 @@ When the `categories` property is an array of values, the values `MUST` be uniqu
 }
 ```
 
-When the `categories` property is an array of objects, each object `MUST` have a `value` and an optional `label` property. The `value` property `MUST` be a logical value that defines the categorical level. The optional `label` property, when present, `MUST` be a `string` that provides a human-readable label for the level. For example, if the `integer` values `0`, `1`, `2` were used as codes to represent the levels `"apple"`, `"orange"`, and `"banana"` in the previous example, the `categories` property would be defined as follows:
+When the `categories` property is an array of objects, each object `MUST` have a unique `value` and an optional unique `label` property. The `value` property `MUST` be a logical value that defines the categorical level. The optional `label` property, when present, `MUST` be a `string` that provides a human-readable label for the level. For example, if the `integer` values `0`, `1`, `2` were used as codes to represent the levels `"apple"`, `"orange"`, and `"banana"` in the previous example, the `categories` property would be defined as follows:
 
 ```json
 {
