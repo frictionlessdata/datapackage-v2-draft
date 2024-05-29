@@ -127,9 +127,18 @@ A Table Schema descriptor `MAY` contain a property `fieldsMatch` that `MUST` be 
 
 Many datasets arrive with missing data values, either because a value was not collected or it never existed. Missing values may be indicated simply by the value being empty in other cases a special value may have been used e.g. `-`, `NaN`, `0`, `-9999` etc.
 
-`missingValues` dictates which string values `MUST` be treated as `null` values. This conversion to `null` is done before any other attempted type-specific string conversion. The default value `[ "" ]` means that empty strings will be converted to null before any other processing takes place. Providing the empty list `[]` means that no conversion to null will be done, on any value.
+`missingValues` dictates which values `SHOULD` be treated as missing values. Depending on implementation support for representing missing values, implementations `MAY` offer different ways of handling missingness when loading a field, including but not limited to: converting all missing values to null, loading missing values inline with a field's logical values, or loading the missing values for a field in a separate, additional column.
 
-`missingValues` `MUST` be an `array` where each entry is a `string`.
+`missingValues` `MUST` be an `array` where each entry is a `string`, or an `array` where each entry is an `object`.
+
+If an `array` of `object`s is provided, each object `MUST` have a `value` and optional `label` property. The `value` property `MUST` be a `string` that matches the physical value of the field. The optional `label` property `MUST` be a `string` that provides a human-readable label for the missing value. For example:
+
+```json
+"missingValues": [
+  { "value": "", "label": "OMITTED" },
+  { "value": "-99", "label": "REFUSED" }
+]
+```
 
 **Why strings**: `missingValues` are strings rather than being the data type of the particular field. This allows for comparison prior to casting and for fields to have missing value which are not of their type, for example a `number` field to have missing values indicated by `-`.
 
@@ -140,6 +149,8 @@ Examples:
 "missingValues": ["-"]
 "missingValues": ["NaN", "-"]
 ```
+
+When implementations choose to convert missing values to null, this conversion to `null` `MUST` be done before any other attempted type-specific string conversion. The default value `[ "" ]` means that empty strings will be converted to null before any other processing takes place. Providing the empty list `[]` means that no conversion to null will be done, on any value.
 
 #### `primaryKey`
 
