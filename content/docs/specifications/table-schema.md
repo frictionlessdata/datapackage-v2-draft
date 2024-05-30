@@ -368,9 +368,9 @@ See [Field Constraints](#field-constraints)
 
 #### `categories` / `categoriesOrdered`
 
-`string` and `integer` field types `MAY` include a `categories` property to indicate that the field contains categorical data, and the field `MAY` be loaded as a categorical data type if supported by the implementation. The `categories` property `MUST` be an array of values or an array of objects that define the levels of the categorical.
+`string` and `integer` field types `MAY` include a `categories` property to restrict the field to a finite set of possible values (similar to an [`enum`](#enum) constraint) and indicate that the field `MAY` be loaded as a categorical data type if supported by the implementation. The `categories` property `MUST` be either (a) an array of unique values or (b) an array of objects, each with a unique `value` property. The logical representation of data in the field `MUST` exactly match one of the values in `categories`.
 
-When the `categories` property is an array of values, the values `MUST` be logical values that define the possible levels of the categorical. These values `MUST` be unique within the `categories` definition. For example:
+Suppose we have a field `fruit` with possible values `"apple"`, `"orange"`, or `"banana"`. The field definition would look like this if `categories` is (a) an array of values:
 
 ```json
 {
@@ -380,7 +380,7 @@ When the `categories` property is an array of values, the values `MUST` be logic
 }
 ```
 
-When the `categories` property is an array of objects, each object `MUST` have a unique `value` and an optional unique `label` property. The `value` property `MUST` be a logical value that defines the categorical level. The optional `label` property, when present, `MUST` be a `string` that provides a human-readable label for the level. For example, if the `integer` values `0`, `1`, `2` were used as codes to represent the levels `"apple"`, `"orange"`, and `"banana"` in the previous example, the `categories` property would be defined as follows:
+If `categories` is (b) an array of objects, each object `MAY` also have a `label` property, which when present, `MUST` be a `string`. Labels `MUST` be unique within `categories` definitions. In our example, this allows us to store our fruit with values `0`, `1`, and `2` in an `integer` field and label them as `"apple"`, `"orange"`, and `"banana"`:
 
 ```json
 {
@@ -394,7 +394,7 @@ When the `categories` property is an array of objects, each object `MUST` have a
 }
 ```
 
-When the `categories` property is defined, it `MAY` be accompanied by a `categoriesOrdered` property in the field definition. When present, the `categoriesOrdered` property `MUST` be a boolean. When `categoriesOrdered` is `true`, implementations `SHOULD` interpret the order of the levels as defined in the `categories` property as the natural ordering of the levels. For example:
+When the `categories` property is defined, it `MAY` be accompanied by a `categoriesOrdered` property in the field definition. When present, the `categoriesOrdered` property `MUST` be `boolean`. When `categoriesOrdered` is `true`, implementations `SHOULD` regard the order of appearance of the values in the `categories` property as their natural order. For example:
 
 ```json
 {
@@ -411,11 +411,9 @@ When the `categories` property is defined, it `MAY` be accompanied by a `categor
 }
 ```
 
-When the property `categoriesOrdered` is `false` or not present, implementations `SHOULD` assume that the levels of the categorical do not have a natural order.
+When the property `categoriesOrdered` is `false` or not present, implementations `SHOULD` assume that the categories do not have a natural order.
 
-Although the `categories` property restricts a field to a finite set of possible values, similar to an [`enum`](#enum) constraint, they explicitly indicate that the field `MAY` be loaded as a categorical data type if supported by the implementation. By contrast, `enum` constraints restrict values of a field, but `SHOULD` not change the data type of the field when loaded.
-
-`enum` constraints `MAY` be added to fields with the `categories` property, but when added, the values in the `enum` constraint `MUST` be a subset of the logical values defined in `categories`.
+An `enum` constraint `MAY` be added to a field with a `categories` property, but if so, the `enum` values `MUST` be a subset of the values in `categories`.
 
 #### `missingValues`
 
