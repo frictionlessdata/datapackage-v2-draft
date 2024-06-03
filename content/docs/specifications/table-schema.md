@@ -411,7 +411,7 @@ When the `categories` property is defined, it `MAY` be accompanied by a `categor
 }
 ```
 
-When the property `categoriesOrdered` is `false` or not present, implementations `SHOULD` assume that the categories do not have a natural order.
+When the property `categoriesOrdered` is `false`, implementations `SHOULD` assume that the categories do not have a natural order; when the property is not present, no assumption about the ordered nature of the values `SHOULD` be made.
 
 An `enum` constraint `MAY` be added to a field with a `categories` property, but if so, the `enum` values `MUST` be a subset of the values in `categories`.
 
