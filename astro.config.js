@@ -14,6 +14,7 @@ export default defineConfig({
       logo: {
         light: "/assets/logo-light.svg",
         dark: "/assets/logo-dark.svg",
+        alt: "Data Package Logo",
         replacesTitle: true,
       },
       social: {
