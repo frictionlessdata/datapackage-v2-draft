@@ -74,14 +74,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -111,14 +110,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -126,7 +124,7 @@
                   }
                 ]
               },
-              "categoriesOrder": {
+              "categoriesOrdered": {
                 "type": "boolean"
               },
               "type": {
@@ -247,14 +245,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -437,14 +434,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -466,7 +462,7 @@
                   {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": "integer"
                     }
                   },
                   {
@@ -474,14 +470,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
-                          "type": "string"
-                        },
                         "value": {
+                          "type": "integer"
+                        },
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -489,7 +484,7 @@
                   }
                 ]
               },
-              "categoriesOrder": {
+              "categoriesOrdered": {
                 "type": "boolean"
               },
               "type": {
@@ -652,14 +647,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -785,14 +779,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -917,14 +910,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -1049,14 +1041,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -1223,14 +1214,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -1357,14 +1347,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -1500,14 +1489,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -1645,14 +1633,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -1793,14 +1780,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -1937,14 +1923,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -2083,14 +2068,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -2216,14 +2200,13 @@
                     "items": {
                       "type": "object",
                       "required": [
-                        "label",
                         "value"
                       ],
                       "properties": {
-                        "label": {
+                        "value": {
                           "type": "string"
                         },
-                        "value": {
+                        "label": {
                           "type": "string"
                         }
                       }
@@ -2418,14 +2401,13 @@
           "items": {
             "type": "object",
             "required": [
-              "label",
               "value"
             ],
             "properties": {
-              "label": {
+              "value": {
                 "type": "string"
               },
-              "value": {
+              "label": {
                 "type": "string"
               }
             }
