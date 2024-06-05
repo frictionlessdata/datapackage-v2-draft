@@ -495,8 +495,8 @@ The field contains boolean data i.e. logical `true` or logical `false`.
 
 As strings, values `MUST` be represented as defined by the `trueValues` and `falseValues` properties that can be customized to user need:
 
-- **trueValues**: An array of native values to be interpreted as logical `true`. The default is `[ "true", "True", "TRUE", "1" ]`.
-- **falseValues**: An array of native values to be interpreted as logical `false`. The default is `[ "false", "False", "FALSE", "0" ]`.
+- **trueValues**: An array of strings to be interpreted as logical `true`. The default is `[ "true", "True", "TRUE", "1" ]`.
+- **falseValues**: An array of strings to be interpreted as logical `false`. The default is `[ "false", "False", "FALSE", "0" ]`.
 
 ### `object`
 
@@ -576,7 +576,7 @@ As strings, values `MUST` be represented as per [XMLSchema `gYear`](https://www.
 
 The field contains a specific month in a specific year.
 
-**Native Representation**
+**String Representation**
 
 As strings, values `MUST` be represented as per [XMLSchema `gYearMonth`](https://www.w3.org/TR/xmlschema-2/#gYearMonth). Usual representation as a string is `YYYY-MM`.
 
