@@ -120,8 +120,8 @@ In JSON, a table would be:
 
 ```json
 [
-  { "A": value, "B": value, ... },
-  { "A": value, "B": value, ... },
+  { "A": "value", "B": "value", ... },
+  { "A": "value", "B": "value", ... },
   ...
 ]
 ```
