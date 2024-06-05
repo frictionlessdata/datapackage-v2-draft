@@ -281,6 +281,10 @@ tableSchemaFieldString:
       "$ref": "#/definitions/example"
     missingValues:
       "$ref": "#/definitions/tableSchemaMissingValues"
+    categories:
+      "$ref": "#/definitions/tableSchemaCategoriesString"
+    categoriesOrder:
+      "$ref": "#/definitions/tableSchemaCategoriesOrder"
     type:
       description: The type keyword, which `MUST` be a value of `string`.
       enum:
@@ -409,6 +413,10 @@ tableSchemaFieldInteger:
       "$ref": "#/definitions/example"
     missingValues:
       "$ref": "#/definitions/tableSchemaMissingValues"
+    categories:
+      "$ref": "#/definitions/tableSchemaCategoriesString"
+    categoriesOrder:
+      "$ref": "#/definitions/tableSchemaCategoriesOrder"
     type:
       description: The type keyword, which `MUST` be a value of `integer`.
       enum:
@@ -1375,3 +1383,37 @@ tableSchemaGroupChar:
   type: string
   title: groupChar
   description: A string whose value is used to group digits within the number. This property does not have a default value. A common value is `,` e.g. '100,000'.
+tableSchemaCategoriesString:
+  anyOf:
+    - type: array
+      items:
+        type: string
+    - type: array
+      items:
+        type: object
+        required:
+          - label
+          - value
+        properties:
+          label:
+            type: string
+          value:
+            type: string
+tableSchemaCategoriesInteger:
+  anyOf:
+    - type: array
+      items:
+        type: integer
+    - type: array
+      items:
+        type: object
+        required:
+          - label
+          - value
+        properties:
+          label:
+            type: string
+          value:
+            type: integer
+tableSchemaCategoriesOrder:
+  type: boolean

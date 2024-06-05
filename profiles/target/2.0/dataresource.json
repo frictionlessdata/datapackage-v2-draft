@@ -532,6 +532,37 @@
                       "{\n  \"missingValues\": []\n}\n"
                     ]
                   },
+                  "categories": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "categoriesOrder": {
+                    "type": "boolean"
+                  },
                   "type": {
                     "description": "The type keyword, which `MUST` be a value of `string`.",
                     "enum": [
@@ -863,6 +894,37 @@
                       "{\n  \"missingValues\": [\n    \"-\",\n    \"NaN\",\n    \"\"\n  ]\n}\n",
                       "{\n  \"missingValues\": []\n}\n"
                     ]
+                  },
+                  "categories": {
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "categoriesOrder": {
+                    "type": "boolean"
                   },
                   "type": {
                     "description": "The type keyword, which `MUST` be a value of `integer`.",
