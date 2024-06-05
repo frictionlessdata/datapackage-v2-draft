@@ -452,7 +452,11 @@ Supported formats:
 
 The field contains numbers of any kind including decimals.
 
-The lexical formatting follows that of decimal in [XMLSchema](https://www.w3.org/TR/xmlschema-2/#decimal): a non-empty finite-length sequence of decimal digits separated by a period as a decimal indicator. An optional leading sign is allowed. If the sign is omitted, "+" is assumed. Leading and trailing zeroes are optional. If the fractional part is zero, the period and following zero(es) can be omitted. For example: '-1.23', '12678967.543233', '+100000.00', '210'.
+**String Representation**
+
+As strings, values `MUST` be represented following the rules below.
+
+Formatting follows that of decimal in [XMLSchema](https://www.w3.org/TR/xmlschema-2/#decimal): a non-empty finite-length sequence of decimal digits separated by a period as a decimal indicator. An optional leading sign is allowed. If the sign is omitted, "+" is assumed. Leading and trailing zeroes are optional. If the fractional part is zero, the period and following zero(es) can be omitted. For example: '-1.23', '12678967.543233', '+100000.00', '210'.
 
 The following special string values are permitted (case need not be respected):
 
@@ -464,60 +468,75 @@ A number `MAY` also have a trailing:
 
 - exponent: this `MUST` consist of an E followed by an optional + or - sign followed by one or more decimal digits (0-9)
 
-This lexical formatting `MAY` be modified using these additional properties:
+Formatting `MAY` be modified using these additional properties:
 
 - **decimalChar**: A string whose value is used to represent a decimal point within the number. The default value is ".".
 - **groupChar**: A string whose value is used to group digits within the number. This property does not have a default value. A common value is "," e.g. "100,000".
-- **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
+- **bareNumber**: a boolean field with a default of `true`. If `true` the contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
 ### `integer`
 
 The field contains integers - that is whole numbers.
 
-Integer values are indicated in the standard way for any valid integer.
+**String Representation**
 
-This lexical formatting `MAY` be modified using these additional properties:
+As strings, values `MUST` be represented following the rules below.
+
+Integer values are indicated in the standard way for any valid integer. Formatting `MAY` be modified using these additional properties:
 
 - **groupChar**: A string whose value is used to group digits within the integer. This property does not have a default value. A common value is "," e.g. "100,000".
-- **bareNumber**: a boolean field with a default of `true`. If `true` the physical contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
+- **bareNumber**: a boolean field with a default of `true`. If `true` the contents of this field `MUST` follow the formatting constraints already set out. If `false` the contents of this field may contain leading and/or trailing non-numeric characters (which implementors `MUST` therefore strip). The purpose of `bareNumber` is to allow publishers to publish numeric data that contains trailing characters such as percentages e.g. `95%` or leading characters such as currencies e.g. `€95` or `EUR 95`. Note that it is entirely up to implementors what, if anything, they do with stripped text.
 
 ### `boolean`
 
-The field contains boolean (true/false) data.
+The field contains boolean data i.e. logical `true` or logical `false`.
 
-In the physical representations of data where boolean values are represented with strings, the values set in `trueValues` and `falseValues` are to be cast to their logical representation as booleans. `trueValues` and `falseValues` are arrays which can be customised to user need. The default values for these are in the additional properties section below.
+**String Representation**
 
-The boolean field can be customised with these additional properties:
+As strings, values `MUST` be represented as defined by the `trueValues` and `falseValues` properties that can be customized to user need:
 
-- **trueValues**: `[ "true", "True", "TRUE", "1" ]`
-- **falseValues**: `[ "false", "False", "FALSE", "0" ]`
+- **trueValues**: An array of native values to be interpreted as logical `true`. The default is `[ "true", "True", "TRUE", "1" ]`.
+- **falseValues**: An array of native values to be interpreted as logical `false`. The default is `[ "false", "False", "FALSE", "0" ]`.
 
 ### `object`
 
 The field contains a valid JSON object.
 
+**String Representation**
+
+As strings, values `MUST` be represented by valid serialized JSON objects.
+
 ### `array`
 
 The field contains a valid JSON array.
 
+**String Representation**
+
+As strings, values `MUST` be represented by valid serialized JSON arrays.
+
 ### `list`
 
-The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. In the lexical representation, the field `MUST` contain a string with values separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
+The field contains data that is an ordered one-level depth collection of primitive values with a fixed item type. In comparison to the `array` type, the `list` type is directly modelled on the concept of SQL typed collections.
 
-`format`: no options (other than the default).
+The list field can be customised with this additional property:
 
-The list field can be customised with these additional properties:
+- **itemType**: specifies the list item type in terms of existent Table Schema types. If present, it `MUST` be one of `string`, `integer`, `boolean`, `number`, `datetime`, `date`, and `time`. If not present, the default is `string`. A data consumer `MUST` process list items as it were individual values of the corresponding data type.
 
-- **delimiter**: specifies the character sequence which separates lexically represented list items. If not present, the default is `,` (comma).
-- **itemType**: specifies the list item type in terms of existent Table Schema types. If present, it `MUST` be one of `string`, `integer`, `boolean`, `number`, `datetme`, `date`, and `time`. If not present, the default is `string`. A data consumer `MUST` process list items as it were individual values of the corresponding data type. Note, that on lexical level only default formats are supported, for example, for a list with `itemType` set to `date`, items have to be in default form for dates i.e. `yyyy-mm-dd`.
+**String Representation**
+
+As strings, values `MUST` be represented by strings with list items separated by a delimiter which is `,` (comma) by default e.g. `value1,value2`. The list items `MUST` be serialized using a default format of the corresponding `itemType`. The delimiter can be customised with this additional property:
+
+- **delimiter**: specifies the character sequence which separates list items. If not present, the default is `,` (comma).
 
 ### `datetime`
 
-The field contains a date with a time.
+The field contains a date with a time and an optional timezone.
 
-Supported formats:
+**String Representation**
 
-- **default**: The lexical representation `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`.
+As strings, values `MUST` be represented in one of the following formats:
+
+- **default**: values `MUST` be in a form defined by [XML Schema](https://www.w3.org/TR/xmlschema-2/#dateTime) containing required date and time parts, followed by optional milliseconds and timezone parts, for example, `2024-01-26T15:00:00` or `2024-01-26T15:00:00.300-05:00`.
 - **\<PATTERN\>**: values in this field can be parsed according to `<PATTERN>`. `<PATTERN>` `MUST` follow the syntax of [standard Python / C strptime](https://docs.python.org/2/library/datetime.html#strftime-strptime-behavior). Values in the this field `SHOULD` be parsable by Python / C standard `strptime` using `<PATTERN>`. Example for `"format": ""%d/%m/%Y %H:%M:%S"` which would correspond to a date with time like: `12/11/2018 09:15:32`.
 - **any**: Any parsable representation of the value. The implementing library can attempt to parse the datetime via a range of strategies. An example is `dateutil.parser.parse` from the `python-dateutils` library. It is `NOT RECOMMENDED` to use `any` format as it might cause interoperability issues.
 
@@ -525,9 +544,11 @@ Supported formats:
 
 The field contains a date without a time.
 
-Supported formats:
+**String Representation**
 
-- **default**: The lexical representation `MUST` be `yyyy-mm-dd` e.g. `2024-01-26`
+As strings, values `MUST` be represented in one of the following formats:
+
+- **default**: values `MUST` be `yyyy-mm-dd` e.g. `2024-01-26`
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
@@ -535,47 +556,65 @@ Supported formats:
 
 The field contains a time without a date.
 
-Supported formats:
+**String Representation**
 
-- **default**: The lexical representation `MUST` be `hh:mm:ss` e.g. `15:00:00`
+As strings, values `MUST` be represented in one of the following formats:
+
+- **default**: values `MUST` be `hh:mm:ss` e.g. `15:00:00`
 - **\<PATTERN\>**: The same as for `datetime`
 - **any**: The same as for `datetime`
 
 ### `year`
 
-A calendar year as per [XMLSchema `gYear`](https://www.w3.org/TR/xmlschema-2/#gYear). Usual lexical representation is `YYYY`. There are no format options.
+The field contains a calendar year.
+
+**String Representation**
+
+As strings, values `MUST` be represented as per [XMLSchema `gYear`](https://www.w3.org/TR/xmlschema-2/#gYear). Usual representation as a string is `YYYY`.
 
 ### `yearmonth`
 
-A specific month in a specific year as per [XMLSchema `gYearMonth`](https://www.w3.org/TR/xmlschema-2/#gYearMonth). Usual lexical representation is: `YYYY-MM`. There are no format options.
+The field contains a specific month in a specific year.
+
+**Native Representation**
+
+As strings, values `MUST` be represented as per [XMLSchema `gYearMonth`](https://www.w3.org/TR/xmlschema-2/#gYearMonth). Usual representation as a string is `YYYY-MM`.
 
 ### `duration`
 
-A duration of time.
+The field contains a duration of time.
 
-We follow the definition of [XML Schema duration datatype](http://www.w3.org/TR/xmlschema-2/#duration) directly and that definition is implicitly inlined here.
+**String Representation**
 
-To summarize: the lexical representation for duration is the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format PnYnMnDTnHnMnS, where nY represents the number of years, nM the number of months, nD the number of days, 'T' is the date/time separator, nH the number of hours, nM the number of minutes and nS the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
+As strings, values `MUST` be represented as per [XML Schema `duration`](http://www.w3.org/TR/xmlschema-2/#duration).
+
+The duration `MUST` be in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) extended format `PnYnMnDTnHnMnS`, where `nY` represents the number of years, `nM` the number of months, `nD` the number of days, `T` is the date/time separator, `nH` the number of hours, `nM` the number of minutes and `nS` the number of seconds. The number of seconds can include decimal digits to arbitrary precision. Date and time elements including their designator `MAY` be omitted if their value is zero, and lower order elements `MAY` also be omitted for reduced precision.
 
 ### `geopoint`
 
-The field contains data describing a geographic point.
+The field contains data describing a geographic point i.e. `lon` and `lat` values that are floating point numbers.
 
-Supported formats:
+**String Representation**
+
+As strings, values `MUST` be represented in one of the following formats:
 
 - **default**: A string of the pattern "lon, lat", where each value is a number, and `lon` is the longitude and `lat` is the latitude (note the space is optional after the `,`). E.g. `"90.50, 45.50"`.
 - **array**: A JSON array, or a string parsable as a JSON array, of exactly two items, where each item is a number, and the first item is `lon` and the second
   item is `lat` e.g. `[90.50, 45.50]`
-- **object**: A JSON object with exactly two keys, `lat` and `lon` and each value is a number e.g. `{"lon": 90.50, "lat": 45.50}`
+- **object**: A JSON object with exactly two keys, `lon` and `lat` and each value is a number e.g. `{"lon": 90.50, "lat": 45.50}`
 
 ### `geojson`
 
-The field contains a JSON object according to GeoJSON or TopoJSON spec.
+The field contains a JSON object according to GeoJSON or TopoJSON specifications.
 
 Supported formats:
 
 - **default**: A geojson object as per the [GeoJSON spec](http://geojson.org/).
-- **topojson**: A topojson object as per the [TopoJSON spec](https://github.com/topojson/topojson-specification/blob/master/README.md)
+- **topojson**: A topojson object as per the [TopoJSON spec](https://github.com/topojson/topojson-specification/blob/master/README.md).
+
+**String Representation**
+
+As strings, values `MUST` be represented by valid serialized JSON objects.
 
 ### `any`
 
