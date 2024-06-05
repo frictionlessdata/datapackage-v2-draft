@@ -128,12 +128,12 @@ In JSON, a table would be:
 
 ### Data Representation
 
-In order to talk about the representation and processing of tabular data from text-based sources, it is useful to introduce the concepts of the _physical_ and the _logical_ representation of data.
+In order to talk about the representation and processing of tabular data from varios data sources, it is useful to introduce the concepts of the `physical` and the `logical` representation of data.
 
-The _physical representation_ of data refers to the representation of data as text on disk, for example, in a CSV or JSON file. This representation can have some _type_ information (JSON, where the primitive types that JSON supports can be used) or not (CSV, where all data is represented in string form).
+#### Physical Representation
 
-The _logical representation_ of data refers to the "ideal" representation of the data in terms of primitive types, data structures, and relations, all as defined by the specification. We could say that the specification is about the logical representation of data, as well as about ways in which to handle conversion of a physical representation to a logical one.
+The physical representation of data refers to format-specific representation of data, for example, in a CSV or JSON file. This representation can have some type information (JSON, where the primitive types that JSON supports can be used) or not (CSV, where all data is represented in string form).
 
-In this document, we'll explicitly refer to either the _physical_ or _logical_ representation in places where it prevents ambiguity for those engaging with the specification, especially implementors.
+#### Logical Representation
 
-For example, `constraints` `SHOULD` be tested on the logical representation of data, whereas a property like `missingValues` applies to the physical representation of the data.
+The logical representation of data refers to the "ideal" representation of the data in terms of the Data Package standard's primitive types, data structures, and relations, all as defined by the Data Package's specifications. We could say that the standard is about the logical representation of data, as well as about ways in which to handle conversion of a physical representation to a logical one.
