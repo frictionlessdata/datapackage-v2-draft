@@ -40,9 +40,9 @@ It is recommended to cache profiles using their URL as a unique key.
 
 The Data Package Standard uses a concept of a `descriptor` to represent metadata defined according to the core specefications such as Data Package or Table Schema.
 
-On logical level, a descriptor is represented by a data structure. The data structure `MUST` be a JSON `object` as defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
+In [Logical Representation](#logical-representation), a descriptor is a data structure. The data structure `MUST` be a JSON `object` as defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
 
-On physical level, a descriptor is represented by a file. The file `MUST` contain a valid JSON `object` as defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
+In [Physical Representation](#physical-representation), a descriptor is a file. The file `MUST` contain a valid JSON `object` as defined in [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt).
 
 This specification does not define any discoverability mechanisms. Any URI can be used to directly reference a file containing a descriptor.
 
