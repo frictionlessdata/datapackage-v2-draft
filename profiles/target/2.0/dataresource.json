@@ -496,10 +496,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -616,10 +638,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -784,10 +828,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -946,10 +1012,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -1057,10 +1145,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -1167,10 +1277,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -1277,10 +1409,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -1429,10 +1583,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -1541,10 +1717,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -1662,10 +1860,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -1785,10 +2005,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -1911,10 +2153,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -2033,10 +2297,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -2157,10 +2443,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -2268,10 +2576,32 @@
                     ]
                   },
                   "missingValues": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
+                    "anyOf": [
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "label",
+                            "value"
+                          ],
+                          "properties": {
+                            "label": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "default": [
                       ""
                     ],
@@ -2448,10 +2778,32 @@
           ]
         },
         "missingValues": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
+          "anyOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "label",
+                  "value"
+                ],
+                "properties": {
+                  "label": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
           "default": [
             ""
           ],

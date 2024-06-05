@@ -224,9 +224,21 @@ tableSchemaFalseValues:
     type: string
   default: ["false", "False", "FALSE", "0"]
 tableSchemaMissingValues:
-  type: array
-  items:
-    type: string
+  anyOf:
+    - type: array
+      items:
+        type: string
+    - type: array
+      items:
+        type: object
+        required:
+          - label
+          - value
+        properties:
+          label:
+            type: string
+          value:
+            type: string
   default:
     - ""
   description: Values that when encountered in the source, should be considered
