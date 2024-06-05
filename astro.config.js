@@ -25,7 +25,7 @@ export default defineConfig({
         baseUrl: "https://github.com/frictionlessdata/datapackage/edit/main/",
       },
       lastUpdated: true,
-      customCss: ["typeface-hk-grotesk/index.css", "/assets/styles.css"],
+      customCss: ["/assets/styles.css"],
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
       sidebar: [
         { label: "Standard", autogenerate: { directory: "standard" } },
