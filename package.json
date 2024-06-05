@@ -13,7 +13,7 @@
     "generate": "astro sync",
     "lint": "eslint . && prettier --check .",
     "preview": "astro preview --port 8080",
-    "profiles": " node profiles/build.js",
+    "profiles": "node profiles/build.js",
     "start": "astro dev --open --port 8080",
     "update": "ncu -u",
     "test": "npm run lint"

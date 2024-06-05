@@ -232,12 +232,11 @@ tableSchemaMissingValues:
       items:
         type: object
         required:
-          - label
           - value
         properties:
-          label:
-            type: string
           value:
+            type: string
+          label:
             type: string
   default:
     - ""
@@ -283,8 +282,8 @@ tableSchemaFieldString:
       "$ref": "#/definitions/tableSchemaMissingValues"
     categories:
       "$ref": "#/definitions/tableSchemaCategoriesString"
-    categoriesOrder:
-      "$ref": "#/definitions/tableSchemaCategoriesOrder"
+    categoriesOrdered:
+      "$ref": "#/definitions/tableSchemaCategoriesOrdered"
     type:
       description: The type keyword, which `MUST` be a value of `string`.
       enum:
@@ -414,9 +413,9 @@ tableSchemaFieldInteger:
     missingValues:
       "$ref": "#/definitions/tableSchemaMissingValues"
     categories:
-      "$ref": "#/definitions/tableSchemaCategoriesString"
-    categoriesOrder:
-      "$ref": "#/definitions/tableSchemaCategoriesOrder"
+      "$ref": "#/definitions/tableSchemaCategoriesInteger"
+    categoriesOrdered:
+      "$ref": "#/definitions/tableSchemaCategoriesOrdered"
     type:
       description: The type keyword, which `MUST` be a value of `integer`.
       enum:
@@ -1392,12 +1391,11 @@ tableSchemaCategoriesString:
       items:
         type: object
         required:
-          - label
           - value
         properties:
-          label:
-            type: string
           value:
+            type: string
+          label:
             type: string
 tableSchemaCategoriesInteger:
   anyOf:
@@ -1408,12 +1406,11 @@ tableSchemaCategoriesInteger:
       items:
         type: object
         required:
-          - label
           - value
         properties:
-          label:
-            type: string
           value:
             type: integer
-tableSchemaCategoriesOrder:
+          label:
+            type: string
+tableSchemaCategoriesOrdered:
   type: boolean
