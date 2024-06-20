@@ -86,6 +86,20 @@ Delimited formats is a group of textual formats such as CSV and TSV. Their chara
 - [nullSequence](#nullSequence): undefined by default
 - [skipInitialSpace](#skipInitialSpace): `false` by default
 
+An example of a well-defined Table Dialect descriptor for a CSV format:
+
+```json
+{
+  "header": false,
+  "commentChar": "#"
+  "delimiter": ";",
+  "doubleQuote": true,
+  "lineTerminator": "\r\n",
+  "quoteChar": "\"",
+  "skipInitialSpace": true,
+}
+```
+
 ### Structured
 
 Structured formats is a group of structured or semi-structured formats such as JSON and YAML. Their charactistics can be expressed the following properties:
@@ -610,22 +624,6 @@ With this dialect definition:
 ```
 
 `SHOULD` output the data from the second table.
-
-## Example
-
-An example of a well-defined Table Dialect descriptor for a CSV format:
-
-```json
-{
-  "header": false,
-  "commentChar": "#"
-  "delimiter": ";",
-  "doubleQuote": true,
-  "lineTerminator": "\r\n",
-  "quoteChar": "\"",
-  "skipInitialSpace": true,
-}
-```
 
 ## Excluded
 
