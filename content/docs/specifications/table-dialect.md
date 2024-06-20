@@ -627,7 +627,7 @@ With this dialect definition:
 
 ## Excluded
 
-Table Dialect has nothing to do with the names, contents or types of the headers or data within the CSV file (see [Table Schema](/standard/specifications/table-schema) instead), only how it is formatted. However, Table Dialect does allow the presence or absence of a header to be specified, similarly to [RFC4180](http://www.ietf.org/rfc/rfc4180.txt).
+Table Dialect has nothing to do with the names, contents or types of the headers or data within the CSV file (see [Table Schema](../table-schema/) instead), only how it is formatted. However, Table Dialect does allow the presence or absence of a header to be specified, similarly to [RFC4180](http://www.ietf.org/rfc/rfc4180.txt).
 
 Table Dialect is also orthogonal to the character encoding used in the CSV file. Note that it is possible for files in CSV format to contain data in more than one encoding.
 
