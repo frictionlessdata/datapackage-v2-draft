@@ -30,7 +30,7 @@ for (const anchor of ANCHORS) {
   const toHref = `href="#${anchor.to}"`
 
   await replaceInFile({
-    files: [`build/specifications/${anchor.spec}/index.html`],
+    files: [`build/standard/${anchor.spec}/index.html`],
     from: [fromId, fromHref],
     to: [toId, toHref],
   })
