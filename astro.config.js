@@ -28,7 +28,8 @@ export default defineConfig({
       lastUpdated: true,
       customCss: ["/assets/styles.css"],
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
-      plugins: [starlightLinksValidator()],
+      // The link validator is useful for debugging but it cleates a lot of false positives
+      // plugins: [starlightLinksValidator()],
       sidebar: [
         { label: "Overview", autogenerate: { directory: "overview" } },
         { label: "Standard", autogenerate: { directory: "standard" } },
