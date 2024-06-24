@@ -35,42 +35,28 @@ Table Dialect supersedes [CSV Dialect](https://specs.frictionlessdata.io/csv-dia
 
 ## Descriptor
 
-Table Dialect descriptor `MUST` be a descriptor as per [Descriptor](../glossary/#descriptor) definition. A list of standard properties that can be included into a descriptor is defined in the [Properties](#properties) section.
+Table Dialect descriptor `MUST` be a descriptor as per [Descriptor](../glossary/#descriptor) definition. The descriptor `MAY` include a `type` property to indicate which of optional dialect properties `SHOULD` be considered when reading the target data format. Some [properties](#properties) are generic and can be used for multiple formats, while others are specific to one format. A list of standard dialect types are defined in the [Table Dialect Types](#table-dialect-types) section. The properties that can be used with these types are defined in the [Properties](#properties) section.
+
+When the `type` property is not set, it `SHOULD` be assumed that the descriptor is a `delimited` dialect type.
 
 An example of a Table Dialect descriptor:
 
 ```json
 {
+  "type": "delimited",
   "header": false,
   "delimiter": ";",
   "quoteChar": "'"
 }
 ```
 
-## Tabular Data Formats
+## Table Dialect Types
 
-Table Dialect can be used for different data formats, such as delimited text files, semi-structured formats and spreadsheets. Some [properties](#properties) are generic and can be used for multiple formats, while others are specific to one format.
+Table Dialect can be used for different data formats, such as delimited text files, semi-structured formats and spreadsheets. The list of supported dialect types with associated data formats and related properties is as follows.
 
-A property `MUST` be ignored if it is no applicable for an arbitrary data format. For example, SQL databases do not have a concept of a header row.
+### `delimited`
 
-For the sake of simplicity, most of examples are written in the CSV data format. For example, this data file without providing any Table Dialect properties:
-
-```csv
-id,name
-1,apple
-2,organe
-```
-
-`SHOULD` output this data:
-
-```javascript
-{id: 1, name: "apple"}
-{id: 2, name: "orange"}
-```
-
-### Delimited
-
-Delimited formats is a group of textual formats such as CSV and TSV. Their charactistics can be expressed the following properties:
+Delimited formats are textual formats such as CSV and TSV. Their charactistics can be expressed the following properties:
 
 - [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [header](#header): `true` by default
@@ -90,6 +76,7 @@ An example of a well-defined Table Dialect descriptor for a CSV format:
 
 ```json
 {
+  "type": "delimited",
   "header": false,
   "commentChar": "#"
   "delimiter": ";",
@@ -100,9 +87,9 @@ An example of a well-defined Table Dialect descriptor for a CSV format:
 }
 ```
 
-### Structured
+### `structured`
 
-Structured formats is a group of structured or semi-structured formats such as JSON and YAML. Their charactistics can be expressed the following properties:
+Structured formats are structured or semi-structured formats such as JSON and YAML. Their charactistics can be expressed the following properties:
 
 - [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [header](#header): `true` by default
@@ -110,9 +97,9 @@ Structured formats is a group of structured or semi-structured formats such as J
 - [itemType](#itemtype): undefined by default
 - [itemKeys](#itemkeys): undefined by default
 
-### Spreadsheet
+### `spreadsheet`
 
-Spreadsheet formats is a group of sheet-based formats such as Excel or ODS. Their charactistics can be expressed the following properties:
+Spreadsheet formats are sheet-based formats such as Excel or ODS. Their charactistics can be expressed the following properties:
 
 - [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [header](#header): `true` by default
@@ -123,7 +110,7 @@ Spreadsheet formats is a group of sheet-based formats such as Excel or ODS. Thei
 - [sheetNumber](#sheetnumber): `1` by default
 - [sheetName](#sheetname): undefined by default
 
-### Database
+### `database`
 
 Database formats is a group of formats accessing data from databases like SQLite. Their charactistics can be expressed the following properties:
 
@@ -153,6 +140,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "header": false
 }
 ```
@@ -183,6 +171,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "headerRows": [1, 2]
 }
 ```
@@ -211,6 +200,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "headerRows": [1, 2],
   "headerJoin": "-"
 }
@@ -240,6 +230,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "commentRows": [2]
 }
 ```
@@ -268,6 +259,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "commentChar": "#"
 }
 ```
@@ -295,6 +287,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "delimiter": "|"
 }
 ```
@@ -320,6 +313,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "lineTerminator": ";"
 }
 ```
@@ -347,6 +341,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "quoteChar": "'"
 }
 ```
@@ -374,6 +369,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "doubleQuote": true
 }
 ```
@@ -401,6 +397,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "escapeChar": "|"
 }
 ```
@@ -428,6 +425,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "nullSequence": "NA"
 }
 ```
@@ -455,6 +453,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "skipInitialSpace": true
 }
 ```
@@ -485,6 +484,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "structured",
   "property": "rows"
 }
 ```
@@ -514,6 +514,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "structured",
   "itemType": "array"
 }
 ```
@@ -542,6 +543,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "structured",
   "itemKeys": ["id", "name"]
 }
 ```
@@ -568,6 +570,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "spreadsheet",
   "sheetNumber": 2
 }
 ```
@@ -589,6 +592,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "spreadsheet",
   "sheetName": "Sheet 2"
 }
 ```
@@ -610,6 +614,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "database",
   "table": "table2"
 }
 ```
