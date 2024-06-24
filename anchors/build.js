@@ -1,5 +1,10 @@
 import { replaceInFile } from "replace-in-file"
 
+// Currently, there is no way to specify the anchor ID in the markdown file in Starlight
+// We tried using rehype plugins and other methods, but none of them worked
+// ---
+// https://github.com/frictionlessdata/specs/issues/942
+
 const ANCHORS = [
   { spec: "data-package", from: "resources-required", to: "resources" },
   { spec: "data-package", from: "schema", to: "dollar-schema" },
