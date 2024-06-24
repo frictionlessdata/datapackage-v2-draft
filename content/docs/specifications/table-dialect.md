@@ -72,19 +72,18 @@ id,name
 
 Delimited formats is a group of textual formats such as CSV and TSV. Their charactistics can be expressed the following properties:
 
-- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [header](#header): `true` by default
-- [headerRows](#headerRows): `1` by default
-- [headerJoin](#headerJoin): ` ` by default
-- [commentRows](#commentRows): undefined by default
-- [commentChar](#commentChar): undefined by default 
+- [headerRows](#headerrows): `1` by default
+- [headerJoin](#headerjoin): ` ` by default
+- [commentRows](#commentrows): undefined by default
+- [commentChar](#commentchar): undefined by default
 - [delimiter](#delimiter): `,` by default
-- [lineTerminator](#lineTerminator): `\r\n` by default
-- [quoteChar](#quoteChar): `"` by default
-- [doubleQuote](#doubleQuote): `true` by default
-- [escapeChar](#escapeChar): undefined by default
-- [nullSequence](#nullSequence): undefined by default
-- [skipInitialSpace](#skipInitialSpace): `false` by default
+- [lineTerminator](#lineterminator): `\r\n` by default
+- [quoteChar](#quotechar): `"` by default
+- [doubleQuote](#doublequote): `true` by default
+- [escapeChar](#escapechar): undefined by default
+- [nullSequence](#nullsequence): undefined by default
+- [skipInitialSpace](#skipinitialspace): `false` by default
 
 An example of a well-defined Table Dialect descriptor for a CSV format:
 
@@ -104,39 +103,36 @@ An example of a well-defined Table Dialect descriptor for a CSV format:
 
 Structured formats is a group of structured or semi-structured formats such as JSON and YAML. Their charactistics can be expressed the following properties:
 
-- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [header](#header): `true` by default TODO
-- [headerRows](#headerRows): `1` by default TODO
-- [headerJoin](#headerJoin): ` ` by default TODO
-- [commentRows](#commentRows): undefined by default TODO
-- [commentChar](#commentChar): undefined by default TODO
+- [headerRows](#headerrows): `1` by default TODO
+- [headerJoin](#headerjoin): ` ` by default TODO
+- [commentRows](#commentrows): undefined by default TODO
+- [commentChar](#commentchar): undefined by default TODO
 - [property](#property): undefined by default
-- [itemType](#itemType): undefined by default
-- [itemKeys](#itemKeys): undefined by default
+- [itemType](#itemtype): undefined by default
+- [itemKeys](#itemkeys): undefined by default
 
 ### Spreadsheet
 
 Spreadsheet formats is a group of sheet-based formats such as Excel or ODS. Their charactistics can be expressed the following properties:
 
-- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [header](#header): `true` by default TODO
-- [headerRows](#headerRows): `1` by default TODO
-- [headerJoin](#headerJoin): ` ` by default TODO
-- [commentRows](#commentRows): undefined by default TODO
-- [commentChar](#commentChar): undefined by default TODO
-- [sheetNumber](#sheetNumber): `1` by default
-- [sheetName](#sheetName): undefined by default
+- [headerRows](#headerrows): `1` by default TODO
+- [headerJoin](#headerjoin): ` ` by default TODO
+- [commentRows](#commentrows): undefined by default TODO
+- [commentChar](#commentchar): undefined by default TODO
+- [sheetNumber](#sheetnumber): `1` by default
+- [sheetName](#sheetname): undefined by default
 
 ### Database
 
 Database formats is a group of formats accessing data from databases like SQLite. Their charactistics can be expressed the following properties:
 
-- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [header](#header): `true` by default TODO
-- [headerRows](#headerRows): `1` by default TODO
-- [headerJoin](#headerJoin): ` ` by default TODO
-- [commentRows](#commentRows): undefined by default TODO
-- [commentChar](#commentChar): undefined by default TODO
+- [headerRows](#headerrows): `1` by default TODO
+- [headerJoin](#headerjoin): ` ` by default TODO
+- [commentRows](#commentrows): undefined by default TODO
+- [commentChar](#commentchar): undefined by default TODO
 - [table](#table): undefined by default
 
 ## Properties
