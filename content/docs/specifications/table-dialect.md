@@ -103,11 +103,7 @@ An example of a well-defined Table Dialect descriptor for a CSV format:
 
 Structured formats is a group of structured or semi-structured formats such as JSON and YAML. Their charactistics can be expressed the following properties:
 
-- [header](#header): `true` by default TODO
-- [headerRows](#headerrows): `1` by default TODO
-- [headerJoin](#headerjoin): ` ` by default TODO
-- [commentRows](#commentrows): undefined by default TODO
-- [commentChar](#commentchar): undefined by default TODO
+- [header](#header): `true` by default
 - [property](#property): undefined by default
 - [itemType](#itemtype): undefined by default
 - [itemKeys](#itemkeys): undefined by default
@@ -116,11 +112,11 @@ Structured formats is a group of structured or semi-structured formats such as J
 
 Spreadsheet formats is a group of sheet-based formats such as Excel or ODS. Their charactistics can be expressed the following properties:
 
-- [header](#header): `true` by default TODO
-- [headerRows](#headerrows): `1` by default TODO
-- [headerJoin](#headerjoin): ` ` by default TODO
-- [commentRows](#commentrows): undefined by default TODO
-- [commentChar](#commentchar): undefined by default TODO
+- [header](#header): `true` by default
+- [headerRows](#headerrows): `1` by default
+- [headerJoin](#headerjoin): ` ` by default
+- [commentRows](#commentrows): undefined by default
+- [commentChar](#commentchar): undefined by default
 - [sheetNumber](#sheetnumber): `1` by default
 - [sheetName](#sheetname): undefined by default
 
@@ -128,11 +124,6 @@ Spreadsheet formats is a group of sheet-based formats such as Excel or ODS. Thei
 
 Database formats is a group of formats accessing data from databases like SQLite. Their charactistics can be expressed the following properties:
 
-- [header](#header): `true` by default TODO
-- [headerRows](#headerrows): `1` by default TODO
-- [headerJoin](#headerjoin): ` ` by default TODO
-- [commentRows](#commentrows): undefined by default TODO
-- [commentChar](#commentchar): undefined by default TODO
 - [table](#table): undefined by default
 
 ## Properties
