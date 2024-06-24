@@ -72,6 +72,7 @@ id,name
 
 Delimited formats is a group of textual formats such as CSV and TSV. Their charactistics can be expressed the following properties:
 
+- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [header](#header): `true` by default
 - [headerRows](#headerrows): `1` by default
 - [headerJoin](#headerjoin): ` ` by default
@@ -103,6 +104,7 @@ An example of a well-defined Table Dialect descriptor for a CSV format:
 
 Structured formats is a group of structured or semi-structured formats such as JSON and YAML. Their charactistics can be expressed the following properties:
 
+- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [header](#header): `true` by default
 - [property](#property): undefined by default
 - [itemType](#itemtype): undefined by default
@@ -112,6 +114,7 @@ Structured formats is a group of structured or semi-structured formats such as J
 
 Spreadsheet formats is a group of sheet-based formats such as Excel or ODS. Their charactistics can be expressed the following properties:
 
+- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [header](#header): `true` by default
 - [headerRows](#headerrows): `1` by default
 - [headerJoin](#headerjoin): ` ` by default
@@ -124,6 +127,7 @@ Spreadsheet formats is a group of sheet-based formats such as Excel or ODS. Thei
 
 Database formats is a group of formats accessing data from databases like SQLite. Their charactistics can be expressed the following properties:
 
+- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
 - [table](#table): undefined by default
 
 ## Properties
