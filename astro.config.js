@@ -2,6 +2,7 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark"
 import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import starlightLinksValidator from "starlight-links-validator"
 
 // https://astro.build/config
 export default defineConfig({
@@ -27,6 +28,7 @@ export default defineConfig({
       lastUpdated: true,
       customCss: ["/assets/styles.css"],
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
+      plugins: [starlightLinksValidator()],
       sidebar: [
         { label: "Overview", autogenerate: { directory: "overview" } },
         { label: "Standard", autogenerate: { directory: "standard" } },
