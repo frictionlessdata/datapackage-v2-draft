@@ -121,11 +121,15 @@ Database formats is a group of formats accessing data from databases like SQLite
 
 ### `$schema`
 
+**Dialect Types:** All
+
 A root level Table Dialect descriptor `MAY` have a `$schema` property that `MUST` be a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
 
 The default value is `https://datapackage.org/profiles/1.0/tabledialect.json` and the recommended value is `https://datapackage.org/profiles/2.0/tabledialect.json`.
 
 ### `header`
+
+**Dialect Types:** [delimited](#delimited), [structured](#structured), [spreadsheet](#spreadsheet)
 
 A Table Dialect descriptor `MAY` have the `header` property that `MUST` be boolean with default value `true`. This property indicates whether the file includes a header row. If `true` the first row in the file `MUST` be interpreted as a header row, not data.
 
@@ -156,6 +160,8 @@ Where `field1` and `field2` names are implementation-specific and used here only
 
 ### `headerRows`
 
+**Dialect Types:** [delimited](#delimited), [spreadsheet](#spreadsheet)
+
 A Table Dialect descriptor `MAY` have the `headerRows` property that `MUST` be an array of positive integers starting from 1 with default value `[1]`. This property specifies the row numbers for the header. It is `RECOMMENDED` to be used for multiline-header files.
 
 For example, this data file:
@@ -184,6 +190,8 @@ With this dialect definition:
 ```
 
 ### `headerJoin`
+
+**Dialect Types:** [delimited](#delimited), [spreadsheet](#spreadsheet)
 
 A Table Dialect descriptor `MAY` have the `headerJoin` property that `MUST` be a string with default value `" "`. This property specifies how multiline-header files have to join the resulting header rows.
 
@@ -215,6 +223,8 @@ With this dialect definition:
 
 ### `commentRows`
 
+**Dialect Types:** [delimited](#delimited), [spreadsheet](#spreadsheet)
+
 A Table Dialect descriptor `MAY` have the `commentRows` property that `MUST` be an array of positive integers starting from 1; undefined by default. This property specifies what rows have to be omitted from the data.
 
 For example, this data file:
@@ -243,6 +253,8 @@ With this dialect definition:
 ```
 
 ### `commentChar`
+
+**Dialect Types:** [delimited](#delimited), [spreadsheet](#spreadsheet)
 
 A Table Dialect descriptor `MAY` have the `commentChar` property that `MUST` be a string of one or more characters; undefined by default. This property specifies what rows have to be omitted from the data based on the row's first characters.
 
@@ -273,6 +285,8 @@ With this dialect definition:
 
 ### `delimiter`
 
+**Dialect Types:** [delimited](#delimited)
+
 A Table Dialect descriptor `MAY` have the `delimiter` property that `MUST` be a string; with default value `,` (comma). This property specifies the character sequence which separates fields in the data file.
 
 For example, this data file:
@@ -301,6 +315,8 @@ With this dialect definition:
 
 ### `lineTerminator`
 
+**Dialect Types:** [delimited](#delimited)
+
 A Table Dialect descriptor `MAY` have the `lineTerminator` property that `MUST` be a string; with default value `\r\n`. This property specifies the character sequence which terminates rows.
 
 For example, this data file:
@@ -326,6 +342,8 @@ With this dialect definition:
 ```
 
 ### `quoteChar`
+
+**Dialect Types:** [delimited](#delimited)
 
 A Table Dialect descriptor `MAY` have the `quoteChar` property that `MUST` be a string of one character length with default value `"` (double quote). This property specifies a character to use for quoting in case the `delimiter` needs to be used inside a data cell.
 
@@ -355,6 +373,8 @@ With this dialect definition:
 
 ### `doubleQuote`
 
+**Dialect Types:** [delimited](#delimited)
+
 A Table Dialect descriptor `MAY` have the `doubleQuote` property that `MUST` be boolean with default value `true`. This property controls the handling of `quoteChar` inside data cells. If true, two consecutive quotes are interpreted as one.
 
 For example, this data file:
@@ -382,6 +402,8 @@ With this dialect definition:
 ```
 
 ### `escapeChar`
+
+**Dialect Types:** [delimited](#delimited)
 
 A Table Dialect descriptor `MAY` have the `escapeChar` property that `MUST` be a string of one character length; undefined by default. This property specifies a one-character string to use for escaping, for example, `\`, mutually exclusive with `quoteChar`.
 
@@ -411,6 +433,8 @@ With this dialect definition:
 
 ### `nullSequence`
 
+**Dialect Types:** [delimited](#delimited)
+
 A Table Dialect descriptor `MAY` have the `nullSequence` property that `MUST` be a string; undefined by default. This property specifies specifies the null sequence, for example, `\N`.
 
 For example, this data file:
@@ -439,6 +463,8 @@ With this dialect definition:
 
 ### `skipInitialSpace`
 
+**Dialect Types:** [delimited](#delimited)
+
 A Table Dialect descriptor `MAY` have the `skipInitialSpace` property that `MUST` be boolean with default value `false`. This property specifies how to interpret whitespace which immediately follows a delimiter; if `false`, it means that whitespace immediately after a delimiter is treated as part of the following field.
 
 For example, this data file:
@@ -466,6 +492,8 @@ With this dialect definition:
 ```
 
 ### `property`
+
+**Dialect Types:** [structured](#structured)
 
 A Table Dialect descriptor `MAY` have the `property` property that `MUST` be a string; undefined by default. This property specifies where a data array is located in the data structure.
 
@@ -498,6 +526,8 @@ With this dialect definition:
 
 ### `itemType`
 
+**Dialect Types:** [structured](#structured)
+
 A Table Dialect descriptor `MAY` have the `itemType` property that `MUST` be a string with value `array` or `object`; undefined by default. This property specifies whether the data `property` contains an array of arrays or an array of objects.
 
 For example, this data file:
@@ -528,6 +558,8 @@ With this dialect definition:
 
 ### `itemKeys`
 
+**Dialect Types:** [structured](#structured)
+
 A Table Dialect descriptor `MAY` have the `itemKeys` property that `MUST` be array of strings; undefined by default. This property specifies the way of extracting rows from data arrays with `itemType` is `object`.
 
 For example, this data file:
@@ -557,6 +589,8 @@ With this dialect definition:
 
 ### `sheetNumber`
 
+**Dialect Types:** [spreadsheet](#spreadsheet)
+
 A Table Dialect descriptor `MAY` have the `sheetNumber` property that `MUST` be an integer with default value `1`. This property specifies a sheet number of a table in the spreadsheet file.
 
 For example, this data file:
@@ -579,6 +613,8 @@ With this dialect definition:
 
 ### `sheetName`
 
+**Dialect Types:** [spreadsheet](#spreadsheet)
+
 A Table Dialect descriptor `MAY` have the `sheetName` property that `MUST` be a string; undefined by default. This property specifies a sheet name of a table in the spreadsheet file.
 
 For example, this data file:
@@ -600,6 +636,8 @@ With this dialect definition:
 `SHOULD` output the data from the second sheet.
 
 ### `table`
+
+**Dialect Types:** [database](#database)
 
 A Table Dialect descriptor `MAY` have the `table` property that `MUST` be a string; undefined by default. This property specifies a name of the table in the database.
 
