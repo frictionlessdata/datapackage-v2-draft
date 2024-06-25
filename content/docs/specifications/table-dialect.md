@@ -119,6 +119,12 @@ Database formats is a group of formats accessing data from databases like SQLite
 
 ## Properties
 
+### `type`
+
+**Dialect Types:** All
+
+A Table Dialect descriptor MAY contain a property `type` that `MUST` be a string with the following possible values and the `delimited` value by default: `delimited`, `structured`, `spreadsheet`, or `database`.
+
 ### `$schema` {#dollar-schema}
 
 **Dialect Types:** All
