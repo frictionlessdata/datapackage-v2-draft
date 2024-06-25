@@ -7,7 +7,7 @@ sidebar:
 <table>
   <tr>
     <th>Authors</th>
-    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet, Data Package Working Group</td>
+    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet, Kyle Husmann, Data Package Working Group</td>
   </tr>
   <tr>
     <th>Profile</th>
@@ -132,7 +132,7 @@ Database formats is a group of formats accessing data from databases like SQLite
 
 ## Properties
 
-### `$schema`
+### `$schema` {#dollar-schema}
 
 A root level Table Dialect descriptor `MAY` have a `$schema` property that `MUST` be a profile as per [Profile](/standard/glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
 

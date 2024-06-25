@@ -2,6 +2,7 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark"
 import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import { remarkHeadingId } from "remark-custom-heading-id"
 
 // import starlightLinksValidator from "starlight-links-validator"
 
@@ -103,12 +104,12 @@ export default defineConfig({
     }),
   ],
   markdown: {
+    remarkPlugins: [remarkHeadingId],
     rehypePlugins: [
       rehypeHeadingIds,
       [
         rehypeAutolinkHeadings,
         {
-          // Wrap the heading text in a link.
           behavior: "wrap",
         },
       ],
