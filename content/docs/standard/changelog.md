@@ -6,13 +6,61 @@ sidebar:
 
 This document includes all meaningful changes made to the Data Package Standard **specifications**. It does not cover changes made to other documents like Recipes or Guides.
 
+## v2.0
+
+> July 1, 2024
+
+### Data Package
+
+##### `$schema` (new)
+
+[`$schema`](/standard/glossary/#profile) replaced `profile` property with new extensions semantics ([#47](https://github.com/frictionlessdata/datapackage/pull/47)).
+
+### Data Resource
+
+##### `$schema` (new)
+
+[`$schema`](/standard/glossary/#profile) replaced `profile` property with new extensions semantics ([#47](https://github.com/frictionlessdata/datapackage/pull/47)).
+
+##### `sources` (updated)
+
+[`sources`](/standard/resource/#sources) now inherits from a containing data package ([#57](https://github.com/frictionlessdata/datapackage/pull/57)).
+
+##### `type` (new)
+
+[`type`](/standard/data-resource/#type) allows to specify the resource type ([#51](https://github.com/frictionlessdata/datapackage/pull/51)).
+
+### Table Dialect
+
+##### `$schema` (new)
+
+[`$schema`](/standard/glossary/#profile) replaced `profile` property with new extensions semantics ([#47](https://github.com/frictionlessdata/datapackage/pull/47)).
+
+##### `table` (new)
+
+[`table`](/standard/table-dialect/#table) allows to specify a table in a database ([#64](https://github.com/frictionlessdata/datapackage/pull/64)).
+
+### Table Schema
+
+##### `$schema` (new)
+
+[`$schema`](/standard/glossary/#profile) replaced `profile` property with new extensions semantics ([#47](https://github.com/frictionlessdata/datapackage/pull/47)).
+
+##### `missingValues` (updated)
+
+[`missingValues`](/standard/table-schema/#missingvalues) now allow to specify labeled missingness ([#68](https://github.com/frictionlessdata/datapackage/pull/68)).
+
+##### `categories` (new)
+
+[`categories`](/standard/table-schema/#categories) adds suport for categorical data for the `string` and `integer` field types ([#68](https://github.com/frictionlessdata/datapackage/pull/68)).
+
+##### `categoriesOrdered` (new)
+
+[`categoriesOrdered`](/standard/table-schema/#categoriesordered) adds suport for ordered categorical data for the `string` and `integer` field types ([#68](https://github.com/frictionlessdata/datapackage/pull/68)).
+
 ## v2.0-draft
 
 > April 1, 2024
-
-### Overview
-
-The Data Package (v2) draft release includes a rich set of the specification improvements accepted by the Data Package Working Group during the active phase of the Data Package (v2) work.
 
 ### Data Package
 
