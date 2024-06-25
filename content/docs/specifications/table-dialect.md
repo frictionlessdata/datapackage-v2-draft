@@ -35,44 +35,31 @@ Table Dialect supersedes [CSV Dialect](https://specs.frictionlessdata.io/csv-dia
 
 ## Descriptor
 
-Table Dialect descriptor `MUST` be a descriptor as per [Descriptor](../glossary/#descriptor) definition. A list of standard properties that can be included into a descriptor is defined in the [Properties](#properties) section.
+Table Dialect descriptor `MUST` be a descriptor as per [Descriptor](../glossary/#descriptor) definition. The descriptor `MAY` include a `type` property to indicate which of optional dialect properties `SHOULD` be considered when reading the target data format. Some [properties](#properties) are generic and can be used for multiple formats, while others are specific to one format. A list of standard dialect types are defined in the [Table Dialect Types](#table-dialect-types) section. The properties that can be used with these types are defined in the [Properties](#properties) section.
+
+When the `type` property is not set, it `SHOULD` be assumed that the descriptor is a `delimited` dialect type. In this case, the [`$schema`](#schema) property `SHOULD` default to `https://datapackage.org/profiles/1.0/tabledialect.json`, to maintain backward compatibility with [CSV Dialect](https://specs.frictionlessdata.io/csv-dialect/).
 
 An example of a Table Dialect descriptor:
 
 ```json
 {
+  "type": "delimited",
   "header": false,
   "delimiter": ";",
   "quoteChar": "'"
 }
 ```
 
-## Tabular Data Formats
+## Table Dialect Types
 
-Table Dialect can be used for different data formats, such as delimited text files, semi-structured formats and spreadsheets. Some [properties](#properties) are generic and can be used for multiple formats, while others are specific to one format.
+Table Dialect can be used for different data formats, such as delimited text files, semi-structured formats and spreadsheets. The list of supported dialect types with associated data formats and related properties is as follows.
 
-A property `MUST` be ignored if it is no applicable for an arbitrary data format. For example, SQL databases do not have a concept of a header row.
+### `delimited`
 
-For the sake of simplicity, most of examples are written in the CSV data format. For example, this data file without providing any Table Dialect properties:
+Delimited formats are textual formats such as CSV and TSV. Their charactistics can be expressed the following properties:
 
-```csv
-id,name
-1,apple
-2,organe
-```
-
-`SHOULD` output this data:
-
-```javascript
-{id: 1, name: "apple"}
-{id: 2, name: "orange"}
-```
-
-### Delimited
-
-Delimited formats is a group of textual formats such as CSV and TSV. Their charactistics can be expressed the following properties:
-
-- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
+- [type](#type): `delimited`
+- [$schema](#schema): `https://datapackage.org/profiles/2.0/tabledialect.json` by default
 - [header](#header): `true` by default
 - [headerRows](#headerrows): `1` by default
 - [headerJoin](#headerjoin): ` ` by default
@@ -90,6 +77,7 @@ An example of a well-defined Table Dialect descriptor for a CSV format:
 
 ```json
 {
+  "type": "delimited",
   "header": false,
   "commentChar": "#"
   "delimiter": ";",
@@ -100,21 +88,23 @@ An example of a well-defined Table Dialect descriptor for a CSV format:
 }
 ```
 
-### Structured
+### `structured`
 
-Structured formats is a group of structured or semi-structured formats such as JSON and YAML. Their charactistics can be expressed the following properties:
+Structured formats are structured or semi-structured formats such as JSON and YAML. Their charactistics can be expressed the following properties:
 
-- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
+- [type](#type): `structured`
+- [$schema](#schema): `https://datapackage.org/profiles/2.0/tabledialect.json` by default
 - [header](#header): `true` by default
 - [property](#property): undefined by default
 - [itemType](#itemtype): undefined by default
 - [itemKeys](#itemkeys): undefined by default
 
-### Spreadsheet
+### `spreadsheet`
 
-Spreadsheet formats is a group of sheet-based formats such as Excel or ODS. Their charactistics can be expressed the following properties:
+Spreadsheet formats are sheet-based formats such as Excel or ODS. Their charactistics can be expressed the following properties:
 
-- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
+- [type](#type): `spreadsheet`
+- [$schema](#schema): `https://datapackage.org/profiles/2.0/tabledialect.json` by default
 - [header](#header): `true` by default
 - [headerRows](#headerrows): `1` by default
 - [headerJoin](#headerjoin): ` ` by default
@@ -123,22 +113,33 @@ Spreadsheet formats is a group of sheet-based formats such as Excel or ODS. Thei
 - [sheetNumber](#sheetnumber): `1` by default
 - [sheetName](#sheetname): undefined by default
 
-### Database
+### `database`
 
 Database formats is a group of formats accessing data from databases like SQLite. Their charactistics can be expressed the following properties:
 
-- [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
-- [table](#table): undefined by default
+- [type](#type): `database`
+- [$schema](#schema): `https://datapackage.org/profiles/2.0/tabledialect.json` by default
+- [table](#table): (required)
 
 ## Properties
 
+### `type`
+
+**Dialect Types:** All
+
+A Table Dialect descriptor MAY contain a property `type` that `MUST` be a string with the following possible values and the `delimited` value by default: `delimited`, `structured`, `spreadsheet`, or `database`.
+
 ### `$schema` {#dollar-schema}
+
+**Dialect Types:** All
 
 A root level Table Dialect descriptor `MAY` have a `$schema` property that `MUST` be a profile as per [Profile](../glossary/#profile) definition that `MUST` include all the metadata constraints required by this specification.
 
 The default value is `https://datapackage.org/profiles/1.0/tabledialect.json` and the recommended value is `https://datapackage.org/profiles/2.0/tabledialect.json`.
 
 ### `header`
+
+**Dialect Types:** [delimited](#delimited), [structured](#structured), [spreadsheet](#spreadsheet)
 
 A Table Dialect descriptor `MAY` have the `header` property that `MUST` be boolean with default value `true`. This property indicates whether the file includes a header row. If `true` the first row in the file `MUST` be interpreted as a header row, not data.
 
@@ -153,6 +154,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "header": false
 }
 ```
@@ -167,6 +169,8 @@ With this dialect definition:
 Where `field1` and `field2` names are implementation-specific and used here only for illustrative purpose.
 
 ### `headerRows`
+
+**Dialect Types:** [delimited](#delimited), [spreadsheet](#spreadsheet)
 
 A Table Dialect descriptor `MAY` have the `headerRows` property that `MUST` be an array of positive integers starting from 1 with default value `[1]`. This property specifies the row numbers for the header. It is `RECOMMENDED` to be used for multiline-header files.
 
@@ -183,6 +187,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "headerRows": [1, 2]
 }
 ```
@@ -195,6 +200,8 @@ With this dialect definition:
 ```
 
 ### `headerJoin`
+
+**Dialect Types:** [delimited](#delimited), [spreadsheet](#spreadsheet)
 
 A Table Dialect descriptor `MAY` have the `headerJoin` property that `MUST` be a string with default value `" "`. This property specifies how multiline-header files have to join the resulting header rows.
 
@@ -211,6 +218,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "headerRows": [1, 2],
   "headerJoin": "-"
 }
@@ -224,6 +232,8 @@ With this dialect definition:
 ```
 
 ### `commentRows`
+
+**Dialect Types:** [delimited](#delimited), [spreadsheet](#spreadsheet)
 
 A Table Dialect descriptor `MAY` have the `commentRows` property that `MUST` be an array of positive integers starting from 1; undefined by default. This property specifies what rows have to be omitted from the data.
 
@@ -240,6 +250,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "commentRows": [2]
 }
 ```
@@ -252,6 +263,8 @@ With this dialect definition:
 ```
 
 ### `commentChar`
+
+**Dialect Types:** [delimited](#delimited), [spreadsheet](#spreadsheet)
 
 A Table Dialect descriptor `MAY` have the `commentChar` property that `MUST` be a string of one or more characters; undefined by default. This property specifies what rows have to be omitted from the data based on the row's first characters.
 
@@ -268,6 +281,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "commentChar": "#"
 }
 ```
@@ -280,6 +294,8 @@ With this dialect definition:
 ```
 
 ### `delimiter`
+
+**Dialect Types:** [delimited](#delimited)
 
 A Table Dialect descriptor `MAY` have the `delimiter` property that `MUST` be a string; with default value `,` (comma). This property specifies the character sequence which separates fields in the data file.
 
@@ -295,6 +311,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "delimiter": "|"
 }
 ```
@@ -308,6 +325,8 @@ With this dialect definition:
 
 ### `lineTerminator`
 
+**Dialect Types:** [delimited](#delimited)
+
 A Table Dialect descriptor `MAY` have the `lineTerminator` property that `MUST` be a string; with default value `\r\n`. This property specifies the character sequence which terminates rows.
 
 For example, this data file:
@@ -320,6 +339,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "lineTerminator": ";"
 }
 ```
@@ -332,6 +352,8 @@ With this dialect definition:
 ```
 
 ### `quoteChar`
+
+**Dialect Types:** [delimited](#delimited)
 
 A Table Dialect descriptor `MAY` have the `quoteChar` property that `MUST` be a string of one character length with default value `"` (double quote). This property specifies a character to use for quoting in case the `delimiter` needs to be used inside a data cell.
 
@@ -347,6 +369,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "quoteChar": "'"
 }
 ```
@@ -359,6 +382,8 @@ With this dialect definition:
 ```
 
 ### `doubleQuote`
+
+**Dialect Types:** [delimited](#delimited)
 
 A Table Dialect descriptor `MAY` have the `doubleQuote` property that `MUST` be boolean with default value `true`. This property controls the handling of `quoteChar` inside data cells. If true, two consecutive quotes are interpreted as one.
 
@@ -374,6 +399,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "doubleQuote": true
 }
 ```
@@ -386,6 +412,8 @@ With this dialect definition:
 ```
 
 ### `escapeChar`
+
+**Dialect Types:** [delimited](#delimited)
 
 A Table Dialect descriptor `MAY` have the `escapeChar` property that `MUST` be a string of one character length; undefined by default. This property specifies a one-character string to use for escaping, for example, `\`, mutually exclusive with `quoteChar`.
 
@@ -401,6 +429,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "escapeChar": "|"
 }
 ```
@@ -413,6 +442,8 @@ With this dialect definition:
 ```
 
 ### `nullSequence`
+
+**Dialect Types:** [delimited](#delimited)
 
 A Table Dialect descriptor `MAY` have the `nullSequence` property that `MUST` be a string; undefined by default. This property specifies specifies the null sequence, for example, `\N`.
 
@@ -428,6 +459,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "nullSequence": "NA"
 }
 ```
@@ -440,6 +472,8 @@ With this dialect definition:
 ```
 
 ### `skipInitialSpace`
+
+**Dialect Types:** [delimited](#delimited)
 
 A Table Dialect descriptor `MAY` have the `skipInitialSpace` property that `MUST` be boolean with default value `false`. This property specifies how to interpret whitespace which immediately follows a delimiter; if `false`, it means that whitespace immediately after a delimiter is treated as part of the following field.
 
@@ -455,6 +489,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "delimited",
   "skipInitialSpace": true
 }
 ```
@@ -467,6 +502,8 @@ With this dialect definition:
 ```
 
 ### `property`
+
+**Dialect Types:** [structured](#structured)
 
 A Table Dialect descriptor `MAY` have the `property` property that `MUST` be a string; undefined by default. This property specifies where a data array is located in the data structure.
 
@@ -485,6 +522,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "structured",
   "property": "rows"
 }
 ```
@@ -497,6 +535,8 @@ With this dialect definition:
 ```
 
 ### `itemType`
+
+**Dialect Types:** [structured](#structured)
 
 A Table Dialect descriptor `MAY` have the `itemType` property that `MUST` be a string with value `array` or `object`; undefined by default. This property specifies whether the data `property` contains an array of arrays or an array of objects.
 
@@ -514,6 +554,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "structured",
   "itemType": "array"
 }
 ```
@@ -526,6 +567,8 @@ With this dialect definition:
 ```
 
 ### `itemKeys`
+
+**Dialect Types:** [structured](#structured)
 
 A Table Dialect descriptor `MAY` have the `itemKeys` property that `MUST` be array of strings; undefined by default. This property specifies the way of extracting rows from data arrays with `itemType` is `object`.
 
@@ -542,6 +585,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "structured",
   "itemKeys": ["id", "name"]
 }
 ```
@@ -554,6 +598,8 @@ With this dialect definition:
 ```
 
 ### `sheetNumber`
+
+**Dialect Types:** [spreadsheet](#spreadsheet)
 
 A Table Dialect descriptor `MAY` have the `sheetNumber` property that `MUST` be an integer with default value `1`. This property specifies a sheet number of a table in the spreadsheet file.
 
@@ -568,6 +614,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "spreadsheet",
   "sheetNumber": 2
 }
 ```
@@ -575,6 +622,8 @@ With this dialect definition:
 `SHOULD` output the data from the second sheet.
 
 ### `sheetName`
+
+**Dialect Types:** [spreadsheet](#spreadsheet)
 
 A Table Dialect descriptor `MAY` have the `sheetName` property that `MUST` be a string; undefined by default. This property specifies a sheet name of a table in the spreadsheet file.
 
@@ -589,6 +638,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "spreadsheet",
   "sheetName": "Sheet 2"
 }
 ```
@@ -597,7 +647,9 @@ With this dialect definition:
 
 ### `table`
 
-A Table Dialect descriptor `MAY` have the `table` property that `MUST` be a string; undefined by default. This property specifies a name of the table in the database.
+**Dialect Types:** [database](#database)
+
+A Table Dialect of type `database` `MUST` have a `table` property of type string. This property specifies a name of the table in the database.
 
 For example, the database with the tables below:
 
@@ -610,6 +662,7 @@ With this dialect definition:
 
 ```json
 {
+  "type": "database",
   "table": "table2"
 }
 ```
