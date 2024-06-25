@@ -36,6 +36,10 @@ This document includes all meaningful changes made to the Data Package Standard 
 
 [`$schema`](/standard/glossary/#profile) replaced `profile` property with new extensions semantics ([#47](https://github.com/frictionlessdata/datapackage/pull/47)).
 
+##### `type` (new)
+
+[`type`](/standard/table-dialect/#type) allows to specify a dialect type ([#82](https://github.com/frictionlessdata/datapackage/pull/82)).
+
 ##### `table` (new)
 
 [`table`](/standard/table-dialect/#table) allows to specify a table in a database ([#64](https://github.com/frictionlessdata/datapackage/pull/64)).
