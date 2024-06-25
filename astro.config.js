@@ -1,7 +1,7 @@
-import { rehypeHeadingIds } from "@astrojs/markdown-remark"
 import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
+import { remarkHeadingId } from "remark-custom-heading-id"
 
 // https://astro.build/config
 export default defineConfig({
@@ -102,8 +102,8 @@ export default defineConfig({
     }),
   ],
   markdown: {
+    remarkPlugins: [remarkHeadingId],
     rehypePlugins: [
-      rehypeHeadingIds,
       [
         rehypeAutolinkHeadings,
         {
