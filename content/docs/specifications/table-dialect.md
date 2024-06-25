@@ -115,7 +115,7 @@ Spreadsheet formats are sheet-based formats such as Excel or ODS. Their characti
 Database formats is a group of formats accessing data from databases like SQLite. Their charactistics can be expressed the following properties:
 
 - [$schema](#schema): `https://datapackage.org/profiles/1.0/tabledialect.json` by default
-- [table](#table): undefined by default
+- [table](#table): (required)
 
 ## Properties
 
@@ -645,7 +645,7 @@ With this dialect definition:
 
 **Dialect Types:** [database](#database)
 
-A Table Dialect descriptor `MAY` have the `table` property that `MUST` be a string; undefined by default. This property specifies a name of the table in the database.
+A Table Dialect of type `database` `MUST` have a `table` property of type string. This property specifies a name of the table in the database.
 
 For example, the database with the tables below:
 
