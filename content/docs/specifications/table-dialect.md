@@ -7,7 +7,7 @@ sidebar:
 <table>
   <tr>
     <th>Authors</th>
-    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet, Data Package Working Group</td>
+    <td>Rufus Pollock, Paul Walsh, Adam Kariv, Evgeny Karev, Peter Desmet, Kyle Husmann, Data Package Working Group</td>
   </tr>
   <tr>
     <th>Profile</th>
@@ -119,7 +119,7 @@ Database formats is a group of formats accessing data from databases like SQLite
 
 ## Properties
 
-### `$schema`
+### `$schema` {#dollar-schema}
 
 **Dialect Types:** All
 
