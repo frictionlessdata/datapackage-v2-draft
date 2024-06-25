@@ -58,6 +58,26 @@ This document includes all meaningful changes made to the Data Package Standard 
 
 [`categoriesOrdered`](/standard/table-schema/#categoriesordered) adds suport for ordered categorical data for the `string` and `integer` field types ([#68](https://github.com/frictionlessdata/datapackage/pull/68)).
 
+##### `name` (new)
+
+##### `title` (new)
+
+##### `description` (new)
+
+##### `homepage` (new)
+
+##### `keywords` (new)
+
+##### `examples` (new)
+
+##### `created` (new)
+
+##### `version` (new)
+
+##### `contributors` (new)
+
+An adjusted [Metadata in Table Schema](https://specs.frictionlessdata.io/patterns/#table-schema-metadata-properties) pattern has been promoted to the standard ([#63](https://github.com/frictionlessdata/datapackage/pull/63)).
+
 ## v2.0-draft
 
 > April 1, 2024
