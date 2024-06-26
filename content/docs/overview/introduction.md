@@ -1,7 +1,7 @@
 ---
 title: Introduction
 sidebar:
-  order: 1
+  order: 0
 ---
 
 :::tip[FAIR Data Exchange]
