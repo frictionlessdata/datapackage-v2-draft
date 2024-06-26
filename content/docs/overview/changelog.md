@@ -135,11 +135,11 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 
 [`any`](/standard/table-schema/#any) is now the default field type and clarifies that the field type should not be inferred if not provided ([#13](https://github.com/frictionlessdata/datapackage/pull/13)).
 
-##### `minimum` and `maximum` field constraint (updated)
+##### `minimum` and `maximum` field constraints (updated)
 
 [`minimum`](/standard/table-schema/#minimum) and [`maximum`](/standard/table-schema/#maximum) are now extended to support the `duration` field type ([#8](https://github.com/frictionlessdata/datapackage/pull/8)).
 
-##### `exclusiveMinimum` and `exclusiveMaximum` field constraint (new)
+##### `exclusiveMinimum` and `exclusiveMaximum` field constraints (new)
 
 [`exclusiveMinimum`](/standard/table-schema/#exclusiveMinimum) and [`exclusiveMaximum`](/standard/table-schema/#exclusiveMaximum) can be used to specify exclusive minimum and maximum values ([#11](https://github.com/frictionlessdata/datapackage/pull/11)).
 
