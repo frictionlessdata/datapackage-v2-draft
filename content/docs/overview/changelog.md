@@ -54,9 +54,11 @@ This document includes all meaningful changes made to the **Data Package standar
 
 > April 1, 2024
 
-### Overview
-
 The Data Package (v2) draft release includes a rich set of the specification improvements accepted by the Data Package Working Group during the active phase of the Data Package (v2) work.
+
+##### Table Dialect (new)
+
+[Table Dialect](/standard/table-dialect) is a new specification that superseeds and extends the CSV Dialect specification. It support other formats like JSON or Excel ([#41](https://github.com/frictionlessdata/datapackage/pull/41)).
 
 ##### `package.version` (updated)
 
@@ -89,10 +91,6 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 ##### `resource.encoding` (updated)
 
 [encoding](/standard/data-resource/#encoding)'s definition has been updated to support binary formats like Parquet ([#15](https://github.com/frictionlessdata/datapackage/pull/15)).
-
-##### Table Dialect
-
-[Table Dialect](/standard/table-dialect) is a new specification that superseeds and extends the CSV Dialect specification. It support other formats like JSON or Excel ([#41](https://github.com/frictionlessdata/datapackage/pull/41)).
 
 ##### `schema.fieldsMatch` (new)
 
