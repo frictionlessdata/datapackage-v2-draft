@@ -48,7 +48,7 @@ This document includes all meaningful changes made to the **Data Package standar
 
 ##### `missingValues` (updated)
 
-[`missingValues`](/standard/table-schema/#missingvalues) now allow to specify labeled missingness ([#68](https://github.com/frictionlessdata/datapackage/pull/68)).
+[`missingValues`](/standard/table-schema/#missingValues) now allow to specify labeled missingness ([#68](https://github.com/frictionlessdata/datapackage/pull/68)).
 
 ##### `categories` (new)
 
@@ -56,7 +56,7 @@ This document includes all meaningful changes made to the **Data Package standar
 
 ##### `categoriesOrdered` (new)
 
-[`categoriesOrdered`](/standard/table-schema/#categoriesordered) adds suport for ordered categorical data for the `string` and `integer` field types ([#68](https://github.com/frictionlessdata/datapackage/pull/68)).
+[`categoriesOrdered`](/standard/table-schema/#categoriesOrdered) adds suport for ordered categorical data for the `string` and `integer` field types ([#68](https://github.com/frictionlessdata/datapackage/pull/68)).
 
 ## v2.0-draft
 
@@ -92,7 +92,7 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 
 ##### `name` (updated)
 
-[name](/standard/data-resource/#name-required) now allows any string. It previously required the name to only consist of lowercase alphanumeric characters plus `.`, `-` and `_`. The property is still required and must be unique among resources ([#27](https://github.com/frictionlessdata/datapackage/pull/27)).
+[name](/standard/data-resource/#name) now allows any string. It previously required the name to only consist of lowercase alphanumeric characters plus `.`, `-` and `_`. The property is still required and must be unique among resources ([#27](https://github.com/frictionlessdata/datapackage/pull/27)).
 
 ##### `path` (updated)
 
@@ -112,19 +112,19 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 
 ##### `fieldsMatch` (new)
 
-[fieldsMatch](/standard/table-schema/#fieldsmatch) allows to specify how fields in a Table Schema match the fields in the data source. The default (`exact`) matches the Data Package v1 behaviour, but other values (e.g. `subset`, `superset`) allow to define fewer or more fields and match on field names. This new property extends and makes explicit the `schema_sync` option in Frictionless Framework ([#39](https://github.com/frictionlessdata/datapackage/pull/39)).
+[fieldsMatch](/standard/table-schema/#fieldsMatch) allows to specify how fields in a Table Schema match the fields in the data source. The default (`exact`) matches the Data Package v1 behaviour, but other values (e.g. `subset`, `superset`) allow to define fewer or more fields and match on field names. This new property extends and makes explicit the `schema_sync` option in Frictionless Framework ([#39](https://github.com/frictionlessdata/datapackage/pull/39)).
 
 ##### `primaryKey` (updated)
 
-[`primaryKey`](/standard/table-schema/#primarykey) should now always be an array of strings, not a string ([#28](https://github.com/frictionlessdata/datapackage/pull/28)).
+[`primaryKey`](/standard/table-schema/#primaryKey) should now always be an array of strings, not a string ([#28](https://github.com/frictionlessdata/datapackage/pull/28)).
 
 ##### `uniqueKeys` (new)
 
-[`uniqueKeys`](/standard/table-schema/#uniquekeys) allows to specify which fields are required to have unique logical values. It is an alternative to `field.contraints.unique` and is modelled after the corresponding SQL feature ([#30](https://github.com/frictionlessdata/datapackage/pull/30)).
+[`uniqueKeys`](/standard/table-schema/#uniqueKeys) allows to specify which fields are required to have unique logical values. It is an alternative to `field.contraints.unique` and is modelled after the corresponding SQL feature ([#30](https://github.com/frictionlessdata/datapackage/pull/30)).
 
 ##### `foreignKeys` (updated)
 
-[`foreignKeys`](/standard/table-schema/#foreignkeys) was updated:
+[`foreignKeys`](/standard/table-schema/#foreignKeys) was updated:
 
 - It should now always be an array of strings, not a string ([#28](https://github.com/frictionlessdata/datapackage/pull/28)).
 - `foreignKeys.reference.resource` can now be omitted for self-referencing foreign keys. Previously it required setting `resource` to an empty string ([#29](https://github.com/frictionlessdata/datapackage/pull/29)).
@@ -133,7 +133,7 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 
 ##### `missingValues` (new)
 
-[`missingValues`](/standard/table-schema/#missingvalues) allows to specify missing values per field, and overwrites `missingValues` specified at a resource level ([#24](https://github.com/frictionlessdata/datapackage/pull/24)).
+[`missingValues`](/standard/table-schema/#missingValues) allows to specify missing values per field, and overwrites `missingValues` specified at a resource level ([#24](https://github.com/frictionlessdata/datapackage/pull/24)).
 
 #### Field Types
 
@@ -165,11 +165,11 @@ The Data Package (v2) draft release includes a rich set of the specification imp
 
 ##### `exclusiveMinimum` and `exclusiveMaximum` (new)
 
-[`exclusiveMinimum`](/specifications/table-schema/#exclusiveminimum) and [`exclusiveMaximum`](/specifications/table-schema/#exclusivemaximum) can be used to specify exclusive minimum and maximum values ([#11](https://github.com/frictionlessdata/datapackage/pull/11)).
+[`exclusiveMinimum`](/specifications/table-schema/#exclusiveMinimum) and [`exclusiveMaximum`](/specifications/table-schema/#exclusiveMaximum) can be used to specify exclusive minimum and maximum values ([#11](https://github.com/frictionlessdata/datapackage/pull/11)).
 
 ##### `jsonschema` (new)
 
-[`jsonSchema`](/specifications/table-schema/#jsonschema) can be used for the `object` and `array` field types ([#32](https://github.com/frictionlessdata/datapackage/pull/32)).
+[`jsonSchema`](/specifications/table-schema/#jsonSchema) can be used for the `object` and `array` field types ([#32](https://github.com/frictionlessdata/datapackage/pull/32)).
 
 ## v1.0
 
