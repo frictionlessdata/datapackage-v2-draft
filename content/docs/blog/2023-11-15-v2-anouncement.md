@@ -8,7 +8,7 @@ authors:
   - sapetti9
 ---
 
-We are very pleased to announce that thanks to the generous support of [NLnet](https://nlnet.nl/) we have kickstarted the [Frictionless specifications](https://specs.frictionlessdata.io/) update.
+We are very pleased to announce that thanks to the generous support of [NLnet](https://nlnet.nl/) we have kickstarted the [Data Package (v2)](https://specs.frictionlessdata.io/) update.
 
 After a first discussion with the community in [the last call](https://frictionlessdata.io/blog/2023/11/06/community-call/), we are setting up a working group to help us with the v2 release.
 
