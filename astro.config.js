@@ -3,6 +3,9 @@ import starlight from "@astrojs/starlight"
 import { defineConfig } from "astro/config"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import { remarkHeadingId } from "remark-custom-heading-id"
+import starlightBlog from "starlight-blog"
+
+// import starlightLinksValidator from "starlight-links-validator"
 
 // https://astro.build/config
 export default defineConfig({
@@ -28,12 +31,26 @@ export default defineConfig({
       lastUpdated: true,
       customCss: ["/assets/styles.css"],
       tableOfContents: { minHeadingLevel: 2, maxHeadingLevel: 5 },
+      components: {
+        SocialIcons: "./components/SocialIcons.astro",
+      },
+      plugins: [
+        starlightBlog({
+          authors: {
+            sapetti9: {
+              name: "sapetti9",
+              title: "Sara Petti",
+              picture: "https://avatars.githubusercontent.com/u/74717970?v=4",
+              url: "https://github.com/sapetti9",
+            },
+          },
+        }),
+        // The link validator is useful for debugging but it cleates a lot of false positives
+        // starlightLinksValidator(),
+      ],
       sidebar: [
+        { label: "Overview", autogenerate: { directory: "overview" } },
         { label: "Standard", autogenerate: { directory: "standard" } },
-        {
-          label: "Specifications",
-          autogenerate: { directory: "specifications" },
-        },
         {
           label: "Extensions",
           collapsed: true,
